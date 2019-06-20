@@ -34,6 +34,12 @@
     <ClCompile Include="j1Map.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityFactory.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -90,6 +96,15 @@
     <ClInclude Include="p2Queue.h">
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
+    <ClInclude Include="j1EntityFactory.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Animation.h">
+      <Filter>Programacio 2 ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Entity.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -112,6 +127,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\XML">
       <UniqueIdentifier>{20116ecf-bef3-4d34-8cdc-e73bf2e063c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities">
+      <UniqueIdentifier>{d416471b-708b-4253-b3c5-35f3219218f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
