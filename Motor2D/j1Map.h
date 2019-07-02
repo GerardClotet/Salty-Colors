@@ -37,7 +37,7 @@ struct Properties
 // ----------------------------------------------------
 struct MapLayer
 {
-	p2SString	name;
+	std::string	name;
 	int			width;
 	int			height;
 	uint*		data;
@@ -59,11 +59,27 @@ struct MapLayer
 };
 
 // ----------------------------------------------------
+
+struct ObjectsData
+{
+	std::string name;
+	int			x;
+	int			y;
+	uint		width;
+	uint		height;
+};
+struct ObjectsGroup
+{
+	std::string				name;
+	std::list<ObjectsData*>	objects;
+	~ObjectsGroup();
+};
+// ----------------------------------------------------
 struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
 
-	p2SString			name;
+	std::string			name;
 	int					firstgid;
 	int					margin;
 	int					spacing;
@@ -96,6 +112,7 @@ struct MapData
 	MapTypes			type;
 	std::list<TileSet*>	tilesets;
 	std::list<MapLayer*>	layers;
+	std::list<ObjectsGroup*> objLayers;
 };
 
 // ----------------------------------------------------
@@ -136,7 +153,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
-
+	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group);
 	TileSet* GetTilesetFromTileId(int id) const;
 
 public:

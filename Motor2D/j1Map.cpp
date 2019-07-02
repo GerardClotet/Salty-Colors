@@ -308,7 +308,6 @@ bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
-
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	if(result == NULL)
@@ -355,6 +354,17 @@ bool j1Map::Load(const char* file_name)
 		
 	}
 	//here we can load colliders
+	pugi::xml_node obj_group;
+	for (obj_group = map_file.child("map").child("objectgroup"); obj_group && ret; obj_group = obj_group.next_sibling("objectgroup"))
+	{
+		ObjectsGroup* obj = new ObjectsGroup();
+
+		if (ret)
+		{
+			ret = LoadObjectLayers(obj_group, obj);
+		}
+		data.objLayers.push_back(obj);
+	}
 
 	if(ret == true)
 	{
@@ -432,7 +442,7 @@ bool j1Map::LoadMap()
 			if(v >= 0 && v <= 255) data.background_color.b = v;
 		}
 
-		p2SString orientation(map.attribute("orientation").as_string());
+		std::string orientation(map.attribute("orientation").as_string());
 
 		if(orientation == "orthogonal")
 		{
@@ -458,7 +468,7 @@ bool j1Map::LoadMap()
 bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
-	set->name.create(tileset_node.attribute("name").as_string());
+	set->name.assign(tileset_node.attribute("name").as_string());
 	set->firstgid = tileset_node.attribute("firstgid").as_int();
 	set->tile_width = tileset_node.attribute("tilewidth").as_int();
 	set->tile_height = tileset_node.attribute("tileheight").as_int();
@@ -572,5 +582,24 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 		}
 	}
 
+	return ret;
+}
+
+bool j1Map::LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group)
+{
+	bool ret = true;
+
+	for (pugi::xml_node& obj = node.child("object"); obj && ret; obj = obj.next_sibling("object"))
+	{
+		ObjectsData* data = new ObjectsData;
+
+		data->height = obj.attribute("height").as_uint();
+		data->width = obj.attribute("width").as_uint();
+		data->x = obj.attribute("x").as_uint();
+		data->y = obj.attribute("y").as_uint();
+		data->name = obj.attribute("name").as_string();
+
+		group->objects.push_back(data);
+	}
 	return ret;
 }
