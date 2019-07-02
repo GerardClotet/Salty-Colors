@@ -623,8 +623,6 @@
  <objectgroup name="colliders">
   <object id="74" type="floor" x="1" y="256" width="959" height="23"/>
   <object id="78" type="platform" x="353.25" y="160.5" width="95.75" height="8.5"/>
-  <object id="85" type="start" x="59" y="213" width="42" height="39"/>
-  <object id="86" type="end" x="829" y="192" width="52" height="60"/>
  </objectgroup>
  <objectgroup name="triggers">
   <object id="79" type="end" x="8.5" y="213.75" width="34.25" height="40.25"/>
