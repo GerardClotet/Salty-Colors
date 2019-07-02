@@ -2,11 +2,10 @@
 #define __j1MAP_H__
 
 #include "PugiXml/src/pugixml.hpp"
-#include "p2List.h"
 #include "p2Queue.h"
 #include "p2Point.h"
 #include "j1Module.h"
-
+#include <list>
 // ----------------------------------------------------
 struct Properties
 {
@@ -18,13 +17,13 @@ struct Properties
 
 	~Properties()
 	{
-		p2List_item<Property*>* item;
-		item = list.start;
+		std::list<Property*>::iterator item;
+		item = list.begin();
 
-		while(item != NULL)
+		while (item != list.end())
 		{
-			RELEASE(item->data);
-			item = item->next;
+			list.remove(*item);
+			++item;
 		}
 
 		list.clear();
@@ -32,7 +31,7 @@ struct Properties
 
 	int Get(const char* name, int default_value = 0) const;
 
-	p2List<Property*>	list;
+	std::list<Property*>	list;
 };
 
 // ----------------------------------------------------
@@ -42,6 +41,7 @@ struct MapLayer
 	int			width;
 	int			height;
 	uint*		data;
+	
 	Properties	properties;
 
 	MapLayer() : data(NULL)
@@ -94,8 +94,8 @@ struct MapData
 	int					tile_height;
 	SDL_Color			background_color;
 	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*>	layers;
+	std::list<TileSet*>	tilesets;
+	std::list<MapLayer*>	layers;
 };
 
 // ----------------------------------------------------
@@ -128,7 +128,7 @@ public:
 	void DrawBFS();
 	bool IsWalkable(int x, int y) const;
 	void ResetBFS();
-
+	bool CreateWalkabilityMap(int & width, int& height, uchar** buffer) const;
 private:
 
 	bool LoadMap();
@@ -151,7 +151,7 @@ private:
 
 	/// BFS
 	p2Queue<iPoint>		frontier;
-	p2List<iPoint>		visited;
+	std::list<iPoint*>		visited;
 };
 
 #endif // __j1MAP_H__
