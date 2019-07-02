@@ -8,7 +8,7 @@
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
-	name.create("map");
+	name.assign("map");
 }
 
 // Destructor

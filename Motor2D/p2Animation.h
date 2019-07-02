@@ -5,7 +5,7 @@
 #include "j1App.h"
 #define MAX_FRAMES 64
 
-class Animation  //WIP add App dt
+class Animation
 {
 public:
 	bool loop = true;
@@ -44,7 +44,7 @@ public:
 
 	SDL_Rect& GetCurrentFrame()
 	{
-		//current_frame += speed * App->GetDt();
+		current_frame += speed * App->GetDt();
 		if (current_frame >= last_frame)
 		{
 			current_frame = (loop) ? 0.0f : last_frame - 1;
@@ -67,7 +67,7 @@ public:
 		if (loops > 0)
 			loops--;
 
-		//current_frame -= speed * App->GetDt();
+		current_frame -= speed * App->GetDt();
 		return frames[(int)current_frame];
 	}
 
