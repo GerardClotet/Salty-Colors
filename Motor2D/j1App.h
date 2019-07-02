@@ -14,6 +14,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1EntityFactory;
+class j1Collision;
 class j1App
 {
 public:
@@ -84,6 +85,7 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1EntityFactory*	entityFactory;
+	j1Collision*		collision;
 private:
 
 	std::list<j1Module*>modules;

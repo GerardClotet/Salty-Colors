@@ -10,11 +10,11 @@
 #include "SDL_image/include/SDL_image.h"
 
 
-enum ENTITY_TYPE
+enum  ENTITY_TYPE
 {
 	NO_TYPE,
-	PLAYER,
-	MAX
+	ENT_PLAYER,
+	ENT_MAX
 };
 
 class j1Entity

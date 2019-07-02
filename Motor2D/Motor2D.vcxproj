@@ -108,6 +108,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityFactory.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityFactory.h" />
     <ClInclude Include="j1Map.h" />
@@ -147,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\MaidInAbyss.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

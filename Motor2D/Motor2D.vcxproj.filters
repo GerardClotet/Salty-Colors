@@ -40,6 +40,9 @@
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Collision.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="j1Entity.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Collision.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -136,5 +142,10 @@
     <Xml Include="..\Game\config.xml">
       <Filter>Desenvolupament  ========\XML</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Game\maps\MaidInAbyss.tmx">
+      <Filter>Desenvolupament  ========\XML</Filter>
+    </None>
   </ItemGroup>
 </Project>

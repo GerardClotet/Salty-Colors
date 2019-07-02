@@ -10,7 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
-
+struct Collider;
 class j1Module
 {
 public:
@@ -68,7 +68,30 @@ public:
 	{
 		return true;
 	}
+	virtual bool OnCollision(Collider* c1, Collider* c2)
+	{
+		return true;
+	}
 
+	bool IsActive() const { return active; }
+
+	void Activate()
+	{
+		if (active == false)
+		{
+			active = true;
+			Start();
+		}
+	}
+
+	void Deactivate()
+	{
+		if (active == true)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
 public:
 
 	std::string	name;

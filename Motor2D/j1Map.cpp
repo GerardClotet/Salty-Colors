@@ -353,18 +353,30 @@ bool j1Map::Load(const char* file_name)
 			data.layers.push_back(lay);
 		
 	}
-	//here we can load colliders
+	// load obj groups
 	pugi::xml_node obj_group;
 	for (obj_group = map_file.child("map").child("objectgroup"); obj_group && ret; obj_group = obj_group.next_sibling("objectgroup"))
 	{
-		ObjectsGroup* obj = new ObjectsGroup();
-
+		
 		if (ret)
 		{
-			ret = LoadObjectLayers(obj_group, obj);
+
+			if (collObjGroup == map_file.child("map").child("objectgroup").attribute("name").as_string())
+			{
+				//load colliders
+				LoadCollidersLayer(obj_group);
+			}
+			else if (triggerObjGroup == map_file.child("map").child("objectgroup").attribute("name").as_string())
+			{
+				//Load Triggers
+				LoadTriggersLayer(obj_group);
+			}
 		}
-		data.objLayers.push_back(obj);
+
+		LOG("iteracio");
 	}
+
+	
 
 	if(ret == true)
 	{
@@ -585,21 +597,48 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-bool j1Map::LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group)
+
+
+bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 {
-	bool ret = true;
+	pugi::xml_node collider;
 
-	for (pugi::xml_node& obj = node.child("object"); obj && ret; obj = obj.next_sibling("object"))
+	for (collider = node.child("object"); collider; collider = collider.next_sibling("object"))
 	{
-		ObjectsData* data = new ObjectsData;
+		SDL_Rect rect = { collider.attribute("x").as_int(),collider.attribute("y").as_int(), collider.attribute("width").as_int(), collider.attribute("height").as_int() };
 
-		data->height = obj.attribute("height").as_uint();
-		data->width = obj.attribute("width").as_uint();
-		data->x = obj.attribute("x").as_uint();
-		data->y = obj.attribute("y").as_uint();
-		data->name = obj.attribute("name").as_string();
-
-		group->objects.push_back(data);
+		if (collFloor == collider.attribute("type").as_string())
+			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_FLOOR));
+		
+		else if(collPlatform == collider.attribute("type").as_string())
+			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_PLATFORM));
 	}
-	return ret;
+	return true;
+}
+
+bool j1Map::LoadTriggersLayer(pugi::xml_node& node)
+{
+
+	pugi::xml_node trigger;
+
+	for (trigger = node.child("object"); trigger; trigger = trigger.next_sibling("object"))
+	{
+		SDL_Rect rect = { trigger.attribute("x").as_int(),trigger.attribute("y").as_int(), trigger.attribute("width").as_int(), trigger.attribute("height").as_int() };
+
+		if (startTrigger == trigger.attribute("type").as_string())
+		{
+			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
+			/*App->render->camera.body.y = -(App->map->data.height * App->map->data.tile_height - App->render->camera.body.h);
+			App->render->camera.body.x = 0;*/
+		}
+		else if (endTrigger == trigger.attribute("type").as_string())
+		{
+			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER)/*, (j1Module*)App->swap_scene->current_scene)*/);
+			/*App->player->SetPosition(spawn.attribute("x").as_float(), spawn.attribute("y").as_float());*/
+
+		}
+	}
+
+
+	return true;
 }

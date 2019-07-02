@@ -74,7 +74,7 @@ bool j1EntityFactory::Update()
 			}
 			else
 			{
-				if ((*item)->type == ENTITY_TYPE::PLAYER)
+				if ((*item)->type == ENTITY_TYPE::ENT_PLAYER)
 				{
 					//player = nullptr;
 				}

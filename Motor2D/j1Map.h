@@ -5,6 +5,7 @@
 #include "p2Queue.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1Collision.h"
 #include <list>
 // ----------------------------------------------------
 struct Properties
@@ -59,22 +60,6 @@ struct MapLayer
 };
 
 // ----------------------------------------------------
-
-struct ObjectsData
-{
-	std::string name;
-	int			x;
-	int			y;
-	uint		width;
-	uint		height;
-};
-struct ObjectsGroup
-{
-	std::string				name;
-	std::list<ObjectsData*>	objects;
-	~ObjectsGroup();
-};
-// ----------------------------------------------------
 struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
@@ -112,7 +97,7 @@ struct MapData
 	MapTypes			type;
 	std::list<TileSet*>	tilesets;
 	std::list<MapLayer*>	layers;
-	std::list<ObjectsGroup*> objLayers;
+	std::list<Collider*>	colliders;
 };
 
 // ----------------------------------------------------
@@ -153,7 +138,8 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
-	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group);
+	bool LoadCollidersLayer(pugi::xml_node& node);
+	bool LoadTriggersLayer(pugi::xml_node& node);
 	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
@@ -165,6 +151,14 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	std::string collObjGroup = "colliders";
+	std::string collFloor = "floor";
+	std::string collPlatform = "platform";
+
+	std::string triggerObjGroup = "triggers";
+	std::string startTrigger = "start";
+	std::string endTrigger = "end";
 
 	/// BFS
 	p2Queue<iPoint>		frontier;
