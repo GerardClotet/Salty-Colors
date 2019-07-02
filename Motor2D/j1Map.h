@@ -139,7 +139,6 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollidersLayer(pugi::xml_node& node);
-	bool LoadTriggersLayer(pugi::xml_node& node);
 	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
@@ -156,7 +155,6 @@ private:
 	std::string collFloor = "floor";
 	std::string collPlatform = "platform";
 
-	std::string triggerObjGroup = "triggers";
 	std::string startTrigger = "start";
 	std::string endTrigger = "end";
 
