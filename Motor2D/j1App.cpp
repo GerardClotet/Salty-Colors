@@ -91,8 +91,9 @@ bool j1App::Awake()
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
 		capFrames = app_config.attribute("cap_frames").as_bool();
-		framerateCap = app_config.attribute("framerate_cap").as_float();
-		capTime = app_config.attribute("framerate_cap").as_int();
+		frame_rate = app_config.attribute("framerate_cap").as_uint();
+		vsync = config.child("renderer").child("vsync").attribute("value").as_bool();
+
 		if (capTime != 0)
 			capTime = 1000 / capTime;
 	}
@@ -180,24 +181,22 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	if (pause)
-		dt = 0.0f;
+	if (!pause)
+	{
+		dt = frame_time.ReadSec();
+		if (dt > (float)frame_rate / 1000)
+			dt = (float)frame_rate / 1000;
+	}
 	else
-		dt = 1.0f / framerateCap;
-
-
+	{
+		dt = 0;
+	}
 	frame_time.Start();
 }
 
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	if(want_to_save == true)
-		SavegameNow();
-
-	if(want_to_load == true)
-		LoadGameNow();
-
 	//Framerate
 	//- Calculations
 	//if (last_sec_frame_time.Read() > 1000)
@@ -224,6 +223,48 @@ void j1App::FinishUpdate()
 	////j1PerfTimer delayTimer;
 	//SDL_Delay(delay);
 	//LOG("Has waited:  %f", delayTimer.ReadMs());
+
+
+
+	if (want_to_save == true)
+		SavegameNow();
+			
+
+	if (want_to_load == true)
+		LoadGameNow();
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	double last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %.2f Last sec frames: %i Cap: %s Vsync: %s ",
+		avg_fps, last_frame_ms, frames_on_last_update, frame_cap ? "ON" : "OFF", vsync ? "ON" : "OFF");
+	App->win->SetTitle(title);
+
+
+	float waiting_time = (1000 / frame_rate) - last_frame_ms;
+	if (waiting_time > (1000 / frame_rate))
+	{
+		waiting_time = (1000 / frame_rate);
+	}
+	else if (waiting_time < 0)
+	{
+		waiting_time = 0;
+	}
+
+	if (frame_cap)
+	{
+		SDL_Delay(waiting_time);
+	}
 }
 
 // Call modules before each loop iteration

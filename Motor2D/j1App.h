@@ -114,7 +114,8 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 	uint32				capTime = 0;
-	float				framerateCap = 0.0f;
+	bool				frame_cap = false;
+	double				frame_rate;
 	float				dt = 0.0f;
 	bool				capFrames = false;
 	float				seconds_since_startup = 0.0f;
