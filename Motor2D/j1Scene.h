@@ -15,7 +15,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -32,9 +32,22 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool SwapMap();
+
+	bool Loadlvl(int lvl);
+
 	bool DoViewportResize();
+
+
 	SDL_Rect RezieView(SDL_Rect viewport,bool camera);
 	j1Timer resizeTimer;
+
+
+public:
+	int currentMap;
+	float fadeTime;
+	std::list<std::string> map_names;
+	
 private:
 	bool viewportResize = false;
 };

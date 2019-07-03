@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-
+#include "j1SwapScene.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -19,10 +19,20 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
+
 	LOG("Loading Scene");
 	bool ret = true;
+
+	fadeTime = config.child("fade_time").attribute("value").as_float();
+
+	std::string data;
+	for (auto node : config.children("map_name"))
+	{
+		data = node.attribute("name").as_string();
+		map_names.push_back(data);
+	}
 
 	return ret;
 }
@@ -30,8 +40,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("map1.tmx");
-	
+	App->map->Load(map_names.begin()->data());
 	return true;
 }
 
@@ -44,6 +53,13 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		Loadlvl(0);
+
+	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		Loadlvl(1);
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -107,6 +123,9 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		SwapMap();
+
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -118,6 +137,40 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	return true;
+}
+
+bool j1Scene::SwapMap()
+{
+	bool ret = true;
+	if (currentMap < map_names.size() - 1)
+		ret = App->swapScene->ChangeMap(++currentMap, fadeTime);
+
+	else
+	{
+		currentMap = 0;
+		App->swapScene->ChangeMap(currentMap, fadeTime);
+	}
+	return false;
+}
+
+bool j1Scene::Loadlvl(int lvl)
+{
+	//App->map->SwitchMaps()
+
+	
+	std::list<std::string>::iterator item = App->scene->map_names.begin();
+	int i = 0;
+		for (; item != App->scene->map_names.end(); ++item)
+		{
+			if (i == lvl)
+			{
+				App->map->SwitchMaps((*item).data());
+
+			}
+
+			++i;
+		}
 	return true;
 }
 

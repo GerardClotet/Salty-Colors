@@ -14,6 +14,8 @@
 #include "j1App.h"
 #include "j1EntityFactory.h"
 #include "j1Collision.h"
+#include "j1SwapScene.h"
+
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -31,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	entityFactory = new j1EntityFactory();
 	collision = new j1Collision();
+	swapScene = new j1MapChange();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -41,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(entityFactory);
 	AddModule(collision);
+	AddModule(swapScene);
 	// render last to swap buffer
 	AddModule(render);
 

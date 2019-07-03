@@ -38,11 +38,11 @@ public:
 
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
-
-private:
-	std::string	title;
 	uint		width;
 	uint		height;
+private:
+	std::string	title;
+
 	uint		scale;
 };
 

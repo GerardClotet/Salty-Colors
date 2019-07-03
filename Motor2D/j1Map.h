@@ -124,6 +124,10 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+
+	//Unloads current map and loads the following one
+	bool SwitchMaps(std::string newMap);
+
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 

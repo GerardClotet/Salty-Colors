@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -201,6 +202,15 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	}
 
 	return set;
+}
+
+bool j1Map::SwitchMaps(std::string newMap)
+{
+	CleanUp();
+	App->scene->SwapMap();
+	Load(newMap.data());
+
+	return false;
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
