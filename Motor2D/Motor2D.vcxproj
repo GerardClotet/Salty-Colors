@@ -118,6 +118,7 @@
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1SwapScene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1SwapScene.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />
@@ -156,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\Level1.tmx" />
+    <None Include="..\Game\maps\map1.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -136,6 +136,8 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.0f);
+
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 
 	for(; item != data.layers.end(); ++item)
@@ -157,7 +159,7 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed);
+					App->render->Blit(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed); //tile id =0; WHY?
 				}
 			}
 		}
@@ -373,7 +375,11 @@ bool j1Map::Load(const char* file_name)
 		LOG("iteracio");
 	}
 
+	//Load Image Layer
 	
+	pugi::xml_node backgroundimage = map_file.child("map").child("imagelayer");
+	data.backgroundimage = App->tex->Load(PATH(folder.GetString(), backgroundimage.child("image").attribute("source").as_string()));
+	data.backgroundrectangle = { 0,0,backgroundimage.child("image").attribute("width").as_int(), backgroundimage.child("image").attribute("height").as_int() };
 
 	if(ret == true)
 	{
@@ -386,7 +392,7 @@ bool j1Map::Load(const char* file_name)
 		{
 			TileSet* s = (*item);
 			LOG("Tileset ----");
-//			LOG("name: %s firstgid: %d", s->name.data(), s->firstgid);
+			LOG("name: %s firstgid: %d", s->name.data(), s->firstgid);
 			LOG("tile width: %d tile height: %d", s->tile_width, s->tile_height);
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			++item;
@@ -397,7 +403,7 @@ bool j1Map::Load(const char* file_name)
 		{
 			MapLayer* l = (*item_layer);
 			LOG("Layer ----");
-//			LOG("name: %s", l->name.data());
+			LOG("name: %s", l->name.data());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			++item_layer;
 		}
@@ -511,6 +517,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	}
 	else
 	{
+		LOG("%s", image.attribute("source").as_string());
 		set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);

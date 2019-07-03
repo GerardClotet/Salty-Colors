@@ -15,7 +15,7 @@ j1Collision::~j1Collision()
 
 bool j1Collision::Awake(pugi::xml_node& config)
 {
-	max_colliders = 10;
+	max_colliders = 50;
 	colliders = new Collider * [max_colliders];
 	for (uint i = 0; i < max_colliders; ++i)
 		colliders[i] = nullptr;

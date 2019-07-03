@@ -30,7 +30,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Level1.tmx");
+	App->map->Load("map1.tmx");
 	
 	return true;
 }
@@ -71,6 +71,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
 	//	DoViewportResize();
+		LOG("%i %i", App->render->camera.x, App->render->camera.y);
 	}
 
 	if (viewportResize==true)

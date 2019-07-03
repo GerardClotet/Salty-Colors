@@ -1,0 +1,4 @@
+#ifndef  _MODULE_SCENECHANGE_
+#define _MODULE_SCENECHANGE_
+
+#endif

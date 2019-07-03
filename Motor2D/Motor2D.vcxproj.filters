@@ -49,6 +49,9 @@
     <ClCompile Include="j1Timer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="j1SwapScene.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="j1Timer.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="j1SwapScene.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -157,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\Level1.tmx">
+      <Filter>Desenvolupament  ========\XML</Filter>
+    </None>
+    <None Include="..\Game\maps\map1.tmx">
       <Filter>Desenvolupament  ========\XML</Filter>
     </None>
   </ItemGroup>

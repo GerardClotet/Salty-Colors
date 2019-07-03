@@ -94,6 +94,8 @@ struct MapData
 	int					tile_width;
 	int					tile_height;
 	SDL_Color			background_color;
+	SDL_Texture*		backgroundimage;
+	SDL_Rect			backgroundrectangle;
 	MapTypes			type;
 	std::list<TileSet*>	tilesets;
 	std::list<MapLayer*>	layers;
