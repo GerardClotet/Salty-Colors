@@ -112,3 +112,10 @@ uint j1Window::GetScale() const
 {
 	return scale;
 }
+
+void j1Window::AddStringToTitle(const char* add_title)
+{
+	title = title + std::string(add_title);
+	std::string new_title = std::string(App->GetTitle()) + title;
+	SDL_SetWindowTitle(window, new_title.data());
+}

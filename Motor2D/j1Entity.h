@@ -26,7 +26,7 @@ public:
 	virtual bool Start();
 	// core loops ---------------
 	virtual bool PreUpdate();
-	virtual bool Update();
+	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
 

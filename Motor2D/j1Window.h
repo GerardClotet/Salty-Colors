@@ -30,6 +30,8 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
+	void j1Window::AddStringToTitle(const char* add_title);
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
@@ -38,7 +40,7 @@ public:
 	SDL_Surface* screen_surface;
 
 private:
-	p2SString	title;
+	std::string	title;
 	uint		width;
 	uint		height;
 	uint		scale;

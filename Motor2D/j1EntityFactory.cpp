@@ -56,7 +56,7 @@ bool j1EntityFactory::PreUpdate()
 	return true;
 }
 
-bool j1EntityFactory::Update()
+bool j1EntityFactory::Update(float dt)
 {
 	bool ret = true;
 	std::list<j1Entity*>::iterator item = entities.begin();
@@ -67,7 +67,7 @@ bool j1EntityFactory::Update()
 
 			if (!(*item)->to_delete)
 			{
-				ret = (*item)->Update();
+				ret = (*item)->Update(dt);
 
 				++item;
 

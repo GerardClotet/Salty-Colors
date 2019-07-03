@@ -32,7 +32,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool DoViewportResize();
+	SDL_Rect RezieView(SDL_Rect viewport);
 private:
+	bool viewportResize = false;
 };
 
 #endif // __j1SCENE_H__

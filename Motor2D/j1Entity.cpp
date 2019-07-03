@@ -25,7 +25,7 @@ bool j1Entity::PreUpdate()
 	return true;
 }
 
-bool j1Entity::Update()
+bool j1Entity::Update(float dt)
 {
 	return true;
 }

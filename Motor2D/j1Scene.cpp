@@ -30,7 +30,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("MaidInAbyss.tmx");
+	App->map->Load("Level1.tmx");
 	
 	return true;
 }
@@ -68,21 +68,21 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		App->map->PropagateBFS();
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-		App->map->PropagateBFS();
+	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+		
 
 	App->map->Draw();
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.size(),
-					map_coordinates.x, map_coordinates.y);
+	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+	//				App->map->data.width, App->map->data.height,
+	//				App->map->data.tile_width, App->map->data.tile_height,
+	//				App->map->data.tilesets.size(),
+	//				map_coordinates.x, map_coordinates.y);
 
-	App->win->SetTitle(title.GetString());
+	//App->win->SetTitle(title.GetString());
 	return true;
 }
 
@@ -103,4 +103,18 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+bool j1Scene::DoViewportResize()
+{
+	return viewportResize = true;
+}
+
+SDL_Rect j1Scene::RezieView(SDL_Rect vp)
+{
+	vp.h -= 1;
+	vp.y += 1;
+	vp.x += 1;
+	vp.w -= 1;
+	return vp;
 }
