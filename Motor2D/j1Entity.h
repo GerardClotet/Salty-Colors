@@ -20,7 +20,7 @@ enum  ENTITY_TYPE
 class j1Entity
 {
 public:
-	j1Entity(ENTITY_TYPE type, float posX, float posY);
+	j1Entity(ENTITY_TYPE type, fPoint position, p2SString id);
 	virtual ~j1Entity();
 
 	virtual bool Start();

@@ -117,6 +117,7 @@
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1SwapScene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="j1EntityFactory.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PerfTimer.h" />
+    <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1SwapScene.h" />
     <ClInclude Include="j1Timer.h" />
