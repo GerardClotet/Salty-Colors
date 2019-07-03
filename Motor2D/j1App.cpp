@@ -200,29 +200,29 @@ void j1App::FinishUpdate()
 
 	//Framerate
 	//- Calculations
-	if (last_sec_frame_time.Read() > 1000)
-	{
-		last_sec_frame_time.Start();
-		prev_last_sec_frame_count = last_sec_frame_count;
-		last_sec_frame_count = 0;
-	}
-	seconds_since_startup = startup_time.ReadSec();
-	float avg_fps = float(frame_count) / seconds_since_startup;
-	uint32 last_frame_ms = frame_time.Read();
-	uint32 frames_on_last_update = prev_last_sec_frame_count;
+	//if (last_sec_frame_time.Read() > 1000)
+	//{
+	//	last_sec_frame_time.Start();
+	//	prev_last_sec_frame_count = last_sec_frame_count;
+	//	last_sec_frame_count = 0;
+	//}
+	//seconds_since_startup = startup_time.ReadSec();
+	//float avg_fps = float(frame_count) / seconds_since_startup;
+	//uint32 last_frame_ms = frame_time.Read();
+	//uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	static char title[256];
-	sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Time since startup: %.3f Frame Count: %lu / Frame Cap: ",
-		frames_on_last_update, avg_fps, last_frame_ms, seconds_since_startup, frame_count/*, framerate_cap*/);
-	App->win->AddStringToTitle(title);
+	//static char title[256];
+	//sprintf_s(title, 256, "FPS: %i, Av.FPS: %.2f Last Frame Ms: %02u / Time since startup: %.3f Frame Count: %lu / Frame Cap: ",
+	//	frames_on_last_update, avg_fps, last_frame_ms, seconds_since_startup, frame_count/*, framerate_cap*/);
+	//App->win->AddStringToTitle(title);
 
 
-	//- Cap the framerate
+	////- Cap the framerate
 
-	uint32 delay = MAX(0, (int)capTime - (int)last_frame_ms);
-	//LOG("Should wait: %i", delay);
-	//j1PerfTimer delayTimer;
-	SDL_Delay(delay);
+	//uint32 delay = MAX(0, (int)capTime - (int)last_frame_ms);
+	////LOG("Should wait: %i", delay);
+	////j1PerfTimer delayTimer;
+	//SDL_Delay(delay);
 	//LOG("Has waited:  %f", delayTimer.ReadMs());
 }
 
