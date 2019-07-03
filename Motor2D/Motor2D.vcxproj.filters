@@ -156,7 +156,7 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\MaidInAbyss.tmx">
+    <None Include="..\Game\maps\Level1.tmx">
       <Filter>Desenvolupament  ========\XML</Filter>
     </None>
   </ItemGroup>

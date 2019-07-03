@@ -157,7 +157,7 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					App->render->Blit(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed);
 				}
 			}
 		}
@@ -286,7 +286,7 @@ bool j1Map::CleanUp()
 	// Remove all layers
 	std::list<MapLayer*>::iterator layer_item;
 	layer_item = data.layers.begin();
-
+	
 	while (layer_item != data.layers.end())
 	{
 		data.layers.remove(*layer_item);
@@ -542,7 +542,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	
+	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
 	LoadProperties(node, layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 	

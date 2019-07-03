@@ -42,7 +42,7 @@ struct MapLayer
 	int			width;
 	int			height;
 	uint*		data;
-	
+	float		parallaxSpeed;
 	Properties	properties;
 
 	MapLayer() : data(NULL)

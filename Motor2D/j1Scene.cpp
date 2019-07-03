@@ -70,7 +70,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
-		DoViewportResize();
+	//	DoViewportResize();
 	}
 
 	if (viewportResize==true)
@@ -79,10 +79,10 @@ bool j1Scene::Update(float dt)
 		viewportResize = false;
 	}
 
-	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
+	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10 && viewportResize == true)
 	{
 		App->render->SetViewPort(RezieView(App->render->camera,false));
-		App->render->camera = RezieView(App->render->camera,true);
+		App->render->camera = RezieView(App->render->camera,false);
 
 	}
 	else App->render->ResetViewPort();
@@ -129,8 +129,8 @@ SDL_Rect j1Scene::RezieView(SDL_Rect vp,bool cam)
 {
 	if (!cam)
 	{
-		vp.y += 1;
-		vp.x += 1;
+		vp.y -= 0.5;
+		vp.x += 0.5;
 	}
 	vp.h -= 1;
 	vp.w -= 1;
