@@ -309,6 +309,20 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
+	std::list<Collider*>::iterator collider_item;
+	collider_item = data.colliders.begin();
+
+	while (collider_item != data.colliders.end())
+	{
+		data.colliders.remove(*collider_item);
+		delete* collider_item;
+
+		*collider_item = nullptr;
+
+		++collider_item;
+	}
+
+	data.colliders.clear();
 	// Clean up the pugui tree
 	map_file.reset();
 
