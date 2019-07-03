@@ -6,7 +6,7 @@
 #include "p2Log.h"
 
 
-j1Entity::j1Entity(ENTITY_TYPE type,float posX, float posY) : type(type), position(posX,posY)
+j1Entity::j1Entity(ENTITY_TYPE type, fPoint position, p2SString id)
 {}
 
 j1Entity::~j1Entity()
