@@ -2,7 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-
+#include "j1Timer.h"
 struct SDL_Texture;
 
 class j1Scene : public j1Module
@@ -33,7 +33,8 @@ public:
 	bool CleanUp();
 
 	bool DoViewportResize();
-	SDL_Rect RezieView(SDL_Rect viewport);
+	SDL_Rect RezieView(SDL_Rect viewport,bool camera);
+	j1Timer resizeTimer;
 private:
 	bool viewportResize = false;
 };

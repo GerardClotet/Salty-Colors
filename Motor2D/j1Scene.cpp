@@ -68,9 +68,24 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		App->map->PropagateBFS();
 
-	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-		
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+	{
+		DoViewportResize();
+	}
 
+	if (viewportResize==true)
+	{
+		resizeTimer.Start();
+		viewportResize = false;
+	}
+
+	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
+	{
+		App->render->SetViewPort(RezieView(App->render->camera,false));
+		App->render->camera = RezieView(App->render->camera,true);
+
+	}
+	else App->render->ResetViewPort();
 	App->map->Draw();
 
 	int x, y;
@@ -110,11 +125,14 @@ bool j1Scene::DoViewportResize()
 	return viewportResize = true;
 }
 
-SDL_Rect j1Scene::RezieView(SDL_Rect vp)
+SDL_Rect j1Scene::RezieView(SDL_Rect vp,bool cam)
 {
+	if (!cam)
+	{
+		vp.y += 1;
+		vp.x += 1;
+	}
 	vp.h -= 1;
-	vp.y += 1;
-	vp.x += 1;
 	vp.w -= 1;
 	return vp;
 }
