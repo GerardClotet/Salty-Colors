@@ -12,6 +12,6 @@
 		<scene name="map1.tmx" />
 	</swap_scene>
 	<renderer>
-		<camera x="0" y="-115" />
+		<camera x="-1530" y="-685" />
 	</renderer>
 </game_state>

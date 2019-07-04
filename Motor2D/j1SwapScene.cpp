@@ -136,6 +136,7 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 		if (i == App->scene->currentMap)
 		{
 			scene_node.append_attribute("name") = (*item).data();
+			return true;
 		}
 		++i;
 		++item;
@@ -167,10 +168,10 @@ bool j1MapChange::Load(pugi::xml_node& node)
 
 	while (item != App->scene->map_names.end())
 	{
-		if (scene_name != (*item).data())
+		if (scene_name == (*item).data())
 		{
 			App->map->SwitchMaps((*item).data());
-			
+			return true;
 		}
 		//else App->map->SwitchMaps((*item).data());
 
