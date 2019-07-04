@@ -11,7 +11,7 @@
 #include "j1Player.h"
 #include "j1EntityFactory.h"
 #include "PugiXml/src/pugixml.hpp"
-j1Player::j1Player(ENTITY_TYPE type, pugi::xml_node, fPoint position, p2SString id, int clone_number) : j1Entity(type, position, id)
+j1Player::j1Player(ENTITY_TYPE type, pugi::xml_node, fPoint position, p2SString id, int clone_number) : j1Entity(type, config, position, id)
 {
 }
 
