@@ -41,12 +41,40 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
+	
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	
+
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+	{
+		DoViewportResize();
+		LOG("%i %i", App->render->camera.x, App->render->camera.y);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
+	{
+		App->render->ResetViewPort();
+	}
+	if (viewportResize == true)
+	{
+		resizeTimer.Start();
+		viewportResize = false;
+	}
+
+	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
+	{
+		App->render->SetViewPort(RezieView(App->render->camera, false));
+		App->render->camera = RezieView(App->render->camera, false);
+		PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });
+	}
+	else App->render->ResetViewPort();
+
 	return true;
 }
 
@@ -55,9 +83,11 @@ bool j1Scene::Update(float dt)
 {
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Loadlvl(0);
-
+		Loadlvl(0); //here to reset to first level (player, cam..)
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		int temporal = 1; //here to reset current level (player, cam..)
+
+	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		Loadlvl(1);
 
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -84,25 +114,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		App->map->PropagateBFS();
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-	{
-	//	DoViewportResize();
-		LOG("%i %i", App->render->camera.x, App->render->camera.y);
-	}
-
-	if (viewportResize==true)
-	{
-		resizeTimer.Start();
-		viewportResize = false;
-	}
-
-	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10 && viewportResize == true)
-	{
-		App->render->SetViewPort(RezieView(App->render->camera,false));
-		App->render->camera = RezieView(App->render->camera,false);
-
-	}
-	else App->render->ResetViewPort();
+	
 	App->map->Draw();
 
 	int x, y;
@@ -124,7 +136,7 @@ bool j1Scene::PostUpdate()
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		SwapMap();
+		SwapMap(); //not working always stays in the same map, oriented to load from saves or finish level
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
@@ -135,6 +147,7 @@ bool j1Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
 
 	return ret;
 }
@@ -196,4 +209,48 @@ SDL_Rect j1Scene::RezieView(SDL_Rect vp,bool cam)
 	vp.h -= 1;
 	vp.w -= 1;
 	return vp;
+}
+
+void j1Scene::PartyMaker()
+{
+
+	if (red < 255 && incR==true)
+		red += 1;
+	
+	 if (red == 255 && incR == true)
+		incR = false;
+	
+	if (red > 0 && incR == false)
+		red -= 4;
+
+	else if (red == 0 && incR == false)
+		incR = true;
+
+
+
+	if (green < 255 && incG == true)
+		green += 6;
+
+	 if (green >= 255 && incG == true)
+		incG = false;
+
+	if (green > 0 && incG == false)
+		green -= 20;
+
+	 if (green <= 0==incG == false)
+		incG = true;
+
+
+	 if (blue < 255 && incB == true)
+		 blue += 5;
+
+	  if (blue >= 255 && incB == true)
+		 incB = false;
+
+	  if (blue > 0 && incB == false)
+		 blue -= 50;
+
+	  else if (blue <= 0 == incB == false)
+		 incB = true;
+
 }

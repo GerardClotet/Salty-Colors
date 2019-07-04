@@ -42,6 +42,7 @@ public:
 	SDL_Rect RezieView(SDL_Rect viewport,bool camera);
 	j1Timer resizeTimer;
 
+	void PartyMaker();
 
 public:
 	int currentMap;
@@ -50,6 +51,14 @@ public:
 	
 private:
 	bool viewportResize = false;
+	bool incR = true;
+	bool incG = true;
+	bool incB = true;
+
+	Uint8 red=0;
+	Uint8 green=125;
+	Uint8 blue=255;
+
 };
 
 #endif // __j1SCENE_H__

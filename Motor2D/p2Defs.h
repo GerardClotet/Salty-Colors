@@ -2,7 +2,6 @@
 #define __P2DEFS_H__
 
 #include <stdio.h>
-
 //  NULL just in case ----------------------
 
 #ifdef NULL
@@ -67,5 +66,13 @@ inline const char* const PATH(const char* folder, const char* file)
 // Performance macros
 #define PERF_START(timer) timer.Start()
 #define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
+
+
+//Colors
+
+#define WHITE {255,255,255}
+#define BLUE {0,0,255}
+
+
 
 #endif
