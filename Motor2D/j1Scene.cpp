@@ -126,6 +126,13 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		SwapMap();
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame("save_game.xml");
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->LoadGame("save_game.xml");
+
+
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 

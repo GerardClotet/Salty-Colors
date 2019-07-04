@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\Level1.tmx" />

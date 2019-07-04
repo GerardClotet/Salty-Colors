@@ -432,7 +432,8 @@ bool j1App::LoadGameNow()
 		root = data.child("game_state");
 
 		std::list<j1Module*>::iterator item;
-		item = modules.begin();		ret = true;
+		item = modules.begin();		
+		ret = true;
 
 		while (item != modules.end() && ret == true)
 		{

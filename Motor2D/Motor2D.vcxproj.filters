@@ -166,6 +166,9 @@
     <Xml Include="..\Game\config.xml">
       <Filter>Desenvolupament  ========\XML</Filter>
     </Xml>
+    <Xml Include="..\Game\save_game.xml">
+      <Filter>Desenvolupament  ========\XML</Filter>
+    </Xml>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\Level1.tmx">
