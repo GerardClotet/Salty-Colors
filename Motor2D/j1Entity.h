@@ -19,16 +19,8 @@ enum  ENTITY_TYPE
 
 class j1Entity
 {
-protected:
-	p2SString sprite_route;
-	SDL_Rect entityRect;
-	SDL_Texture* entityTex;
-	ENTITY_TYPE type;
-	Animation* currentAnimation;
-
-	virtual void LoadAnimations(pugi::xml_node conf);
 public:
-	j1Entity(ENTITY_TYPE type,pugi::xml_node config, fPoint position, p2SString id);
+	j1Entity(ENTITY_TYPE type, fPoint position, p2SString id);
 	virtual ~j1Entity();
 
 	virtual bool Start();
@@ -37,13 +29,17 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 	virtual bool CleanUp();
+
 	virtual void Draw();
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
 public:
-	fPoint position = {0.0F,0.0F};
+	fPoint position;
 	bool to_delete = false;
-
+	SDL_Rect entityRect;
+	SDL_Texture* entityTex;
+	ENTITY_TYPE type;
+	Animation* currentAnimation;
 };
 #endif
