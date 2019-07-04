@@ -136,8 +136,8 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
-	App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.0f);
+	if(data.backgroundimage!=nullptr)
+		App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.0f);
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 
@@ -311,18 +311,24 @@ bool j1Map::CleanUp()
 
 	std::list<Collider*>::iterator collider_item;
 	collider_item = data.colliders.begin();
-
+	LOG("colliders size %i",data.colliders.size());
 	while (collider_item != data.colliders.end())
 	{
-		data.colliders.remove(*collider_item);
-		delete* collider_item;
+		/*data.colliders.remove(*collider_item);
+		delete* collider_item;*/
+		(*collider_item)->to_delete = true;
 
-		*collider_item = nullptr;
+		/**collider_item = nullptr;*/
 
 		++collider_item;
+		LOG("collider deleted");
 	}
+	App->tex->UnLoad(data.backgroundimage);
+	data.backgroundimage = nullptr;
 
 	data.colliders.clear();
+
+
 	// Clean up the pugui tree
 	map_file.reset();
 
