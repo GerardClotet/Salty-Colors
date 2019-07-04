@@ -15,7 +15,7 @@
 
 j1MapChange::j1MapChange()
 {
-	//TODO: screen en funcio de config
+	name.assign("swap_scene");
 }
 
 j1MapChange::~j1MapChange()
@@ -120,4 +120,62 @@ bool j1MapChange::ChangeMap(int newMap, float time)
 bool j1MapChange::IsChanging() const
 {
 	return current_step != fade_step::none;
+}
+
+bool j1MapChange::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node scene_node;
+	scene_node = node.append_child("scene");
+
+	std::list<std::string>::iterator item = App->scene->map_names.begin();
+
+	int i = 0;
+
+	while (item != App->scene->map_names.end())
+	{
+		if (i == App->scene->currentMap)
+		{
+			scene_node.append_attribute("name") = (*item).data();
+		}
+		++i;
+		++item;
+	}
+
+
+	return true;
+}
+
+/*App->scene->currentMap = nextMap;
+std::list<std::string>::iterator item = App->scene->map_names.begin();
+int i = 0;
+for (; item != App->scene->map_names.end(); ++item)
+{
+	if (i == nextMap)
+	{
+		App->map->SwitchMaps((*item).data());
+
+	}
+
+	+i;
+}*/
+
+bool j1MapChange::Load(pugi::xml_node& node)
+{
+	std::string scene_name = node.child("scene").attribute("name").as_string();
+
+	std::list<std::string>::iterator item = App->scene->map_names.begin();
+
+	while (item != App->scene->map_names.end())
+	{
+		if (scene_name != (*item).data())
+		{
+			App->map->SwitchMaps((*item).data());
+			
+		}
+		//else App->map->SwitchMaps((*item).data());
+
+		++item;
+	}
+	
+	return true;
 }

@@ -6,10 +6,12 @@
 	<audio />
 	<map />
 	<scene />
-	<:anonymous />
+	<entityFactory />
 	<collision />
-	<:anonymous />
+	<swap_scene>
+		<scene name="map1.tmx" />
+	</swap_scene>
 	<renderer>
-		<camera x="-655" y="-665" />
+		<camera x="0" y="-115" />
 	</renderer>
 </game_state>

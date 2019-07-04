@@ -33,6 +33,10 @@ public:
 	//returns true if the change process is active
 	bool IsChanging() const;
 
+	bool Save(pugi::xml_node&)const;
+
+	bool Load(pugi::xml_node&);
+
 private:
 
 	//-------------Variables-----------------

@@ -7,7 +7,7 @@
 
 j1EntityFactory::j1EntityFactory()
 {
-	
+	name.assign("entityFactory");
 
 }
 
