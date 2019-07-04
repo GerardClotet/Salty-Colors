@@ -6,20 +6,11 @@
 #include "p2Log.h"
 
 
-j1Entity::j1Entity(ENTITY_TYPE type,pugi::xml_node config, fPoint position, p2SString id)
-{
-	this->type = type;
-
-	sprite_route = PATH(config.child("folder").child_value, config.child("sprite").child_value());
-	entityTex = App->tex->Load(sprite_route.GetString());
-	this->position = position;
-	
-
-}
+j1Entity::j1Entity(ENTITY_TYPE type, fPoint position, p2SString id)
+{}
 
 j1Entity::~j1Entity()
 {
-
 
 }
 
@@ -57,26 +48,6 @@ void j1Entity::Draw()
 
 
 }
-
-void j1Entity::LoadAnimations(pugi::xml_node config)
-{
-	currentAnimation = new Animation[config.child("animations").attribute("count").as_int(1)];
-
-	int index = 0;
-	pugi::xml_node animation;
-	for (animation = config.child("animations").first_child(); animation; animation = animation.next_sibling())
-	{
-		pugi::xml_node frame;
-		for (frame = animation.child("frame"); frame; frame = frame.next_sibling("frame")) {
-			currentAnimation[index].speed = animation.attribute("speed").as_float();
-			currentAnimation[index].loop = animation.attribute("loops").as_bool(true);
-			index++;
-		}
-		entityRect = { 0,0,config.child("collider").attribute("width").as_int(), config.child("collider").attribute("height").as_int() };
-
-	}
-}
-
 
 bool j1Entity::Load(pugi::xml_node&)
 {
