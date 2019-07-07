@@ -34,7 +34,7 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 
 	}
 	player_IDLE.loop = true;
-	player_IDLE.speed = 1.0f;
+	player_IDLE.speed = 10.0f;
 	player_RUN.loop = true;
 	return ret;
 }

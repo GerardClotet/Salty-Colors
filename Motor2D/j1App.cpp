@@ -246,8 +246,8 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %.2f Last sec frames: %i Cap: %s Vsync: %s ",
-		avg_fps, last_frame_ms, frames_on_last_update, frame_cap ? "ON" : "OFF", vsync ? "ON" : "OFF");
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %.2f Last sec frames: %i Vsync: %s ",
+		avg_fps, last_frame_ms, frames_on_last_update, vsync ? "ON" : "OFF");
 	App->win->SetTitle(title);
 
 
