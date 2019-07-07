@@ -79,9 +79,7 @@ bool j1App::Awake()
 {
 	PERF_START(ptimer);
 
-	pugi::xml_document	config_file;
-	pugi::xml_node		config;
-	pugi::xml_node		app_config;
+	
 
 	bool ret = false;
 		
@@ -95,8 +93,10 @@ bool j1App::Awake()
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
 		capFrames = app_config.attribute("cap_frames").as_bool();
-		frame_rate = app_config.attribute("framerate_cap").as_uint();
+		frame_rate = app_config.attribute("framerate_cap").as_uint(); //to be changed
 		vsync = config.child("renderer").child("vsync").attribute("value").as_bool();
+		frame_rateCap = app_config.attribute("framerate_cap").as_float();
+		capTime = app_config.attribute("framerate_cap").as_int();
 
 		if (capTime != 0)
 			capTime = 1000 / capTime;
@@ -185,16 +185,12 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	if (!pause)
-	{
-		dt = frame_time.ReadSec();
-		if (dt > (float)frame_rate / 1000)
-			dt = (float)frame_rate / 1000;
-	}
+	if (pause)
+		dt = 0.0f;
 	else
-	{
-		dt = 0;
-	}
+		dt = 1.0f / frame_rateCap;
+
+
 	frame_time.Start();
 }
 

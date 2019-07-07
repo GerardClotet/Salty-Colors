@@ -52,6 +52,11 @@ public:
 	void SaveGame(const char* file) const;
 	void GetSaveGames(std::list<std::string>& list_to_fill) const;
 	float GetDt();
+
+public:
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	pugi::xml_node		app_config;
 private:
 
 	// Load config file
@@ -121,6 +126,7 @@ private:
 	float				dt = 0.0f;
 	bool				capFrames = false;
 	float				seconds_since_startup = 0.0f;
+	float				frame_rateCap = 0.0f;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

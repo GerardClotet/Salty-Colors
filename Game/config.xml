@@ -1,13 +1,13 @@
 <!-- Config file for the game -->
 
 <config>
-  <app>
+  <app cap_frames="false" framerate_cap="60">
     <title>Dev Game</title>
     <organization>UPC</organization>
   </app>
 	
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
   </renderer>
 
   <window>
@@ -34,10 +34,10 @@
 
     <player>
       <animations>
-          <frame id ="1" x="17" y="45" w ="16" h="28"/> <!--IDLE-->
-          <frame id ="1" x="67" y="44" w ="16" h="29"/>
-          <frame id ="1" x="117" y="44" w ="17" h="29"/>
-          <frame id ="1" x="167" y="45" w ="16" h="28"/>
+          <frame id ="1" x="17" y="45" w ="16" h="28" num ="1"/> <!--IDLE-->
+          <frame id ="1" x="67" y="44" w ="16" h="29" num ="2"/>
+          <frame id ="1" x="117" y="44" w ="17" h="29" num ="3"/>
+          <frame id ="1" x="167" y="45" w ="16" h="28" num ="4"/>
         
           <frame id ="2" x="20" y="9" w ="17" h="27"/> <!--RUN-->
           <frame id ="2" x="70" y="10" w ="16" h="26"/>

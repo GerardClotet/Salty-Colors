@@ -32,7 +32,7 @@ public:
 	Animation player_IDLE;
 	Animation player_RUN;
 	std::string sprite_route;
-
+	int maxframes = 4;
 private:
 	std::vector<j1Entity*>	draw_entities;
 
