@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Entity.h"
-
+#include "j1Player.h"
 #include <vector>
 #include <list>
 
@@ -21,11 +21,18 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	//CreatePlayer(iPoint pos);
+	j1Player* CreatePlayer(iPoint pos);
 	//CreateEntities();
 public:
 
 	std::list<j1Entity*>	entities;
+
+	j1Player*				player = nullptr;
+	SDL_Texture* playerSprite = nullptr;
+	Animation player_IDLE;
+	Animation player_RUN;
+	std::string sprite_route;
+
 private:
 	std::vector<j1Entity*>	draw_entities;
 

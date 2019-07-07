@@ -1,4 +1,3 @@
-#include "j1App.h"
 #include "j1Entity.h"
 #include "j1Render.h"
 #include "j1EntityFactory.h"
@@ -6,7 +5,7 @@
 #include "p2Log.h"
 
 
-j1Entity::j1Entity(ENTITY_TYPE type, fPoint position, p2SString id)
+j1Entity::j1Entity(ENTITY_TYPE type, iPoint position)
 {}
 
 j1Entity::~j1Entity()
@@ -27,6 +26,7 @@ bool j1Entity::PreUpdate()
 
 bool j1Entity::Update(float dt)
 {
+	Draw();
 	return true;
 }
 bool j1Entity::PostUpdate()
@@ -44,7 +44,10 @@ bool j1Entity::CleanUp()
 void j1Entity::Draw()
 {
 	if (entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &entityRect); //or animation
+		App->render->Blit(entityTex, pos.x, pos.y, &currentAnimation.GetCurrentFrame()); //or animation
+
+	/*else if(currentAnimation != nullptr)
+		App->render->Blit()*/
 
 
 }

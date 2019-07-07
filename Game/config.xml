@@ -27,4 +27,27 @@
     <map_name name="Level1.tmx"></map_name>
     <fade_time value="1"/>
   </scene>
+
+  <entityFactory>
+    <folder>textures/player</folder>
+    <sprite>homeless_SpriteSheet.png</sprite>
+
+    <player>
+      <animations>
+          <frame id ="1" x="17" y="45" w ="16" h="28"/> <!--IDLE-->
+          <frame id ="1" x="67" y="44" w ="16" h="29"/>
+          <frame id ="1" x="117" y="44" w ="17" h="29"/>
+          <frame id ="1" x="167" y="45" w ="16" h="28"/>
+        
+          <frame id ="2" x="20" y="9" w ="17" h="27"/> <!--RUN-->
+          <frame id ="2" x="70" y="10" w ="16" h="26"/>
+          <frame id ="2" x="119" y="13" w ="17" h="23"/>
+          <frame id ="2" x="169" y="9" w ="21" h="27"/>
+          <frame id ="2" x="218" y="10" w ="18" h="26"/>
+          <frame id ="2" x="268" y="12" w ="18" h="24"/>
+      </animations>
+    </player>
+    
+  </entityFactory>
+  
 </config>

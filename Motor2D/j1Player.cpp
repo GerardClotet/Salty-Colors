@@ -1,4 +1,3 @@
-#include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
@@ -10,11 +9,31 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1EntityFactory.h"
-#include "PugiXml/src/pugixml.hpp"
-j1Player::j1Player(ENTITY_TYPE type, pugi::xml_node, fPoint position, p2SString id, int clone_number) : j1Entity(type, position, id)
+j1Player::j1Player(iPoint position) : j1Entity(ENT_PLAYER, position)
 {
+	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
+	pos = position;
+	currentAnimation = App->entityFactory->player_IDLE;
 }
 
 j1Player::~j1Player()
 {
 }
+
+bool j1Player::Start()
+{
+	
+
+	return true;
+}
+
+bool j1Player::Update(float dt)
+{
+	return true;
+}
+
+void j1Player::Draw()
+{
+
+}
+

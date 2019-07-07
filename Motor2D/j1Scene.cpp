@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1SwapScene.h"
+#include "j1EntityFactory.h"
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -41,7 +43,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
-	
+	iPoint campos = { (int)(App->render->camera.x + App->render->camera.w * 0.5f), (int)(App->render->camera.y - App->render->camera.h * 0.5f)};
+	App->entityFactory->CreatePlayer(campos);
+
+	LOG("player pos %i %i", campos.x , campos.y);
 	return true;
 }
 
@@ -66,14 +71,14 @@ bool j1Scene::PreUpdate()
 		viewportResize = false;
 	}
 
-	if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
+	/*if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
 	{
 		App->render->SetViewPort(RezieView(App->render->camera, false));
 		App->render->camera = RezieView(App->render->camera, false);
 		PartyMaker();
 		App->render->SetBackgroundColor({ red,green,blue });
 	}
-	else App->render->ResetViewPort();
+	else App->render->ResetViewPort();*/
 
 	return true;
 }
@@ -114,8 +119,9 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		App->map->PropagateBFS();
 
-	
+
 	App->map->Draw();
+
 
 	int x, y;
 	App->input->GetMousePosition(x, y);

@@ -15,10 +15,26 @@ j1EntityFactory::~j1EntityFactory()
 {
 }
 
-bool j1EntityFactory::Awake(pugi::xml_node& node)
+bool j1EntityFactory::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
+	sprite_route = PATH(config.child("folder").child_value(), config.child("sprite").child_value());
+	int animationID;
+	for (auto node : config.child("player").child("animations").children("frame"))
+	{
+		animationID = node.attribute("id").as_int();
+
+		if (animationID == 1)
+		{
+			player_IDLE.PushBack({node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int()});
+		}
+		else if(animationID ==2)
+			player_RUN.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+
+	}
+	player_IDLE.loop = true;
+	player_RUN.loop = true;
 	return ret;
 }
 
@@ -142,4 +158,18 @@ bool j1EntityFactory::CleanUp()
 
 	//unload entitiesTex and player
 	return ret;
+}
+
+j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
+{
+	player = new j1Player(pos);
+
+	if (player != nullptr)
+	{
+		entities.push_back(player);
+		return player;
+	}
+
+	LOG("Failed to create player");
+	return nullptr;
 }

@@ -10,8 +10,15 @@ class j1Player : public j1Entity
 {
 private:
 public:
-	j1Player(ENTITY_TYPE type, pugi::xml_node, fPoint position, p2SString id, int clone_number);
+	j1Player(iPoint position);
 	~j1Player();
+
+	bool Start();
+	bool Update(float dt);
+	void Draw();
+
+public:
+	iPoint position;
 };
 
 #endif

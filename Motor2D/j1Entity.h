@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "j1Textures.h"
+#include "j1App.h"
 
 #include "SDL_image/include/SDL_image.h"
 
@@ -17,10 +18,10 @@ enum  ENTITY_TYPE
 	ENT_MAX
 };
 
-class j1Entity
+class j1Entity 
 {
 public:
-	j1Entity(ENTITY_TYPE type, fPoint position, p2SString id);
+	j1Entity(ENTITY_TYPE type, iPoint position);
 	virtual ~j1Entity();
 
 	virtual bool Start();
@@ -35,11 +36,11 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	fPoint position;
+	iPoint pos;
 	bool to_delete = false;
 	SDL_Rect entityRect;
 	SDL_Texture* entityTex;
 	ENTITY_TYPE type;
-	Animation* currentAnimation;
+	Animation currentAnimation;
 };
 #endif
