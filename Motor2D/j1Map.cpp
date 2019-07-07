@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1EntityFactory.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -167,7 +168,6 @@ void j1Map::Draw()
 	}
 
 	DrawBFS();
-	LOG("map drawn");
 }
 
 int Properties::Get(const char* value, int default_value) const
@@ -402,7 +402,7 @@ bool j1Map::Load(const char* file_name)
 
 		LOG("iteracio");
 	}
-
+	
 	//Load Image Layer
 	
 	pugi::xml_node backgroundimage = map_file.child("map").child("imagelayer");
@@ -647,9 +647,10 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 
 		else if (startTrigger == collider.attribute("type").as_string())
 		{
-			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
-			/*App->render->camera.body.y = -(App->map->data.height * App->map->data.tile_height - App->render->camera.body.h);
-			App->render->camera.body.x = 0;*/
+			
+			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
+
+			App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
 		}
 		else if (endTrigger == collider.attribute("type").as_string())
 		{
@@ -658,6 +659,9 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 
 		}
 	}
+
+	
+
 	return true;
 }
 

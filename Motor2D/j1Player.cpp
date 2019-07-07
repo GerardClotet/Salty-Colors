@@ -38,6 +38,5 @@ void j1Player::Draw()
 {
 	if (entityTex != nullptr)
 		App->render->Blit(entityTex, pos.x, pos.y, &currentAnimation.GetCurrentFrame());
-	LOG("player drawn");
 }
 

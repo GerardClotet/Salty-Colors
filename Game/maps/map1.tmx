@@ -6574,6 +6574,6 @@
    <property name="map_length" type="int" value="4160"/>
   </properties>
   <object id="124" type="end" x="4097.33" y="898.667" width="29.3333" height="24"/>
-  <object id="125" type="start" x="322" y="1152" width="28" height="28"/>
+  <object id="125" name="spawn" type="start" x="322" y="1152" width="28" height="28"/>
  </objectgroup>
 </map>
