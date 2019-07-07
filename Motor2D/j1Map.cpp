@@ -167,6 +167,7 @@ void j1Map::Draw()
 	}
 
 	DrawBFS();
+	LOG("map drawn");
 }
 
 int Properties::Get(const char* value, int default_value) const

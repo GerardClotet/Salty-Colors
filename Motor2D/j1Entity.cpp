@@ -49,7 +49,7 @@ void j1Entity::Draw()
 	/*else if(currentAnimation != nullptr)
 		App->render->Blit()*/
 
-
+	LOG("entity drawn");
 }
 
 bool j1Entity::Load(pugi::xml_node&)

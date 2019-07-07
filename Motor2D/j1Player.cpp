@@ -12,6 +12,7 @@
 j1Player::j1Player(iPoint position) : j1Entity(ENT_PLAYER, position)
 {
 	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
+	LOG("%s", App->entityFactory->sprite_route.data());
 	pos = position;
 	currentAnimation = App->entityFactory->player_IDLE;
 }
@@ -29,11 +30,14 @@ bool j1Player::Start()
 
 bool j1Player::Update(float dt)
 {
+	Draw();
 	return true;
 }
 
 void j1Player::Draw()
 {
-
+	if (entityTex != nullptr)
+		App->render->Blit(entityTex, pos.x, pos.y, &currentAnimation.GetCurrentFrame());
+	LOG("player drawn");
 }
 

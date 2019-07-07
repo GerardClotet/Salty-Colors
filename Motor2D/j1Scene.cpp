@@ -43,7 +43,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
-	iPoint campos = { (int)(App->render->camera.x + App->render->camera.w * 0.5f), (int)(App->render->camera.y - App->render->camera.h * 0.5f)};
+	iPoint campos = { (int)(App->render->camera.x + App->render->viewport.w * 0.5f), (int)(App->render->camera.y - App->render->viewport.h * 0.5f)};
 	App->entityFactory->CreatePlayer(campos);
 
 	LOG("player pos %i %i", campos.x , campos.y);
