@@ -16,7 +16,7 @@ public:
 	bool Start();
 	bool Update(float dt);
 	void Draw();
-
+	bool CleanUp();
 public:
 	iPoint position;
 };

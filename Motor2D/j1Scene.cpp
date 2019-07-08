@@ -44,7 +44,6 @@ bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
 	
-
 	return true;
 }
 
@@ -52,7 +51,7 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	
-	App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->pos.x, App->entityFactory->player->pos.y).x;
+	App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
 	//App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->pos.x, App->entityFactory->player->pos.y).y;
 
 //	App->render->camera.x = App->entityFactory->player->pos.x;

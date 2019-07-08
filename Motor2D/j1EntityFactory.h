@@ -22,6 +22,7 @@ public:
 	bool CleanUp();
 
 	j1Player* CreatePlayer(iPoint pos);
+	bool GetPlayerState();
 	//CreateEntities();
 public:
 
@@ -33,8 +34,10 @@ public:
 	Animation player_RUN;
 	std::string sprite_route;
 	int maxframes = 4;
+
 private:
 	std::vector<j1Entity*>	draw_entities;
+	bool playerActive = false;
 
 };
 #endif // !_J1ENTITYFACTORY_H_

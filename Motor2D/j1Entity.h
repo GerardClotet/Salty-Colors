@@ -35,8 +35,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+
 public:
-	iPoint pos;
+	iPoint position;
 	bool to_delete = false;
 	SDL_Rect entityRect;
 	SDL_Texture* entityTex;

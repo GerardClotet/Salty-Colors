@@ -650,17 +650,20 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			
 			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
 
-			App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+			if (App->entityFactory->GetPlayerState())
+				App->entityFactory->player->position = { spawn.attribute("x").as_int(), spawn.attribute("y").as_int() };
+
+			
+			else if(!App->entityFactory->GetPlayerState())
+				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+
 		}
+
 		else if (endTrigger == collider.attribute("type").as_string())
-		{
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER)/*, (j1Module*)App->swap_scene->current_scene)*/);
-			/*App->player->SetPosition(spawn.attribute("x").as_float(), spawn.attribute("y").as_float());*/
-
-		}
+			
+		
 	}
-
-	
 
 	return true;
 }

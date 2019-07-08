@@ -44,7 +44,7 @@ bool j1Entity::CleanUp()
 void j1Entity::Draw()
 {
 	if (entityTex != nullptr)
-		App->render->Blit(entityTex, pos.x, pos.y, &currentAnimation.GetCurrentFrame()); //or animation
+		App->render->Blit(entityTex, position.x, position.y, &currentAnimation.GetCurrentFrame()); //or animation
 
 	/*else if(currentAnimation != nullptr)
 		App->render->Blit()*/
@@ -61,3 +61,5 @@ bool j1Entity::Save(pugi::xml_node&) const
 {
 	return true;
 }
+
+

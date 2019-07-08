@@ -38,6 +38,7 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 	player_RUN.loop = true;
 	player_RUN.speed = 10.0f;
 
+
 	return ret;
 }
 
@@ -170,9 +171,15 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 	if (player != nullptr)
 	{
 		entities.push_back(player);
+		playerActive = true;
 		return player;
 	}
 
 	LOG("Failed to create player");
 	return nullptr;
+}
+
+bool j1EntityFactory::GetPlayerState()
+{
+	return playerActive;
 }

@@ -1555,7 +1555,7 @@
   <object id="78" type="platform" x="353.25" y="160.5" width="95.75" height="8.5"/>
  </objectgroup>
  <objectgroup name="triggers">
-  <object id="79" type="end" x="8.5" y="213.75" width="34.25" height="40.25"/>
-  <object id="83" type="start" x="915.625" y="207.125" width="34.25" height="40.25"/>
+  <object id="79" type="end" x="864" y="192" width="34.25" height="40.25"/>
+  <object id="83" name="spawn" type="start" x="32" y="192" width="34.25" height="40.25"/>
  </objectgroup>
 </map>
