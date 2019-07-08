@@ -36,6 +36,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 
+
 public:
 	iPoint position;
 	bool to_delete = false;
@@ -43,5 +44,12 @@ public:
 	SDL_Texture* entityTex;
 	ENTITY_TYPE type;
 	Animation currentAnimation;
+
+	float movment_speed = 0.0F;
+	float jump_speed = 0.0F;
+	float gravity = 0.0F;
+	float acceleration = 0.0F;
+	float fall_speed = 0.0F;
+	fPoint target_speed = { 0.0F,0.0F };
 };
 #endif
