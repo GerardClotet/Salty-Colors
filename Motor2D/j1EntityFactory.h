@@ -25,7 +25,7 @@ public:
 	bool GetPlayerState();
 	//CreateEntities();
 public:
-
+	
 	std::list<j1Entity*>	entities;
 
 	j1Player*				player = nullptr;

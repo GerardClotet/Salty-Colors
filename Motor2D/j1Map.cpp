@@ -651,7 +651,7 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
 
 			if (App->entityFactory->GetPlayerState())
-				App->entityFactory->player->position = { spawn.attribute("x").as_int(), spawn.attribute("y").as_int() };
+				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
 
 			
 			else if(!App->entityFactory->GetPlayerState())

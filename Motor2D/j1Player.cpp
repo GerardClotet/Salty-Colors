@@ -15,6 +15,14 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	LOG("%s", App->entityFactory->sprite_route.data());
 	position = pos;
 	currentAnimation = App->entityFactory->player_IDLE;
+
+	animation_Coll = { 0,0,16,15 };
+	coll_offSet = 13;
+	collider = App->collision->AddCollider(animation_Coll, COLLIDER_PLAYER, App->entityFactory, true);
+
+	collider->rect.x = position.x;
+	collider->rect.y = position.y + coll_offSet;
+
 }
 
 j1Player::~j1Player()
@@ -24,6 +32,7 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	
+	//collider = App->collision->AddCollider;
 
 	return true;
 }
@@ -43,5 +52,12 @@ void j1Player::Draw()
 bool j1Player::CleanUp()
 {
 	return true;
+}
+
+void j1Player::SetPos(iPoint pos)
+{
+	position = pos;
+	if (collider)
+		collider->SetPos(position.x, position.y);
 }
 
