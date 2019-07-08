@@ -10,7 +10,7 @@
 #include "j1Scene.h"
 #include "j1SwapScene.h"
 #include "j1EntityFactory.h"
-
+#include "j1Player.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -72,14 +72,19 @@ bool j1Scene::PreUpdate()
 		viewportResize = false;
 	}
 
-	/*if (resizeTimer.Read() < 10000 && resizeTimer.Read() > 10)
+	if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
 	{
+		if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
+		{
+			App->render->SetViewPort(RezieView(App->render->camera, false));
+		}
 		App->render->SetViewPort(RezieView(App->render->camera, false));
 		App->render->camera = RezieView(App->render->camera, false);
-		PartyMaker();
-		App->render->SetBackgroundColor({ red,green,blue });
+
+		/*PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });*/
 	}
-	else App->render->ResetViewPort();*/
+	else App->render->ResetViewPort();
 
 	return true;
 }
