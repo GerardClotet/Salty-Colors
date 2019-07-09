@@ -51,41 +51,50 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	
-	App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
+	
+	//App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
 	//App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->pos.x, App->entityFactory->player->pos.y).y;
 
 //	App->render->camera.x = App->entityFactory->player->pos.x;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-	{
-		DoViewportResize();
-		LOG("%i %i", App->render->camera.x, App->render->camera.y);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
-	{
-		App->render->ResetViewPort();
-	}
-	if (viewportResize == true)
-	{
-		resizeTimer.Start();
-		viewportResize = false;
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+	//{
+	//	DoViewportResize();
+	//	LOG("%i %i", App->render->camera.x, App->render->camera.y);
+	//}
+	//if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
+	//{
+	//	App->render->ResetViewPort();
+	//}
+	//if (viewportResize == true)
+	//{
+	//	resizeTimer.Start();
+	//	viewportResize = false;
+	//}
 
-	if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
-	{
-		if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
-		{
-			App->render->SetViewPort(RezieView(App->render->camera, false));
-		}
-		App->render->SetViewPort(RezieView(App->render->camera, false));
-		App->render->camera = RezieView(App->render->camera, false);
+	//if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
+	//{
+	//	if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
+	//	{
+	//		App->render->SetViewPort(RezieView(App->render->camera, false));
 
-		/*PartyMaker();
-		App->render->SetBackgroundColor({ red,green,blue });*/
-	}
-	else App->render->ResetViewPort();
+	//	}
+	//	App->render->SetViewPort(RezieView(App->render->camera, false));
+	//	App->render->camera = RezieView(App->render->camera, false);
 
+	//	/*PartyMaker();
+	//	App->render->SetBackgroundColor({ red,green,blue });*/
+	//}
+	//else
+	//{
+	//	App->render->ResetViewPort();
+	//	App->render->camera.w = App->win->screen_surface->w;
+	//	App->render->camera.h = App->win->screen_surface->h;
+	//	/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
+	//	App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;*/
+
+	//}
 	return true;
 }
 
@@ -215,11 +224,11 @@ SDL_Rect j1Scene::RezieView(SDL_Rect vp,bool cam)
 {
 	if (!cam)
 	{
-		vp.y -= 0.5;
-		vp.x += 0.5;
+	/*	vp.y -= 0.5;
+		vp.x += 0.5;*/
 	}
 	vp.h -= 1;
-	vp.w -= 1;
+	vp.w -= 5;
 	return vp;
 }
 
