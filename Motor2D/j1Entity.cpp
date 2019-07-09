@@ -63,3 +63,20 @@ bool j1Entity::Save(pugi::xml_node&) const
 }
 
 
+void j1Entity::MovX()
+{
+	if (velocity.x > 0) velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider));
+	else if (velocity.x < 0) velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider));
+
+	position.x += velocity.x;
+	collider->rect.x = position.x;
+	pivot.x = position.x + (collider->rect.w / 2);
+}
+
+void j1Entity::MovY()
+{
+}
+
+void j1Entity::MovingUpdate()
+{
+}
