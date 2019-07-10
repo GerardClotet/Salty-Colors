@@ -81,8 +81,8 @@ bool j1Scene::PreUpdate()
 		App->render->SetViewPort(RezieView(App->render->camera, false));
 		App->render->camera = RezieView(App->render->camera, false);
 
-		/*PartyMaker();
-		App->render->SetBackgroundColor({ red,green,blue });*/
+		PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });
 	}
 	else App->render->ResetViewPort();
 
