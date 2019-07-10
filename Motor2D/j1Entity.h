@@ -35,6 +35,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	Collider* collider;
+
 
 
 public:
@@ -51,5 +53,17 @@ public:
 	float acceleration = 0.0F;
 	float fall_speed = 0.0F;
 	fPoint target_speed = { 0.0F,0.0F };
+
+	fPoint velocity = { 0.0F, 0.0F };
+	fPoint pivot = { 0.0F, 0.0F };
+	bool ignore_platforms = false;
+	bool flipX = true;
+	bool is_grounded = true;
+
+	void MovX();
+
+	void MovY();
+
+	void MovingUpdate();
 };
 #endif

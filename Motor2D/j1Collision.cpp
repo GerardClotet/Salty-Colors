@@ -195,13 +195,13 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 	return distance;
 }
 
-float j1Collision::DistanceToBottomCollider(Collider* coll) const
+float j1Collision::DistanceToBottomCollider(Collider* coll, bool ignore_platform) const
 {
 	float distance = 999;
 
 	for (uint i = 0; i < max_colliders; i++)
 	{
-		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER)
+		if (colliders[i] != nullptr && colliders[i] != coll && (ignore_platform ? colliders[i]->type == COLLIDER_FLOOR : (colliders[i]->type == COLLIDER_PLATFORM || colliders[i]->type == COLLIDER_FLOOR)))
 		{
 			if (colliders[i]->rect.y >= coll->rect.y + coll->rect.h)
 			{
