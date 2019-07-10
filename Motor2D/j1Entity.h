@@ -18,6 +18,17 @@ enum  ENTITY_TYPE
 	ENT_MAX
 };
 
+enum EntityState
+{
+	N_STATE = -1,
+	IDLE,
+	DEAD,
+	GOD,
+	WIN,
+	MOVING,
+	JUMPING,
+};
+
 class j1Entity 
 {
 public:
@@ -37,6 +48,7 @@ public:
 
 	Collider* collider;
 
+	ENTITY_TYPE type;
 
 
 public:
@@ -64,6 +76,10 @@ public:
 
 	void MovY();
 
-	void MovingUpdate();
+	virtual void MovingUpdate();
+	virtual void IdleUpdate();
+	virtual void JumpingUpdate();
+	virtual void Jump() {};
+	
 };
 #endif
