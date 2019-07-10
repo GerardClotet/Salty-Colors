@@ -20,6 +20,7 @@ public:
 	void SetPos(iPoint pos);
 public:
 	iPoint position;
+	Collider* collider;
 	int coll_offSet;
 	SDL_Rect animation_Coll;
 };

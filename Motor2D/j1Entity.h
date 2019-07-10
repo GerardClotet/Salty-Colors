@@ -39,14 +39,11 @@ public:
 
 public:
 	iPoint position;
-	fPoint velocity = { 0.0F, 0.0F };
 	bool to_delete = false;
 	SDL_Rect entityRect;
 	SDL_Texture* entityTex;
 	ENTITY_TYPE type;
 	Animation currentAnimation;
-	Collider* collider;
-	fPoint pivot = { 0.0F, 0.0F };
 
 	float movment_speed = 0.0F;
 	float jump_speed = 0.0F;
@@ -54,13 +51,5 @@ public:
 	float acceleration = 0.0F;
 	float fall_speed = 0.0F;
 	fPoint target_speed = { 0.0F,0.0F };
-
-
-	//Moving updates
-	virtual void MovX();
-	virtual void MovY();
-	virtual void MovingUpdate();
-
-	//
 };
 #endif
