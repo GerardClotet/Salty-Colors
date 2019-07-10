@@ -10,10 +10,10 @@ class j1Player : public j1Entity
 {
 private:
 
-	void MovingUpdate();
-	void IdleUpdate();
-	void JumpingUpdate();
-	void Jump();
+	//void MovingUpdate();
+	//void IdleUpdate();
+	//void JumpingUpdate();
+	//void Jump();
 	
 public:
 	j1Player(iPoint position);

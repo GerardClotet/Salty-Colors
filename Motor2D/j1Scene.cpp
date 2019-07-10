@@ -148,6 +148,9 @@ bool j1Scene::Update(float dt)
 	//				map_coordinates.x, map_coordinates.y);
 
 	//App->win->SetTitle(title.GetString());
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		LOG("current map %i", currentMap);
 	return true;
 }
 
@@ -206,12 +209,34 @@ bool j1Scene::Loadlvl(int lvl)
 		{
 			if (i == lvl)
 			{
+				if (i == 1)
+					maptoSwap = 0;
+
+				else maptoSwap = 1;
+
 				App->map->SwitchMaps((*item).data());
 
+				return true;
 			}
 
 			++i;
 		}
+	return true;
+}
+
+bool j1Scene::OnCollision(Collider* c1, Collider* c2)
+{
+
+	if (c2->type == COLLIDER_PLAYER) //&& player state != WIN (to trigger final animation)
+	{
+		if (maptoSwap == 0) //should try with currentMap var!!! need to be tested
+			Loadlvl(1);
+
+		else if (maptoSwap == 1)
+			Loadlvl(0);
+	}
+
+
 	return true;
 }
 

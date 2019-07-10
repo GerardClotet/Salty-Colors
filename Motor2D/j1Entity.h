@@ -48,7 +48,7 @@ public:
 
 	Collider* collider;
 
-	ENTITY_TYPE type;
+	/*ENTITY_TYPE type;*/
 
 
 public:
@@ -76,10 +76,10 @@ public:
 
 	void MovY();
 
-	virtual void MovingUpdate();
-	virtual void IdleUpdate();
-	virtual void JumpingUpdate();
-	virtual void Jump() {};
+	//virtual void MovingUpdate();
+	///*virtual void IdleUpdate();
+	//virtual void JumpingUpdate();*/
+	//virtual void Jump() {};
 	
 };
 #endif
