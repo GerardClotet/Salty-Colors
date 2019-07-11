@@ -25,7 +25,7 @@
   <scene>
     <map_name name="Level1.tmx"></map_name>
     <map_name name="map1.tmx"></map_name>
-    <fade_time value="1"/>
+    <fade_time value="100"/>
   </scene>
 
   <entityFactory>
@@ -34,10 +34,10 @@
 
     <player>
       <animations>
-          <frame id ="1" x="17" y="45" w ="16" h="28" num ="1"/> <!--IDLE-->
-          <frame id ="1" x="67" y="44" w ="16" h="29" num ="2"/>
-          <frame id ="1" x="117" y="44" w ="17" h="29" num ="3"/>
-          <frame id ="1" x="167" y="45" w ="16" h="28" num ="4"/>
+          <frame id ="1" x="17" y="45" w ="16" h="28"/> <!--IDLE-->
+          <frame id ="1" x="67" y="44" w ="16" h="29"/>
+          <frame id ="1" x="117" y="44" w ="17" h="29"/>
+          <frame id ="1" x="167" y="45" w ="16" h="28"/>
         
           <frame id ="2" x="20" y="9" w ="17" h="27"/> <!--RUN-->
           <frame id ="2" x="70" y="10" w ="16" h="26"/>

@@ -58,11 +58,11 @@ bool j1Scene::PreUpdate()
 //	App->render->camera.x = App->entityFactory->player->pos.x;
 
 
-	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-	//{
-	//	DoViewportResize();
-	//	LOG("%i %i", App->render->camera.x, App->render->camera.y);
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+	{
+		DoViewportResize();
+		LOG("%i %i", App->render->camera.x, App->render->camera.y);
+	}
 	//if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
 	//{
 	//	App->render->ResetViewPort();
@@ -102,19 +102,9 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Loadlvl(0); //here to reset to first level (player, cam..)
-	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		int temporal = 1; //here to reset current level (player, cam..)
 
-	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		Loadlvl(1);
 
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
-
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 5;
@@ -150,7 +140,10 @@ bool j1Scene::Update(float dt)
 	//App->win->SetTitle(title.GetString());
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		LOG("current map %i", currentMap);
+	{
+		App->render->camera.x = App->entityFactory->player->position.x;
+		App->render->camera.y = App->entityFactory->player->position.y;
+	}
 	return true;
 }
 
@@ -159,8 +152,14 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		SwapMap(); //not working always stays in the same map, oriented to load from saves or finish level
+	
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		Loadlvl(0); //here to reset to first level (player, cam..)
+	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		Loadlvl(maptoReset); //here to reset current level (player, cam..)
+
+	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		Loadlvl(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
@@ -210,9 +209,9 @@ bool j1Scene::Loadlvl(int lvl)
 			if (i == lvl)
 			{
 				if (i == 1)
-					maptoSwap = 0;
+					maptoReset = 1;
 
-				else maptoSwap = 1;
+				else maptoReset = 0;
 
 				App->map->SwitchMaps((*item).data());
 
@@ -229,15 +228,23 @@ bool j1Scene::OnCollision(Collider* c1, Collider* c2)
 
 	if (c2->type == COLLIDER_PLAYER) //&& player state != WIN (to trigger final animation)
 	{
-		if (maptoSwap == 0) //should try with currentMap var!!! need to be tested
+		if (maptoReset == 0) //should try with currentMap var!!! need to be tested
 			Loadlvl(1);
 
-		else if (maptoSwap == 1)
+		else if (maptoReset == 1)
 			Loadlvl(0);
 	}
 
 
 	return true;
+}
+
+void j1Scene::ReLoadLevel()
+{
+	
+	
+	Loadlvl(currentMap);
+	
 }
 
 bool j1Scene::DoViewportResize()

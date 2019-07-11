@@ -38,6 +38,7 @@ public:
 
 	bool OnCollision(Collider* c1, Collider* c2);
 
+	void ReLoadLevel();
 	bool DoViewportResize();
 
 
@@ -51,7 +52,7 @@ public:
 	float fadeTime;
 	std::list<std::string> map_names;
 	
-	int maptoSwap=1;
+	int maptoReset=0;
 private:
 	bool viewportResize = false;
 	bool incR = true;

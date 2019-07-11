@@ -402,7 +402,7 @@ bool j1Map::Load(const char* file_name)
 
 		LOG("iteracio");
 	}
-	
+
 	//Load Image Layer
 	
 	pugi::xml_node backgroundimage = map_file.child("map").child("imagelayer");
@@ -437,8 +437,13 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	map_loaded = ret;
+	App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w*0.5;
+	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h*0.5;
 
+	LOG("caMPOS %i %i", App->render->camera.x, App->render->camera.y);
+	LOG("playerpos %i %i",App->entityFactory->player->position.x, App->entityFactory->player->position.y);
+	//App->render->camera.y -= 500;
+	map_loaded = ret;
 	return ret;
 }
 
@@ -652,6 +657,7 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 
 			if (App->entityFactory->GetPlayerState())
 				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+			
 
 			
 			else if(!App->entityFactory->GetPlayerState())
@@ -664,7 +670,7 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			
 		
 	}
-
+	
 	return true;
 }
 

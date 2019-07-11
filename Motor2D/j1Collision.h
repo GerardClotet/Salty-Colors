@@ -70,12 +70,12 @@ public:
 	Collider* AddCollider(const SDL_Rect& rect, const ColliderType& type, j1Module* callback = nullptr, const bool& player = false);
 
 	void DebugDraw();
+	uint max_colliders = 0;
 
 private:
 
 	Collider** colliders = nullptr;
 	Collider* player_collider = nullptr;
 	bool debug = false;
-	uint max_colliders = 0;
 };
 #endif
