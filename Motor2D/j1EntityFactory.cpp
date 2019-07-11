@@ -97,6 +97,7 @@ bool j1EntityFactory::Update(float dt)
 				if ((*item)->type == ENTITY_TYPE::ENT_PLAYER)
 				{
 					//player = nullptr;
+					LOG("");
 				}
 
 				(*item)->CleanUp();

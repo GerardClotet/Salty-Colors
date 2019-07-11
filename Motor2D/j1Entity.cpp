@@ -6,7 +6,9 @@
 
 
 j1Entity::j1Entity(ENTITY_TYPE type, iPoint position)
-{}
+{
+	LOG("entity constructed");
+}
 
 j1Entity::~j1Entity()
 {
@@ -43,8 +45,8 @@ bool j1Entity::CleanUp()
 
 void j1Entity::Draw()
 {
-	if (entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &currentAnimation.GetCurrentFrame()); //or animation
+	//if (entityTex != nullptr)
+	//	App->render->Blit(entityTex, position.x, position.y, &currentAnimation.GetCurrentFrame()); //or animation
 
 	/*else if(currentAnimation != nullptr)
 		App->render->Blit()*/
@@ -65,8 +67,26 @@ bool j1Entity::Save(pugi::xml_node&) const
 
 void j1Entity::MovX()
 {
-	if (velocity.x > 0) velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider));
-	else if (velocity.x < 0) velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider));
+	if (velocity.x > 0)
+	{
+		LOG("velocity x %f", velocity.x);
+		velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider));
+		LOG("velocity x %f", velocity.x);
+		LOG("position x %i", position.x);
+		LOG("jj");
+	}
+	else if (velocity.x < 0)
+	{
+		LOG("velocity x %i", velocity.x);
+		velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider));
+	}
+
+	//if (fabs(velocity.x) < threshold)
+	//{
+	//	LOG("velocity x %i", velocity.x);
+
+	//	velocity.x = 0.0F;
+	//}
 
 	position.x += velocity.x;
 	collider->rect.x = position.x;
@@ -77,15 +97,21 @@ void j1Entity::MovY()
 {
 	if (velocity.y < 0)
 	{
-		velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider)); 
+		velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider));
 		if (velocity.y == 0) target_speed.y = 0.0F;
 	}
 	else
 	{
 		float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
-		velocity.y = MIN(velocity.y, distance); 
+		velocity.y = MIN(velocity.y, distance);
 		is_grounded = (distance == 0) ? true : false;
 	}
+
+	if (fabs(velocity.y) < threshold) velocity.y = 0.0F;
+
+	position.y += velocity.y;
+	collider->rect.y = position.y + coll_offSet;
+
 }
 
 

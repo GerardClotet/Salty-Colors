@@ -14,7 +14,7 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
 	LOG("%s", App->entityFactory->sprite_route.data());
 	position = pos;
-	currentAnimation = App->entityFactory->player_IDLE;
+	//currentAnimation = App->entityFactory->player_IDLE;
 
 	animation_Coll = { 0,0,16,15 };
 	coll_offSet = 13;
@@ -37,8 +37,30 @@ bool j1Player::Start()
 	return true;
 }
 
+bool j1Player::PreUpdate()
+{
+	switch (state)
+	{
+	case NO_STATE:
+		break;
+	case IDLE: IdleUpdate();
+		break;
+	case MOVING: MovingUpdate();
+		break;
+	default:
+		break;
+	}
+
+	velocity.x = target_speed.x * acceleration + velocity.x * (1 - acceleration);
+	velocity.y = target_speed.y * acceleration + velocity.y * (1 - acceleration);
+	return true;
+
+}
+
 bool j1Player::Update(float dt)
 {
+	
+	MovX();
 	Draw();
 	return true;
 }
@@ -46,11 +68,17 @@ bool j1Player::Update(float dt)
 void j1Player::Draw()
 {
 	if (entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &currentAnimation.GetCurrentFrame());
+		App->render->Blit(entityTex, position.x, position.y, &currentAnimation,1.0f,flipX);
 }
 
 bool j1Player::CleanUp()
 {
+	
+	if (collider)
+	{
+		collider->to_delete = true;
+		collider = nullptr;
+	}
 	return true;
 }
 
@@ -59,5 +87,37 @@ void j1Player::SetPos(iPoint pos)
 	position = pos;
 	if (collider)
 		collider->SetPos(position.x, position.y);
+}
+
+void j1Player::IdleUpdate()
+{
+	target_speed.x = 0.0f;
+	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
+
+	if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
+		state = MOVING;
+
+}
+
+void j1Player::MovingUpdate()
+{
+	currentAnimation = App->entityFactory->player_RUN.GetCurrentFrame();
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+	{
+		state = IDLE;
+		target_speed.x = 0.0F;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		target_speed.x = movement_speed;
+		flipX = false;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		target_speed.x = -movement_speed;
+		flipX = true;
+	}
 }
 

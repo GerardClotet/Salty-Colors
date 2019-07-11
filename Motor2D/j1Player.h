@@ -6,6 +6,12 @@
 #include "p2Animation.h"
 #include "j1Collision.h"
 
+enum  PlayerState {
+	NO_STATE =-1,
+	IDLE,
+	MOVING,
+	MAX
+};
 class j1Player : public j1Entity
 {
 private:
@@ -20,14 +26,17 @@ public:
 	~j1Player();
 
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
 	void Draw();
 	bool CleanUp();
 	void SetPos(iPoint pos);
-public:
-	iPoint position;
 
-	int coll_offSet;
+	void IdleUpdate();
+	void MovingUpdate();
+public:
+
+	PlayerState state = IDLE;
 	SDL_Rect animation_Coll;
 };
 

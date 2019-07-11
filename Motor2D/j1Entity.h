@@ -18,16 +18,16 @@ enum  ENTITY_TYPE
 	ENT_MAX
 };
 
-enum EntityState
-{
-	N_STATE = -1,
-	IDLE,
-	DEAD,
-	GOD,
-	WIN,
-	MOVING,
-	JUMPING,
-};
+//enum EntityState
+//{
+//	N_STATE = -1,
+//	IDLE,
+//	DEAD,
+//	GOD,
+//	WIN,
+//	MOVING,
+//	JUMPING,
+//};
 
 class j1Entity 
 {
@@ -46,35 +46,40 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	Collider* collider;
+
+	void MovX();
+
+	void MovY();
 
 	/*ENTITY_TYPE type;*/
 
 
 public:
+	Collider* collider;
+
 	iPoint position;
 	bool to_delete = false;
 	SDL_Rect entityRect;
 	SDL_Texture* entityTex;
 	ENTITY_TYPE type;
-	Animation currentAnimation;
+	SDL_Rect currentAnimation;
 
-	float movment_speed = 0.0F;
+	float movement_speed = 10.0F;
 	float jump_speed = 0.0F;
 	float gravity = 0.0F;
-	float acceleration = 0.0F;
+	float acceleration = 0.1F;
 	float fall_speed = 0.0F;
+	float threshold = 0.5f;
 	fPoint target_speed = { 0.0F,0.0F };
 
 	fPoint velocity = { 0.0F, 0.0F };
 	fPoint pivot = { 0.0F, 0.0F };
 	bool ignore_platforms = false;
-	bool flipX = true;
+	bool flipX = false;
 	bool is_grounded = true;
 
-	void MovX();
+	int coll_offSet;
 
-	void MovY();
 
 	//virtual void MovingUpdate();
 	///*virtual void IdleUpdate();
