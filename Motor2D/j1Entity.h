@@ -65,8 +65,8 @@ public:
 	SDL_Rect currentAnimation;
 
 	float movement_speed = 10.0F;
-	float jump_speed = 0.0F;
-	float gravity = 0.0F;
+	float jump_speed = 5.0F;
+	float gravity = 2.0F;
 	float acceleration = 0.1F;
 	float fall_speed = 0.0F;
 	float threshold = 0.5f;
@@ -76,7 +76,7 @@ public:
 	fPoint pivot = { 0.0F, 0.0F };
 	bool ignore_platforms = false;
 	bool flipX = false;
-	bool is_grounded = true;
+	bool is_grounded = false;
 
 	int coll_offSet;
 

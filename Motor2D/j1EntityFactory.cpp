@@ -32,12 +32,17 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 		else if(animationID ==2)
 			player_RUN.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 
+		else if(animationID ==3)
+			player_TEST.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+
 	}
 	player_IDLE.loop = true;
 	player_IDLE.speed = 10.0f;
 	player_RUN.loop = true;
 	player_RUN.speed = 10.0f;
 
+	player_TEST.loop = true;
+	player_TEST.speed = 10.0f;
 
 	return ret;
 }

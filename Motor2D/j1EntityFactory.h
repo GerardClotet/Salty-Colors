@@ -32,6 +32,7 @@ public:
 	SDL_Texture* playerSprite = nullptr;
 	Animation player_IDLE;
 	Animation player_RUN;
+	Animation player_TEST;
 	std::string sprite_route;
 	int maxframes = 4;
 

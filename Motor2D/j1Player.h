@@ -10,6 +10,7 @@ enum  PlayerState {
 	NO_STATE =-1,
 	IDLE,
 	MOVING,
+	JUMPING,
 	MAX
 };
 class j1Player : public j1Entity
@@ -34,6 +35,7 @@ public:
 
 	void IdleUpdate();
 	void MovingUpdate();
+	void JumpingUpdate();
 public:
 
 	PlayerState state = IDLE;

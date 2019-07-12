@@ -69,24 +69,19 @@ void j1Entity::MovX()
 {
 	if (velocity.x > 0)
 	{
-		LOG("velocity x %f", velocity.x);
 		velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider));
-		LOG("velocity x %f", velocity.x);
-		LOG("position x %i", position.x);
-		LOG("jj");
+	
 	}
 	else if (velocity.x < 0)
 	{
-		LOG("velocity x %i", velocity.x);
 		velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider));
 	}
 
-	//if (fabs(velocity.x) < threshold)
-	//{
-	//	LOG("velocity x %i", velocity.x);
+	if (fabs(velocity.x) < threshold)
+	{
 
-	//	velocity.x = 0.0F;
-	//}
+		velocity.x = 0.0F;
+	}
 
 	position.x += velocity.x;
 	collider->rect.x = position.x;
@@ -97,17 +92,21 @@ void j1Entity::MovY()
 {
 	if (velocity.y < 0)
 	{
+		LOG("velocity Y %f", velocity.y);
 		velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider));
 		if (velocity.y == 0) target_speed.y = 0.0F;
+		LOG("velocity Y %f", velocity.y);
 	}
 	else
 	{
 		float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
+		LOG("velocity Y %f", velocity.y);
 		velocity.y = MIN(velocity.y, distance);
 		is_grounded = (distance == 0) ? true : false;
 	}
 
-	if (fabs(velocity.y) < threshold) velocity.y = 0.0F;
+	/*if (fabs(velocity.y) < threshold) 
+		velocity.y = 0.0F;*/
 
 	position.y += velocity.y;
 	collider->rect.y = position.y + coll_offSet;
