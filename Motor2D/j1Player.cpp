@@ -49,6 +49,8 @@ bool j1Player::PreUpdate()
 		break;
 	case JUMPING: JumpingUpdate();
 		break;
+	case DEAD:
+		break;
 	default:
 		break;
 	}
@@ -67,13 +69,16 @@ bool j1Player::Update(float dt)
 	
 	MovX();
 	MovY();
-
+	
 	Draw();
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
 	{
 		state = JUMPING;
 	}
+
+	Die();
+
 	return true;
 }
 
@@ -191,4 +196,15 @@ void j1Player::JumpingUpdate()
 		velocity.y = 0.0F;
 		LOG("grounded");
 	}
+}
+
+void j1Player::Die()
+{
+	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD)
+	{
+		state = DEAD;
+		App->scene->ReLoadLevel();
+
+	}
+
 }

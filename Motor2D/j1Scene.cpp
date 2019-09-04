@@ -152,11 +152,14 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	
+
+	App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
+	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		Loadlvl(0); //here to reset to first level (player, cam..)
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		Loadlvl(maptoReset); //here to reset current level (player, cam..)
+		ReLoadLevel(); //here to reset current level (player, cam..)
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		Loadlvl(1);
