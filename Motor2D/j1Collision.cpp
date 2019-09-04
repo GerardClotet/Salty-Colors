@@ -3,7 +3,7 @@
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1Collision.h"
-
+#include "j1Scene.h"
 j1Collision::j1Collision()
 {
 	name.assign("collision");
@@ -48,7 +48,10 @@ bool j1Collision::PreUpdate()
 				if (player_collider->CheckCollision(colliders[i]->rect))
 				{
 					if (player_collider->callback)
+					{
 						player_collider->callback->OnCollision(player_collider, colliders[i]);
+						App->scene->TriggerColl();
+					}
 
 					if (colliders[i]->callback)
 						colliders[i]->callback->OnCollision(colliders[i], player_collider);

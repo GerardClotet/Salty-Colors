@@ -36,7 +36,7 @@ public:
 
 	bool Loadlvl(int lvl);
 
-	bool OnCollision(Collider* c1, Collider* c2);
+	bool TriggerColl();
 
 	void ReLoadLevel();
 	bool DoViewportResize();

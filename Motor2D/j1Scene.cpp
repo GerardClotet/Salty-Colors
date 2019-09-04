@@ -226,17 +226,16 @@ bool j1Scene::Loadlvl(int lvl)
 	return true;
 }
 
-bool j1Scene::OnCollision(Collider* c1, Collider* c2)
+bool j1Scene::TriggerColl()
 {
 
-	if (c2->type == COLLIDER_PLAYER) //&& player state != WIN (to trigger final animation)
-	{
+	
 		if (maptoReset == 0) //should try with currentMap var!!! need to be tested
 			Loadlvl(1);
 
 		else if (maptoReset == 1)
 			Loadlvl(0);
-	}
+	
 
 
 	return true;
