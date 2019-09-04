@@ -49,6 +49,8 @@ bool j1Player::PreUpdate()
 		break;
 	case JUMPING: JumpingUpdate();
 		break;
+	case GOD: GodUpdate();
+		break;
 	case DEAD:
 		break;
 	default:
@@ -58,24 +60,26 @@ bool j1Player::PreUpdate()
 	velocity.x = target_speed.x * acceleration + velocity.x * (1 - acceleration);
 	velocity.y = target_speed.y * acceleration + velocity.y * (1 - acceleration);
 
-	if (!is_grounded)
-		state = JUMPING;
+	/*if (!is_grounded && state != GOD)
+		state = JUMPING;*/
 	return true;
 
 }
 
 bool j1Player::Update(float dt)
 {
-	
 	MovX();
 	MovY();
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (state != GOD) state = GOD;
+		else state = IDLE;
+	}
+
+	
 	
 	Draw();
-
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		state = JUMPING;
-	}
 
 	Die();
 
@@ -128,6 +132,8 @@ void j1Player::IdleUpdate()
 
 		//jump sfx
 	}
+	if (!is_grounded) state = JUMPING;
+
 }
 
 void j1Player::MovingUpdate()
@@ -158,8 +164,9 @@ void j1Player::MovingUpdate()
 		state = JUMPING;
 	}
 
-	/*if (!is_grounded)
-		state = JUMPING;*/
+	if (!is_grounded) state = JUMPING;
+
+	
 }
 
 void j1Player::JumpingUpdate()
@@ -196,6 +203,27 @@ void j1Player::JumpingUpdate()
 		velocity.y = 0.0F;
 		LOG("grounded");
 	}
+}
+
+void j1Player::GodUpdate()
+{
+	currentAnimation = App->entityFactory->player_TEST.GetCurrentFrame();
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A)) target_speed.x = 0.0F;
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		target_speed.x = movement_speed;
+		flipX = false;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		target_speed.x = -movement_speed;
+		flipX = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W) == App->input->GetKey(SDL_SCANCODE_S)) target_speed.y = 0.0F;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) target_speed.y = -movement_speed;
+	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) target_speed.y = movement_speed;
+
 }
 
 void j1Player::Die()

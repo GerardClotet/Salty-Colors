@@ -17,7 +17,15 @@ enum  ENTITY_TYPE
 	ENT_PLAYER,
 	ENT_MAX
 };
-
+enum  PlayerState {
+	NO_STATE = -1,
+	IDLE,
+	MOVING,
+	JUMPING,
+	DEAD,
+	GOD,
+	MAX
+};
 //enum EntityState
 //{
 //	N_STATE = -1,
@@ -80,6 +88,7 @@ public:
 
 	int coll_offSet;
 
+	PlayerState state = IDLE;
 
 	//virtual void MovingUpdate();
 	///*virtual void IdleUpdate();

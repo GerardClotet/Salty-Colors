@@ -6,14 +6,15 @@
 #include "p2Animation.h"
 #include "j1Collision.h"
 
-enum  PlayerState {
-	NO_STATE =-1,
-	IDLE,
-	MOVING,
-	JUMPING,
-	DEAD,
-	MAX
-};
+//enum  PlayerState {
+//	NO_STATE =-1,
+//	IDLE,
+//	MOVING,
+//	JUMPING,
+//	DEAD,
+//	GOD,
+//	MAX
+//};
 class j1Player : public j1Entity
 {
 private:
@@ -37,10 +38,11 @@ public:
 	void IdleUpdate();
 	void MovingUpdate();
 	void JumpingUpdate();
+	void GodUpdate();
 	void Die();
 public:
 
-	PlayerState state = IDLE;
+	//PlayerState state = IDLE;
 	SDL_Rect animation_Coll;
 };
 
