@@ -16,12 +16,12 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	position = pos;
 	//currentAnimation = App->entityFactory->player_IDLE;
 
-	animation_Coll = { 0,0,16,15 };
+	animation_Coll = { 0,0,16,28 };
 	coll_offSet = 13;
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_PLAYER, App->entityFactory, true);
 
 	collider->rect.x = position.x;
-	collider->rect.y = position.y + coll_offSet;
+	collider->rect.y = position.y;// +coll_offSet;
 
 }
 
@@ -64,7 +64,12 @@ bool j1Player::Update(float dt)
 	
 	MovX();
 	MovY();
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+	{
+		is_grounded = true;
+	}
 	Draw();
+
 	return true;
 }
 
@@ -90,11 +95,13 @@ void j1Player::SetPos(iPoint pos)
 	position = pos;
 	if (collider)
 		collider->SetPos(position.x, position.y);
+
+	state = IDLE;
 }
 
 void j1Player::IdleUpdate()
 {
-	target_speed.y += gravity; //need to see isgrounded funct
+	//target_speed.y += gravity; //need to see isgrounded funct
 	target_speed.x = 0.0f;
 	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
 
@@ -147,7 +154,7 @@ void j1Player::JumpingUpdate()
 {
 	target_speed.y += gravity;
 	if (target_speed.y > fall_speed) 
-		target_speed.y = fall_speed;
+		target_speed.y = fall_speed; //limit falling speed
 
 	currentAnimation = App->entityFactory->player_TEST.GetCurrentFrame();
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
