@@ -55,6 +55,9 @@ bool j1Player::PreUpdate()
 
 	velocity.x = target_speed.x * acceleration + velocity.x * (1 - acceleration);
 	velocity.y = target_speed.y * acceleration + velocity.y * (1 - acceleration);
+
+	if (!is_grounded)
+		state = JUMPING;
 	return true;
 
 }
@@ -64,12 +67,13 @@ bool j1Player::Update(float dt)
 	
 	MovX();
 	MovY();
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
-	{
-		is_grounded = true;
-	}
+
 	Draw();
 
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN)
+	{
+		state = JUMPING;
+	}
 	return true;
 }
 
@@ -87,6 +91,9 @@ bool j1Player::CleanUp()
 		collider->to_delete = true;
 		collider = nullptr;
 	}
+
+	if (!is_grounded) state = JUMPING;
+
 	return true;
 }
 
@@ -96,7 +103,7 @@ void j1Player::SetPos(iPoint pos)
 	if (collider)
 		collider->SetPos(position.x, position.y);
 
-	state = IDLE;
+	state = JUMPING;
 }
 
 void j1Player::IdleUpdate()
@@ -182,5 +189,6 @@ void j1Player::JumpingUpdate()
 
 		target_speed.y = 0.0F;
 		velocity.y = 0.0F;
+		LOG("grounded");
 	}
 }
