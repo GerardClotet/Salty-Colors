@@ -47,11 +47,13 @@ public:
 
 	void PartyMaker();
 
+
+
 public:
 	int currentMap;
 	float fadeTime;
 	std::list<std::string> map_names;
-	
+	std::string actualMap;
 	int maptoReset=0;
 private:
 	bool viewportResize = false;

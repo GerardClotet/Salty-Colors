@@ -228,11 +228,21 @@ void j1Player::GodUpdate()
 
 void j1Player::Die()
 {
-	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD)
+	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD)
 	{
 		state = DEAD;
+		//App->entityFactory->playerActive = false;
+		
 		App->scene->ReLoadLevel();
 
 	}
 
+}
+
+bool j1Player::LoadAttributes(pugi::xml_node config)
+{
+	movement_speed = config.child("entityFactory").child("player").child("movement_speed").attribute("speed").as_float();
+
+
+	return true;
 }

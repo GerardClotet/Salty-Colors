@@ -6,12 +6,14 @@
 	<audio />
 	<map />
 	<scene />
-	<entityFactory />
-	<collision />
 	<swap_scene>
 		<scene name="map1.tmx" />
 	</swap_scene>
+	<entityFactory>
+		<Player x="1022" y="1137" />
+	</entityFactory>
+	<collision />
 	<renderer>
-		<camera x="-254" y="399" />
+		<camera x="-510" y="-753" />
 	</renderer>
 </game_state>

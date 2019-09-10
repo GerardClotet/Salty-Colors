@@ -43,7 +43,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
-	
+	actualMap = map_names.begin()->data();
+
 	return true;
 }
 
@@ -52,10 +53,7 @@ bool j1Scene::PreUpdate()
 {
 	
 	
-	//App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
-	//App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->pos.x, App->entityFactory->player->pos.y).y;
-
-//	App->render->camera.x = App->entityFactory->player->pos.x;
+	
 
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
@@ -63,38 +61,42 @@ bool j1Scene::PreUpdate()
 		DoViewportResize();
 		LOG("%i %i", App->render->camera.x, App->render->camera.y);
 	}
-	//if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
-	//{
-	//	App->render->ResetViewPort();
-	//}
-	//if (viewportResize == true)
-	//{
-	//	resizeTimer.Start();
-	//	viewportResize = false;
-	//}
 
-	//if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
-	//{
-	//	if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
-	//	{
-	//		App->render->SetViewPort(RezieView(App->render->camera, false));
 
-	//	}
-	//	App->render->SetViewPort(RezieView(App->render->camera, false));
-	//	App->render->camera = RezieView(App->render->camera, false);
+	//<------WIP------>
+	/*if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
+	{
+		App->render->ResetViewPort();
+	}
+	if (viewportResize == true)
+	{
+		resizeTimer.Start();
+		viewportResize = false;
+	}
 
-	//	/*PartyMaker();
-	//	App->render->SetBackgroundColor({ red,green,blue });*/
-	//}
-	//else
-	//{
-	//	App->render->ResetViewPort();
-	//	App->render->camera.w = App->win->screen_surface->w;
-	//	App->render->camera.h = App->win->screen_surface->h;
-	//	/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
-	//	App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;*/
+	if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
+	{
+		if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
+		{
+			App->render->SetViewPort(RezieView(App->render->camera, false));
 
-	//}
+		}
+		App->render->SetViewPort(RezieView(App->render->camera, false));
+		App->render->camera = RezieView(App->render->camera, false);
+
+		/*PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });
+	}
+	else
+	{
+		App->render->ResetViewPort();
+		App->render->camera.w = App->win->screen_surface->w;
+		App->render->camera.h = App->win->screen_surface->h;
+		/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
+		App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;
+
+	}*/
+	//<------WIP------>
 	return true;
 }
 
@@ -131,14 +133,7 @@ bool j1Scene::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-	//				App->map->data.width, App->map->data.height,
-	//				App->map->data.tile_width, App->map->data.tile_height,
-	//				App->map->data.tilesets.size(),
-	//				map_coordinates.x, map_coordinates.y);
-
-	//App->win->SetTitle(title.GetString());
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		App->render->camera.x = App->entityFactory->player->position.x;
@@ -190,19 +185,16 @@ bool j1Scene::SwapMap()
 {
 	bool ret = true;
 	if (currentMap < map_names.size() - 1)
-		ret = App->swapScene->ChangeMap(++currentMap, fadeTime);
+		ret = true;
 
-	else
-	{
+	else 
 		currentMap = 0;
-		App->swapScene->ChangeMap(currentMap, fadeTime);
-	}
-	return false;
+	
+	return true;
 }
 
 bool j1Scene::Loadlvl(int lvl)
 {
-	//App->map->SwitchMaps()
 
 	
 	std::list<std::string>::iterator item = App->scene->map_names.begin();
@@ -230,7 +222,7 @@ bool j1Scene::TriggerColl()
 {
 
 	
-		if (maptoReset == 0) //should try with currentMap var!!! need to be tested
+		if (maptoReset == 0) 
 			Loadlvl(1);
 
 		else if (maptoReset == 1)
@@ -245,7 +237,7 @@ void j1Scene::ReLoadLevel()
 {
 	
 	
-	Loadlvl(currentMap);
+ 	Loadlvl(maptoReset); //may change
 	
 }
 
@@ -309,3 +301,4 @@ void j1Scene::PartyMaker()
 		 incB = true;
 
 }
+

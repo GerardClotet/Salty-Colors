@@ -23,6 +23,10 @@ public:
 
 	j1Player* CreatePlayer(iPoint pos);
 	bool GetPlayerState();
+
+	bool Save(pugi::xml_node&)const;
+
+	bool Load(pugi::xml_node&);
 	//CreateEntities();
 public:
 	
@@ -35,10 +39,10 @@ public:
 	Animation player_TEST;
 	std::string sprite_route;
 	int maxframes = 4;
+	bool playerActive = false;
 
 private:
 	std::vector<j1Entity*>	draw_entities;
-	bool playerActive = false;
 
 };
 #endif // !_J1ENTITYFACTORY_H_

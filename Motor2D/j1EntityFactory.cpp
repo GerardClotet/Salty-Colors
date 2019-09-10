@@ -8,7 +8,7 @@
 j1EntityFactory::j1EntityFactory()
 {
 	name.assign("entityFactory");
-
+	
 }
 
 j1EntityFactory::~j1EntityFactory()
@@ -26,9 +26,8 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 		animationID = node.attribute("id").as_int();
 
 		if (animationID == 1)
-		{
 			player_IDLE.PushBack({node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int()});
-		}
+		
 		else if(animationID ==2)
 			player_RUN.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 
@@ -188,4 +187,31 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 bool j1EntityFactory::GetPlayerState()
 {
 	return playerActive;
+}
+
+bool j1EntityFactory::Save(pugi::xml_node& data) const
+{
+	LOG("%i x %i y", player->position.x, player->position.y);
+	pugi::xml_node Ppos;
+	
+
+	Ppos = data.append_child("Player");
+	Ppos.append_attribute("x") = player->position.x;
+	Ppos.append_attribute("y") = player->position.y;
+	LOG("%i x %i y", player->position.x, player->position.y);
+
+
+	
+	return true;
+}
+
+bool j1EntityFactory::Load(pugi::xml_node& data)
+{
+	LOG("%i x %i y", player->position.x, player->position.y);
+
+	player->position.x = data.child("Player").attribute("x").as_int();
+	player->position.y = data.child("Player").attribute("y").as_int();
+	LOG("%i x %i y", player->position.x, player->position.y);
+
+ 	return true;
 }

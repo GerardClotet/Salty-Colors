@@ -161,7 +161,7 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed); //tile id =0; WHY?
+					App->render->Blit(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed); 
 				}
 			}
 		}
@@ -210,7 +210,7 @@ bool j1Map::SwitchMaps(std::string newMap)
 	CleanUp();
 	App->scene->SwapMap();
 	Load(newMap.data());
-
+	App->scene->actualMap = newMap;
 	return false;
 }
 
@@ -437,8 +437,8 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w*0.5;
-	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h*0.5;
+	/*App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w*0.5;
+	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h*0.5;*/
 
 	LOG("caMPOS %i %i", App->render->camera.x, App->render->camera.y);
 	LOG("playerpos %i %i",App->entityFactory->player->position.x, App->entityFactory->player->position.y);
@@ -655,18 +655,30 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			
 			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
 
-			if (App->entityFactory->GetPlayerState())
-				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+			if (App->entityFactory->GetPlayerState() == true)
+			{
+				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
+				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });// TO FIX: only enter when player dies or changes level not when loading a saved game
+				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
+
+			}
+			
 			
 
 			
-			else if(!App->entityFactory->GetPlayerState())
+			else if(App->entityFactory->GetPlayerState() == false)
 				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+
+			/*if (App->entityFactory->GetPlayerState() == false && App->entityFactory->player == nullptr)
+				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+
+			else if (App->entityFactory->GetPlayerState() == false && App->entityFactory->player->state == DEAD)
+				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });*/
 
 		}
 
 		else if (endTrigger == collider.attribute("type").as_string())
-			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER)/*, (j1Module*)App->swap_scene->current_scene)*/);
+			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
 			
 		
 	}

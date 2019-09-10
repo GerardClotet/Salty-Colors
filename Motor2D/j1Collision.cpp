@@ -4,6 +4,7 @@
 #include "p2Log.h"
 #include "j1Collision.h"
 #include "j1Scene.h"
+#include "j1EntityFactory.h"
 j1Collision::j1Collision()
 {
 	name.assign("collision");
@@ -47,7 +48,7 @@ bool j1Collision::PreUpdate()
 			{
 				if (player_collider->CheckCollision(colliders[i]->rect))
 				{
-					if (player_collider->callback)
+					if (player_collider->callback && App->entityFactory->player->state != GOD)
 					{
 						player_collider->callback->OnCollision(player_collider, colliders[i]);
 						App->scene->TriggerColl();

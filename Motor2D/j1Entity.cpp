@@ -97,20 +97,16 @@ void j1Entity::MovY()
 	{
 		if (velocity.y < 0)
 		{
-			LOG("velocity Y %f", velocity.y);
 			velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider));
 			if (velocity.y == 0) target_speed.y = 0.0F;
-			LOG("velocityY %f targetY %f", velocity.y, target_speed.y);
 			//MAI pasa a ser 0
 		}
 		else
 		{
-			LOG("velocity Y %f", velocity.y);
 			float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
 			//	LOG("velocity Y %f", velocity.y);
 			velocity.y = MIN(velocity.y, distance);
 			is_grounded = (distance == 0) ? true : false;
-			LOG("velocityY %f targetY %f", velocity.y, target_speed.y);
 
 		}
 

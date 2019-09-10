@@ -33,6 +33,16 @@
     <sprite>homeless_SpriteSheet.png</sprite>
 
     <player>
+
+      <movement_speed value="5.0f"/>
+      <jump_speed value="30.0f"/>
+      <gravity value="2.0f"/>
+      <acceleration value="0.1f"/>
+      <fall_speed value="30.0f"/>
+      <threshold value="0.5f"/>
+
+
+
       <animations>
           <frame id ="1" x="17" y="45" w ="16" h="28"/> <!--IDLE-->
           <frame id ="1" x="67" y="44" w ="16" h="29"/>

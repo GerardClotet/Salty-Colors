@@ -40,6 +40,8 @@ public:
 	void JumpingUpdate();
 	void GodUpdate();
 	void Die();
+
+	bool LoadAttributes(pugi::xml_node config);
 public:
 
 	//PlayerState state = IDLE;

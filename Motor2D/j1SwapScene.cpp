@@ -53,7 +53,7 @@ bool j1MapChange::Update(float dt)
 
 	float normalized = 1.0f < ((float)now.Read() / (float)total_time) ? 1.0f : ((float)now.Read() / (float)total_time);
 
-	switch (current_step)
+	switch (current_step) //NEVER GOES IN
 	{
 	case fade_step::fade_to_black:
 	{
@@ -72,8 +72,6 @@ bool j1MapChange::Update(float dt)
 
 				++i;
 			}
-			//App->map->SwitchMaps(App->scene->map_names.assign[&nextMap]);
-			//App->player->Restart();
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			fading = false;
@@ -131,9 +129,10 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 
 	int i = 0;
 
+
 	while (item != App->scene->map_names.end())
 	{
-		if (i == App->scene->currentMap)
+		if (App->scene->actualMap == (*item).data()) 
 		{
 			scene_node.append_attribute("name") = (*item).data();
 			return true;
@@ -143,22 +142,11 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 	}
 
 
+
 	return true;
 }
 
-/*App->scene->currentMap = nextMap;
-std::list<std::string>::iterator item = App->scene->map_names.begin();
-int i = 0;
-for (; item != App->scene->map_names.end(); ++item)
-{
-	if (i == nextMap)
-	{
-		App->map->SwitchMaps((*item).data());
 
-	}
-
-	+i;
-}*/
 
 bool j1MapChange::Load(pugi::xml_node& node)
 {
