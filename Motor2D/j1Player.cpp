@@ -11,6 +11,8 @@
 #include "j1EntityFactory.h"
 j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 {
+
+	LoadAttributes(App->config);
 	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
 	LOG("%s", App->entityFactory->sprite_route.data());
 	position = pos;
@@ -234,15 +236,38 @@ void j1Player::Die()
 		//App->entityFactory->playerActive = false;
 		
 		App->scene->ReLoadLevel();
+		ResetPlayer();
 
 	}
 
 }
 
+void j1Player::ResetPlayer()
+{
+
+	state = IDLE;
+
+	velocity = { 0.0f, 0.0f };
+	target_speed = { 0.0f, 0.0f };
+	flipX = false;
+
+}
+
+
+
 bool j1Player::LoadAttributes(pugi::xml_node config)
 {
-	movement_speed = config.child("entityFactory").child("player").child("movement_speed").attribute("speed").as_float();
+	movement_speed = config.child("entityFactory").child("player").child("movement_speed").attribute("value").as_float();
+	
+	jump_speed = config.child("entityFactory").child("player").child("jump_speed").attribute("value").as_float();
 
+	gravity = config.child("entityFactory").child("player").child("gravity").attribute("value").as_float();
+
+	acceleration = config.child("entityFactory").child("player").child("acceleration").attribute("value").as_float();
+
+	fall_speed = config.child("entityFactory").child("player").child("fall_speed").attribute("value").as_float();
+
+	threshold = config.child("entityFactory").child("player").child("threshold").attribute("value").as_float();
 
 	return true;
 }

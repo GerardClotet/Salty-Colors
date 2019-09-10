@@ -134,11 +134,7 @@ bool j1Scene::Update(float dt)
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
 	
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		App->render->camera.x = App->entityFactory->player->position.x;
-		App->render->camera.y = App->entityFactory->player->position.y;
-	}
+	
 	return true;
 }
 

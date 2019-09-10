@@ -52,6 +52,7 @@ bool j1Collision::PreUpdate()
 					{
 						player_collider->callback->OnCollision(player_collider, colliders[i]);
 						App->scene->TriggerColl();
+						App->entityFactory->player->ResetPlayer();
 					}
 
 					if (colliders[i]->callback)

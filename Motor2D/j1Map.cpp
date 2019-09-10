@@ -660,7 +660,7 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
 				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });// TO FIX: only enter when player dies or changes level not when loading a saved game
 				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
-
+				
 			}
 			
 			

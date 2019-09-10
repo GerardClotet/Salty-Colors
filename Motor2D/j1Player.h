@@ -40,7 +40,7 @@ public:
 	void JumpingUpdate();
 	void GodUpdate();
 	void Die();
-
+	void ResetPlayer();
 	bool LoadAttributes(pugi::xml_node config);
 public:
 

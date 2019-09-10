@@ -10,10 +10,10 @@
 		<scene name="map1.tmx" />
 	</swap_scene>
 	<entityFactory>
-		<Player x="1022" y="1137" />
+		<Player x="1219" y="981" />
 	</entityFactory>
 	<collision />
 	<renderer>
-		<camera x="-510" y="-753" />
+		<camera x="-707" y="-597" />
 	</renderer>
 </game_state>

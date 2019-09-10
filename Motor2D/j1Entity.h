@@ -71,12 +71,12 @@ public:
 	ENTITY_TYPE type;
 	SDL_Rect currentAnimation;
 
-	float movement_speed = 5.0F;
-	float jump_speed = 40.0F;
-	float gravity = 2.0F;
-	float acceleration = 0.1F;
-	float fall_speed = 40.0F;
-	float threshold = 0.5f;
+	float movement_speed;
+	float jump_speed;
+	float gravity;
+	float acceleration;
+	float fall_speed;
+	float threshold;
 	fPoint target_speed = { 0.0F,0.0F };
 
 	fPoint velocity = { 0.0F, 0.0F };

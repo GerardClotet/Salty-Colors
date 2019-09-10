@@ -135,6 +135,13 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 		if (App->scene->actualMap == (*item).data()) 
 		{
 			scene_node.append_attribute("name") = (*item).data();
+
+			if (App->scene->actualMap == "Level1.tmx") //to polish
+				App->scene->maptoReset = 0;
+
+			else if (App->scene->actualMap == "map1.tmx")//to polish
+				App->scene->maptoReset = 1;
+
 			return true;
 		}
 		++i;
@@ -158,6 +165,13 @@ bool j1MapChange::Load(pugi::xml_node& node)
 	{
 		if (scene_name == (*item).data())
 		{
+			if(scene_name == "Level1.tmx" )
+				App->scene->maptoReset = 0;
+
+			else if (scene_name ==  "map1.tmx" )
+				App->scene->maptoReset = 1;
+
+
 			App->map->SwitchMaps((*item).data());
 			return true;
 		}
