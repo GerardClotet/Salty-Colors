@@ -191,27 +191,55 @@ bool j1EntityFactory::GetPlayerState()
 
 bool j1EntityFactory::Save(pugi::xml_node& data) const
 {
-	LOG("%i x %i y", player->position.x, player->position.y);
 	pugi::xml_node Ppos;
 	
 
 	Ppos = data.append_child("Player");
+	LOG("%i x %i y", player->position.x, player->position.y);
+	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
 	Ppos.append_attribute("x") = player->position.x;
 	Ppos.append_attribute("y") = player->position.y;
+	/*Ppos.append_child("position").append_attribute("x") = player->position.x;
+	Ppos.append_child("position").append_attribute("y") = player->position.y;*/
 	LOG("%i x %i y", player->position.x, player->position.y);
 
+	Ppos.append_child("velocity").append_attribute("x") = player->velocity.x;
+	Ppos.append_child("velocity").append_attribute("y") = player->velocity.y;
+	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
 
-	
+	Ppos.append_child("target_speed").append_attribute("x") = player->target_speed.x;
+	Ppos.append_child("target_speed").append_attribute("y") = player->target_speed.y;
+
+
+	Ppos.append_child("state").append_attribute("value") = player->state != DEAD ? (int)player->state : (int)IDLE;
+	Ppos.append_child("is_grounded").append_attribute("value") = player->is_grounded;
+	Ppos.append_child("flipX").append_attribute("value") = player->flipX;
+
 	return true;
 }
 
 bool j1EntityFactory::Load(pugi::xml_node& data)
 {
 	LOG("%i x %i y", player->position.x, player->position.y);
-
+	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
 	player->position.x = data.child("Player").attribute("x").as_int();
 	player->position.y = data.child("Player").attribute("y").as_int();
+	/*player->position.x = data.child("Player").child("position").attribute("x").as_int();
+	player->position.y = data.child("Player").child("position").attribute("y").as_int();*/
 	LOG("%i x %i y", player->position.x, player->position.y);
+
+	player->velocity.x = data.child("Player").child("velocity").attribute("x").as_float();
+	player->velocity.y = data.child("Player").child("velocity").attribute("y").as_float();
+	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
+
+	player->target_speed.x = data.child("Player").child("target_speed").attribute("x").as_float();
+	player->target_speed.y = data.child("Player").child("target_speed").attribute("y").as_float();
+
+	player->state = (PlayerState)data.child("Player").child("state").attribute("value").as_int();
+	player->is_grounded = data.child("Player").child("is_grounded").attribute("value").as_bool();
+	player->flipX = data.child("Player").child("flipX").attribute("value").as_bool();
+
+
 
  	return true;
 }
