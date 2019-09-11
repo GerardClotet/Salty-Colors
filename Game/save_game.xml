@@ -7,21 +7,21 @@
 	<map />
 	<scene />
 	<swap_scene>
-		<scene name="map1.tmx" />
+		<scene name="Level1.tmx" />
 	</swap_scene>
 	<entityFactory>
-		<Player x="3799" y="660">
-			<velocity x="0" />
-			<velocity y="-16.8818779" />
+		<Player x="619" y="200">
+			<velocity x="0.606534183" />
+			<velocity y="0" />
 			<target_speed x="0" />
-			<target_speed y="-10" />
-			<state value="2" />
-			<is_grounded value="false" />
+			<target_speed y="0" />
+			<state value="0" />
+			<is_grounded value="true" />
 			<flipX value="false" />
 		</Player>
 	</entityFactory>
 	<collision />
 	<renderer>
-		<camera x="-3287" y="-276" />
+		<camera x="-107" y="184" />
 	</renderer>
 </game_state>

@@ -44,7 +44,7 @@ bool j1Scene::Start()
 {
 	App->map->Load(map_names.begin()->data());
 	actualMap = map_names.begin()->data();
-
+	App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 	return true;
 }
 
@@ -152,6 +152,8 @@ bool j1Scene::PostUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		Loadlvl(0); //here to reset to first level (player, cam..)
+
+
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		ReLoadLevel(); //here to reset current level (player, cam..)
 
@@ -203,9 +205,15 @@ bool j1Scene::Loadlvl(int lvl)
 			if (i == lvl)
 			{
 				if (i == 1)
+				{
 					maptoReset = 1;
-
-				else maptoReset = 0;
+					App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
+				}
+				else
+				{
+					App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
+					maptoReset = 0;
+				}
 
 				App->map->SwitchMaps((*item).data());
 
@@ -221,11 +229,13 @@ bool j1Scene::TriggerColl()
 {
 
 	
-		if (maptoReset == 0) 
-			Loadlvl(1);
+	if (maptoReset == 0)
+		Loadlvl(1);
+	
 
-		else if (maptoReset == 1)
-			Loadlvl(0);
+	else if (maptoReset == 1)
+		Loadlvl(0);
+	
 	
 
 

@@ -18,7 +18,7 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	position = pos;
 	//currentAnimation = App->entityFactory->player_IDLE;
 
-	animation_Coll = { 0,0,16*(int)2,28 *(int)2} ;
+	animation_Coll = { 0,0,24,42 };
 	coll_offSet = 13;
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_PLAYER, App->entityFactory, true);
 

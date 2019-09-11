@@ -165,11 +165,17 @@ bool j1MapChange::Load(pugi::xml_node& node)
 	{
 		if (scene_name == (*item).data())
 		{
-			if(scene_name == "Level1.tmx" )
+			if (scene_name == "Level1.tmx")
+			{
 				App->scene->maptoReset = 0;
+				App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
+			}
 
-			else if (scene_name ==  "map1.tmx" )
+			else if (scene_name == "map1.tmx")
+			{
 				App->scene->maptoReset = 1;
+				App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
+			}
 
 
 			App->map->SwitchMaps((*item).data());
