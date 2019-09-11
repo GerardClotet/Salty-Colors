@@ -124,7 +124,10 @@ void j1Player::IdleUpdate()
 	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
 
 	if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
+	{
 		state = MOVING;
+		startMove = true;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -141,7 +144,18 @@ void j1Player::IdleUpdate()
 void j1Player::MovingUpdate()
 {
 	currentAnimation = App->entityFactory->player_RUN.GetCurrentFrame();
+	if (startMove)
+	{
+		App->audio->PlayFx(App->scene->stepSFX, 0);
+		startMove = false;
+		stepSFXTimer.Start();
+	}
 
+	if (stepSFXTimer.ReadMs() > 250.0f)
+	{
+		App->audio->PlayFx(App->scene->stepSFX, 0);
+		stepSFXTimer.Start();
+	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 	{
 		state = IDLE;

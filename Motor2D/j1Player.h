@@ -47,6 +47,8 @@ public:
 	//PlayerState state = IDLE;
 	SDL_Rect animation_Coll;
 	float spriteIncrease = 1.5f;
+	j1PerfTimer stepSFXTimer;
+	bool startMove = false;
 };
 
 #endif

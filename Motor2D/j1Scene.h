@@ -55,6 +55,10 @@ public:
 	std::list<std::string> map_names;
 	std::string actualMap;
 	int maptoReset=0;
+
+	/*---SFX---*/
+
+	unsigned int stepSFX;
 private:
 	bool viewportResize = false;
 	bool incR = true;

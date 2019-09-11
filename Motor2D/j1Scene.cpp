@@ -45,6 +45,8 @@ bool j1Scene::Start()
 	App->map->Load(map_names.begin()->data());
 	actualMap = map_names.begin()->data();
 	App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
+
+	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	return true;
 }
 
