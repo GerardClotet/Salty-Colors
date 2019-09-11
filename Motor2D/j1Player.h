@@ -46,6 +46,7 @@ public:
 
 	//PlayerState state = IDLE;
 	SDL_Rect animation_Coll;
+	float spriteIncrease = 1.5f;
 };
 
 #endif

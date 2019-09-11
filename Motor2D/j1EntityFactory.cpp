@@ -32,7 +32,14 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 			player_RUN.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 
 		else if(animationID ==3)
-			player_TEST.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+			player_JUMP.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+
+		else if (animationID == 4)
+			player_FALL.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+
+
+		else if (animationID == 5)
+			player_MOMENTUM.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 
 	}
 	player_IDLE.loop = true;
@@ -40,9 +47,14 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 	player_RUN.loop = true;
 	player_RUN.speed = 10.0f;
 
-	player_TEST.loop = true;
-	player_TEST.speed = 10.0f;
+	player_JUMP.loop = true;
+	player_JUMP.speed = 5.0f;
 
+	player_FALL.loop = true;
+	player_FALL.speed = 5.0f;
+
+	player_MOMENTUM.loop = true;
+	player_MOMENTUM.speed = 5.0F;
 	return ret;
 }
 

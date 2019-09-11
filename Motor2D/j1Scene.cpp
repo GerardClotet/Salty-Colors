@@ -143,7 +143,10 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_REPEAT)
+	{
+		App->entityFactory->player->spriteIncrease += 0.1;
+	}
 	App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
 	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;
 

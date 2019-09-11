@@ -18,7 +18,7 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	position = pos;
 	//currentAnimation = App->entityFactory->player_IDLE;
 
-	animation_Coll = { 0,0,16,28 };
+	animation_Coll = { 0,0,16*(int)2,28 *(int)2} ;
 	coll_offSet = 13;
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_PLAYER, App->entityFactory, true);
 
@@ -91,7 +91,7 @@ bool j1Player::Update(float dt)
 void j1Player::Draw()
 {
 	if (entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &currentAnimation,1.0f,flipX);
+		App->render->Blit(entityTex, position.x, position.y, &currentAnimation,1.0f,flipX,false, spriteIncrease);
 }
 
 bool j1Player::CleanUp()
@@ -173,11 +173,26 @@ void j1Player::MovingUpdate()
 
 void j1Player::JumpingUpdate()
 {
-	target_speed.y += gravity;
+ 	target_speed.y += gravity; // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
+	if (target_speed.y < 0)
+		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
+
+	if (target_speed.y >= 0 && target_speed.y < 10.0f)
+	{
+		
+			currentAnimation = App->entityFactory->player_MOMENTUM.GetCurrentFrame();
+
+ 		
+
+	}
+
+	else if (target_speed.y  >= 10.0)
+		currentAnimation = App->entityFactory->player_FALL.GetCurrentFrame();
+
+
 	if (target_speed.y > fall_speed) 
 		target_speed.y = fall_speed; //limit falling speed
 
-	currentAnimation = App->entityFactory->player_TEST.GetCurrentFrame();
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 		target_speed.x = 0.0f;
 
@@ -209,7 +224,7 @@ void j1Player::JumpingUpdate()
 
 void j1Player::GodUpdate()
 {
-	currentAnimation = App->entityFactory->player_TEST.GetCurrentFrame();
+	currentAnimation = App->entityFactory->player_FALL.GetCurrentFrame();
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A)) target_speed.x = 0.0F;
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)

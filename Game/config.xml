@@ -30,38 +30,66 @@
 
   <entityFactory>
     <folder>textures/player</folder>
-    <sprite>homeless_SpriteSheet.png</sprite>
+    <sprite>adventurer-v1.5-Sheet.png</sprite>
 
     <player>
 
       <movement_speed value="5.0f"/>
-      <jump_speed value="30.0f"/>
+      <jump_speed value="40.0f"/>
       <gravity value="2.0f"/>
       <acceleration value="0.1f"/>
-      <fall_speed value="30.0f"/>
+      <fall_speed value="40.0f"/>
       <threshold value="0.5f"/>
 
 
 
       <animations>
-          <frame id ="1" x="17" y="45" w ="16" h="28"/> <!--IDLE-->
-          <frame id ="1" x="67" y="44" w ="16" h="29"/>
+
+        <frame id ="1" x="14" y="7" w ="19" h="29"/> <!--IDLE-->
+        <frame id ="1" x="66" y="6" w ="17" h="30"/> <!--IDLE-->
+        <frame id ="1" x="115" y="6" w ="19" h="30"/>
+        <frame id ="1" x="163" y="7" w ="20" h="29"/>
+
+      <!--  <frame id ="1" x="17" y="45" w ="16" h="28"/>
+           <frame id ="1" x="67" y="44" w ="16" h="29"/>
           <frame id ="1" x="117" y="44" w ="17" h="29"/>
-          <frame id ="1" x="167" y="45" w ="16" h="28"/>
-        
-          <frame id ="2" x="20" y="9" w ="17" h="27"/> <!--RUN-->
+          <frame id ="1" x="167" y="45" w ="16" h="28"/>-->
+
+        <frame id ="2" x="67" y="45" w ="20" h="28"/> <!--RUN-->
+        <frame id ="2" x="116" y="46" w ="20" h="27"/>
+        <frame id ="2" x="166" y="49" w ="20" h="25"/>
+        <frame id ="2" x="217" y="45" w ="23" h="28"/>
+        <frame id ="2" x="266" y="45" w ="20" h="27"/>
+        <frame id ="2" x="316" y="48" w ="20" h="25"/>
+
+
+        <!--  <frame id ="2" x="20" y="9" w ="17" h="27"/> <!-RUN-
           <frame id ="2" x="70" y="10" w ="16" h="26"/>
           <frame id ="2" x="119" y="13" w ="17" h="23"/>
           <frame id ="2" x="169" y="9" w ="21" h="27"/>
           <frame id ="2" x="218" y="10" w ="18" h="26"/>
-          <frame id ="2" x="268" y="12" w ="18" h="24"/>
+          <frame id ="2" x="268" y="12" w ="18" h="24"/> -->
 
-          <frame id ="3" x="21" y="85" w ="17" h="23"/>> <!--DIE //TEST-->
+     <!--   <frame id ="3" x="65" y="88" w ="20" h="22"/>>--> <!--JUMP-->
+        <frame id ="3" x="117" y="81" w ="19" h="27"/>>
+        <frame id ="3" x="164" y="79" w ="21" h="23"/>>
+        
+        
+        <!--   <frame id ="3" x="21" y="85" w ="17" h="23"/>> JUMP
           <frame id ="3" x="70" y="85" w ="18" h="23"/>>
           <frame id ="3" x="108" y="82" w ="20" h="24"/>>
           <frame id ="3" x="159" y="82" w ="21" h="24"/>>
           <frame id ="3" x="214" y="89" w ="17" h="17"/>>
-          <frame id ="3" x="265" y="90" w ="16" h="16"/>>
+          <frame id ="3" x="265" y="90" w ="16" h="16"/>> -->
+        
+        
+        
+        <frame id ="4" x="68" y="112" w ="17" h="31"/>> <!--FALL-->
+        <frame id ="4" x="118" y="113" w ="17" h="30"/>>
+
+
+        <frame id ="5" x="218" y="81" w ="15" h="21"/>> <!--NOMOMENTUM-->
+
 
       </animations>
     </player>
