@@ -82,8 +82,8 @@ bool j1Player::Update(float dt)
 	
 	
 	Draw();
-
-	Die();
+	if(state != DEAD)
+		Die();
 
 	return true;
 }
@@ -265,10 +265,9 @@ void j1Player::Die()
 	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD)
 	{
 		state = DEAD;
-		//App->entityFactory->playerActive = false;
-		
+		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
-		ResetPlayer();
+		/*ResetPlayer();*/
 
 	}
 
@@ -282,7 +281,7 @@ void j1Player::ResetPlayer()
 	velocity = { 0.0f, 0.0f };
 	target_speed = { 0.0f, 0.0f };
 	flipX = false;
-
+	
 }
 
 

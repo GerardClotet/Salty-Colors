@@ -52,11 +52,17 @@ bool j1Collision::PreUpdate()
 					if (player_collider->callback && App->entityFactory->player->state != GOD)
 					{
 						player_collider->callback->OnCollision(player_collider, colliders[i]);
-						App->audio->PlayFx(App->scene->endLvlSFX, 0);
-						App->scene->TriggerColl();
+						
+						if (!Triggercolliding)
+						{
+							App->scene->TriggerColl();
+							App->audio->PlayFx(App->scene->endLvlSFX, 0);
+							App->entityFactory->player->ResetPlayer();
+							Triggercolliding = true;
+						}
 						App->entityFactory->player->ResetPlayer();
-					}
 
+					}
 					if (colliders[i]->callback)
 						colliders[i]->callback->OnCollision(colliders[i], player_collider);
 				}

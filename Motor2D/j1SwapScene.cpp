@@ -8,7 +8,7 @@
 #include "j1Player.h"
 #include "j1Audio.h"
 #include "j1Map.h"
-
+#include "j1EntityFactory.h"
 #include "SDL\include\SDL_render.h"
 #include "SDL\include\SDL_timer.h"
 
@@ -47,19 +47,19 @@ bool j1MapChange::Update(float dt)
 		return true;
 	
 
-	j1Timer now;
+	
+	uint now = SDL_GetTicks() - start_time;
+	
 
-	now.Start();
-
-	float normalized = 1.0f < ((float)now.Read() / (float)total_time) ? 1.0f : ((float)now.Read() / (float)total_time);
+	float normalized = 1.0f < ((float)now / (float)total_time) ? 1.0f : ((float)now / (float)total_time);
 
 	switch (current_step) //NEVER GOES IN
 	{
 	case fade_step::fade_to_black:
 	{
-		if (now.Read() >= total_time) //Point where the screen is totally black, and the new map is loaded.
+		if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
 		{
-			App->scene->currentMap = nextMap;
+			App->scene->maptoReset = nextMap;
 			std::list<std::string>::iterator item = App->scene->map_names.begin();
 			int i = 0;
 			for (; item != App->scene->map_names.end(); ++item)
@@ -83,9 +83,13 @@ bool j1MapChange::Update(float dt)
 	{
 		normalized = 1.0f - normalized;
 
-		if (now.Read() >= total_time)
+		if (now >= total_time)
 		{
+			App->entityFactory->player->ResetPlayer();
 			current_step = fade_step::none;
+			App->collision->Triggercolliding = false;
+			Mix_ResumeMusic();
+			App->audio->SetFxVolume(MIX_MAX_VOLUME);
 		}
 
 	}break;
@@ -110,6 +114,11 @@ bool j1MapChange::ChangeMap(int newMap, float time)
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		fading = true;
 		ret = true;
+
+		if(App->scene->maptoReset = 1)
+			App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
+
+		else App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 	}
 
 	return ret;

@@ -72,10 +72,13 @@ public:
 	void DebugDraw();
 	uint max_colliders = 0;
 
+	bool Triggercolliding = false;
+
 private:
 
 	Collider** colliders = nullptr;
 	Collider* player_collider = nullptr;
 	bool debug = false;
+
 };
 #endif
