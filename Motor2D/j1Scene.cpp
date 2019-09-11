@@ -47,6 +47,10 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
+	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
+	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
+	endLvlSFX = App->audio->LoadFx("audio/fx/EndLevel.wav");
+
 	return true;
 }
 

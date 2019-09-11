@@ -133,6 +133,7 @@ void j1Player::IdleUpdate()
 	{
 		target_speed.y = -jump_speed;
 		is_grounded = false;
+		App->audio->PlayFx(App->scene->jumpSFX, 0);
 		state = JUMPING;
 
 		//jump sfx
@@ -177,6 +178,7 @@ void j1Player::MovingUpdate()
 	{
 		target_speed.y = -jump_speed;
 		is_grounded = false;
+		App->audio->PlayFx(App->scene->jumpSFX, 0);
 		state = JUMPING;
 	}
 
@@ -191,7 +193,7 @@ void j1Player::JumpingUpdate()
 	if (target_speed.y < 0)
 		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
 
-	if (target_speed.y >= 0 && target_speed.y < 10.0f)
+	if (target_speed.y >= 0 && target_speed.y < 13.0f)
 	{
 		
 			currentAnimation = App->entityFactory->player_MOMENTUM.GetCurrentFrame();
@@ -224,6 +226,7 @@ void j1Player::JumpingUpdate()
 
 	if (is_grounded)
 	{
+		App->audio->PlayFx(App->scene->landSFX, 0);
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 			state = IDLE;
 

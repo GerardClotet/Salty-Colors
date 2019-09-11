@@ -59,6 +59,10 @@ public:
 	/*---SFX---*/
 
 	unsigned int stepSFX;
+	unsigned int landSFX;
+	unsigned int jumpSFX;
+	unsigned int endLvlSFX;
+
 private:
 	bool viewportResize = false;
 	bool incR = true;

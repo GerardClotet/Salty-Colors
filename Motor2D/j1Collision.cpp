@@ -5,6 +5,7 @@
 #include "j1Collision.h"
 #include "j1Scene.h"
 #include "j1EntityFactory.h"
+#include "j1Audio.h"
 j1Collision::j1Collision()
 {
 	name.assign("collision");
@@ -51,6 +52,7 @@ bool j1Collision::PreUpdate()
 					if (player_collider->callback && App->entityFactory->player->state != GOD)
 					{
 						player_collider->callback->OnCollision(player_collider, colliders[i]);
+						App->audio->PlayFx(App->scene->endLvlSFX, 0);
 						App->scene->TriggerColl();
 						App->entityFactory->player->ResetPlayer();
 					}
