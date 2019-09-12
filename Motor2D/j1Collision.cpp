@@ -59,6 +59,7 @@ bool j1Collision::PreUpdate()
 							App->audio->PlayFx(App->scene->endLvlSFX, 0);
 							App->entityFactory->player->ResetPlayer();
 							Triggercolliding = true;
+							App->entityFactory->player->lockInput = true;
 						}
 						App->entityFactory->player->ResetPlayer();
 

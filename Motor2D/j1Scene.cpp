@@ -213,10 +213,12 @@ bool j1Scene::Loadlvl(int lvl)
 				if (i == 1)
 				{
 					maptoReset = 1;
+					App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
+
 				}
 				else
 				{
-
+					App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 					maptoReset = 0;
 				}
 

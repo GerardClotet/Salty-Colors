@@ -59,6 +59,7 @@ bool j1MapChange::Update(float dt)
 	{
 		if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
 		{
+			App->audio->SetVolume(MIX_MAX_VOLUME);
 			App->scene->maptoReset = nextMap;
 			std::list<std::string>::iterator item = App->scene->map_names.begin();
 			int i = 0;
@@ -67,6 +68,7 @@ bool j1MapChange::Update(float dt)
 				if (i == nextMap)
 				{
 					App->map->SwitchMaps((*item).data());
+					App->entityFactory->player->lockInput = false;
 
 				}
 
@@ -76,6 +78,8 @@ bool j1MapChange::Update(float dt)
 			start_time = SDL_GetTicks();
 			fading = false;
 			current_step = fade_step::fade_from_black;
+			App->entityFactory->player->ResetPlayer();
+
 		}
 	}break;
 
@@ -85,11 +89,10 @@ bool j1MapChange::Update(float dt)
 
 		if (now >= total_time)
 		{
-			App->entityFactory->player->ResetPlayer();
+			//App->entityFactory->player->ResetPlayer();
 			current_step = fade_step::none;
 			App->collision->Triggercolliding = false;
-			Mix_ResumeMusic();
-			App->audio->SetFxVolume(MIX_MAX_VOLUME);
+			
 		}
 
 	}break;
@@ -115,10 +118,6 @@ bool j1MapChange::ChangeMap(int newMap, float time)
 		fading = true;
 		ret = true;
 
-		if(App->scene->maptoReset = 1)
-			App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
-
-		else App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 	}
 
 	return ret;

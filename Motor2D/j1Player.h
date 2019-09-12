@@ -49,6 +49,7 @@ public:
 	float spriteIncrease = 1.5f;
 	j1PerfTimer stepSFXTimer;
 	bool startMove = false;
+	bool lockInput = false;
 };
 
 #endif

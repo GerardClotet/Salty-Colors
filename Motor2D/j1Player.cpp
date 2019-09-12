@@ -123,20 +123,24 @@ void j1Player::IdleUpdate()
 	target_speed.x = 0.0f;
 	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
 
-	if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
-	{
-		state = MOVING;
-		startMove = true;
-	}
+	if (!lockInput)
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		target_speed.y = -jump_speed;
-		is_grounded = false;
-		App->audio->PlayFx(App->scene->jumpSFX, 0);
-		state = JUMPING;
+		if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
+		{
+			state = MOVING;
+			startMove = true;
+		}
 
-		//jump sfx
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			target_speed.y = -jump_speed;
+			is_grounded = false;
+			App->audio->PlayFx(App->scene->jumpSFX, 0);
+			state = JUMPING;
+
+			//jump sfx
+		}
 	}
 	if (!is_grounded) state = JUMPING;
 
@@ -157,31 +161,34 @@ void j1Player::MovingUpdate()
 		App->audio->PlayFx(App->scene->stepSFX, 0);
 		stepSFXTimer.Start();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-	{
-		state = IDLE;
-		target_speed.x = 0.0F;
-	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (!lockInput)
 	{
-		target_speed.x = movement_speed;
-		flipX = false;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		target_speed.x = -movement_speed;
-		flipX = true;
-	}
+		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+		{
+			state = IDLE;
+			target_speed.x = 0.0F;
+		}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		target_speed.y = -jump_speed;
-		is_grounded = false;
-		App->audio->PlayFx(App->scene->jumpSFX, 0);
-		state = JUMPING;
-	}
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			target_speed.x = movement_speed;
+			flipX = false;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			target_speed.x = -movement_speed;
+			flipX = true;
+		}
 
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			target_speed.y = -jump_speed;
+			is_grounded = false;
+			App->audio->PlayFx(App->scene->jumpSFX, 0);
+			state = JUMPING;
+		}
+	}
 	if (!is_grounded) state = JUMPING;
 
 	
@@ -209,34 +216,37 @@ void j1Player::JumpingUpdate()
 	if (target_speed.y > fall_speed) 
 		target_speed.y = fall_speed; //limit falling speed
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-		target_speed.x = 0.0f;
-
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (!lockInput)
 	{
-		target_speed.x = movement_speed;
-		flipX = false;
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		target_speed.x = -movement_speed;
-		flipX = true;
-	}
-
-	if (is_grounded)
-	{
-		App->audio->PlayFx(App->scene->landSFX, 0);
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-			state = IDLE;
+			target_speed.x = 0.0f;
 
-		else
-			state = MOVING;
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			target_speed.x = movement_speed;
+			flipX = false;
+		}
 
-		target_speed.y = 0.0F;
-		velocity.y = 0.0F;
-		LOG("grounded");
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			target_speed.x = -movement_speed;
+			flipX = true;
+		}
 	}
+		if (is_grounded)
+		{
+			App->audio->PlayFx(App->scene->landSFX, 0);
+			if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+				state = IDLE;
+
+			else
+				state = MOVING;
+
+			target_speed.y = 0.0F;
+			velocity.y = 0.0F;
+			LOG("grounded");
+		}
+	
 }
 
 void j1Player::GodUpdate()
@@ -268,7 +278,7 @@ void j1Player::Die()
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		/*ResetPlayer();*/
-
+		App->audio->SetVolume(0);
 	}
 
 }
