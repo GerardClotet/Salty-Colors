@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "p2Animation.h"
 #include "j1Collision.h"
+#define MAX_DASHES 1
 
 //enum  PlayerState {
 //	NO_STATE =-1,
@@ -54,6 +55,8 @@ public:
 
 private:
 	bool startDash = false;
+	int dashes = 1;
+	
 };
 
 #endif

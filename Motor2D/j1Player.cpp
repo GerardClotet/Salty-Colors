@@ -185,12 +185,12 @@ void j1Player::MovingUpdate()
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			target_speed.x = movement_speed;
+			target_speed.x = movement_speed*1.5f;
 			flipX = false;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			target_speed.x = -movement_speed;
+			target_speed.x = -movement_speed*1.5f;
 			flipX = true;
 		}
 
@@ -231,28 +231,32 @@ void j1Player::JumpingUpdate()
 
 	if (!lockInput)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes !=0)
 		{
 			state = DASH;
 			startDash = true;
+			dashes -= 1;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 			target_speed.x = 0.0f;
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			target_speed.x = movement_speed;
+			target_speed.x = movement_speed*1.5f;
 			flipX = false;
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			target_speed.x = -movement_speed;
+			target_speed.x = -movement_speed*1.5f;
 			flipX = true;
 		}
 	}
 		if (is_grounded)
 		{
+			if( dashes < MAX_DASHES)
+				dashes += 1;
+
 			App->audio->PlayFx(App->scene->landSFX, 0);
 			if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 				state = IDLE;
@@ -310,7 +314,7 @@ void j1Player::DashUpdate()
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-		velocity.x = movement_speed*10;
+		velocity.x = movement_speed*5;
 		startDash = false;
 	}
 	else if (flipX && startDash)
@@ -318,7 +322,7 @@ void j1Player::DashUpdate()
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-		velocity.x = -movement_speed*10;
+		velocity.x = -movement_speed*5;
 		startDash = false;
 	}
 	

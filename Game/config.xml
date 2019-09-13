@@ -35,10 +35,10 @@
     <player>
 
       <movement_speed value="5.0f"/>
-      <jump_speed value="40.0f"/>
+      <jump_speed value="30.0f"/>
       <gravity value="2.0f"/>
       <acceleration value="0.1f"/>
-      <fall_speed value="40.0f"/>
+      <fall_speed value="30.0f"/>
       <threshold value="0.5f"/>
 
 
