@@ -44,7 +44,7 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 public:
-
+	double angles = 0;
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;

@@ -57,6 +57,8 @@ bool j1MapChange::Update(float dt)
 	{
 	case fade_step::fade_to_black:
 	{
+		App->entityFactory->player->spriteIncrease += 0.1;
+
 		if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
 		{
 			App->audio->SetVolume(MIX_MAX_VOLUME);
@@ -86,6 +88,7 @@ bool j1MapChange::Update(float dt)
 	case fade_step::fade_from_black:
 	{
 		normalized = 1.0f - normalized;
+		App->entityFactory->player->spriteIncrease = 1.5f;
 
 		if (now >= total_time)
 		{

@@ -23,6 +23,7 @@ enum  PlayerState {
 	MOVING,
 	JUMPING,
 	DEAD,
+	DASH,
 	GOD,
 	MAX
 };

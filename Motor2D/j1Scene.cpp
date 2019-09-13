@@ -67,41 +67,47 @@ bool j1Scene::PreUpdate()
 		DoViewportResize();
 		LOG("%i %i", App->render->camera.x, App->render->camera.y);
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT)
+	{
+		App->render->angles += 40;
+	}
 
 	//<------WIP------>
-	/*if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
-	{
-		App->render->ResetViewPort();
-	}
-	if (viewportResize == true)
-	{
-		resizeTimer.Start();
-		viewportResize = false;
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
+	//{
+	//	App->render->ResetViewPort();
+	//}
+	//if (viewportResize == true)
+	//{
+	//	/*resizeTimer.Start();
+	//	viewportResize = false;*/
+	//}
 
-	if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
-	{
-		if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
-		{
-			App->render->SetViewPort(RezieView(App->render->camera, false));
+	//PartyMaker();
+	//App->render->SetBackgroundColor({ red,green,blue });
 
-		}
-		App->render->SetViewPort(RezieView(App->render->camera, false));
-		App->render->camera = RezieView(App->render->camera, false);
+	//if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
+	//{
+	//	if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
+	//	{
+	//		App->render->SetViewPort(RezieView(App->render->camera, false));
 
-		/*PartyMaker();
-		App->render->SetBackgroundColor({ red,green,blue });
-	}
-	else
-	{
-		App->render->ResetViewPort();
-		App->render->camera.w = App->win->screen_surface->w;
-		App->render->camera.h = App->win->screen_surface->h;
-		/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
-		App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;
+	//	}
+	//	App->render->SetViewPort(RezieView(App->render->camera, false));
+	//	App->render->camera = RezieView(App->render->camera, false);
 
-	}*/
+	//	/*PartyMaker();
+	//	App->render->SetBackgroundColor({ red,green,blue });*/
+	//}
+	//else
+	//{
+	//	//App->render->ResetViewPort();
+	//	App->render->camera.w = App->win->screen_surface->w;
+	//	App->render->camera.h = App->win->screen_surface->h;
+	//	/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
+	//	App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;*/
+
+	//}
 	//<------WIP------>
 	return true;
 }
@@ -163,7 +169,7 @@ bool j1Scene::PostUpdate()
 		App->render->camera.y = LerpLabel(App->render->camera.y,- playerPos.y + App->render->camera.h * 0.5, 0.016f * 2.5f);
 
 		/*App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
-	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;*/
+		App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;*/
 
 	}
 

@@ -130,7 +130,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.y = (int)(camera.y /** speed*/) + y * scale; //TODO make other blit function for parallax
 
 	if(section != NULL)
 	{
@@ -165,7 +165,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		if (flipY) flip = SDL_FLIP_VERTICAL;
 	}
 
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
+	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angles, p, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;

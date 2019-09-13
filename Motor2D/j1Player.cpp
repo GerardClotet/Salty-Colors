@@ -53,6 +53,8 @@ bool j1Player::PreUpdate()
 		break;
 	case GOD: GodUpdate();
 		break;
+	case DASH: DashUpdate();
+		break;
 	case DEAD:
 		break;
 	default:
@@ -78,6 +80,7 @@ bool j1Player::Update(float dt)
 		if (state != GOD) state = GOD;
 		else state = IDLE;
 	}
+	
 
 	
 	
@@ -119,13 +122,17 @@ void j1Player::SetPos(iPoint pos)
 
 void j1Player::IdleUpdate()
 {
-	//target_speed.y += gravity; //need to see isgrounded funct
 	target_speed.x = 0.0f;
 	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
 
 	if (!lockInput)
 
 	{
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			state = DASH;
+			startDash = true;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
 		{
 			state = MOVING;
@@ -164,6 +171,12 @@ void j1Player::MovingUpdate()
 
 	if (!lockInput)
 	{
+
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			state = DASH;
+			startDash = true;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 		{
 			state = IDLE;
@@ -218,6 +231,11 @@ void j1Player::JumpingUpdate()
 
 	if (!lockInput)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			state = DASH;
+			startDash = true;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 			target_speed.x = 0.0f;
 
@@ -279,6 +297,48 @@ void j1Player::Die()
 		App->scene->ReLoadLevel();
 		/*ResetPlayer();*/
 		App->audio->SetVolume(0);
+	}
+
+}
+
+void j1Player::DashUpdate()
+{
+	//flipx false Dreta
+
+	if (!flipX && startDash)
+	{
+		velocity.y = 0;
+		target_speed.y = 0;
+		target_speed.x = 0;
+		velocity.x = movement_speed*10;
+		startDash = false;
+	}
+	else if (flipX && startDash)
+	{
+		velocity.y = 0;
+		target_speed.y = 0;
+		target_speed.x = 0;
+		velocity.x = -movement_speed*10;
+		startDash = false;
+	}
+	
+	
+	if (velocity.x > -10 && flipX == true || velocity.x < 10 && flipX == false)
+	{
+		if (!is_grounded)
+		{
+			state = JUMPING;
+		}
+		else if (is_grounded)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
+			{
+				state = MOVING;
+				startMove = true;
+			}
+
+			else state = IDLE;
+		}
 	}
 
 }

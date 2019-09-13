@@ -40,6 +40,7 @@ public:
 	void JumpingUpdate();
 	void GodUpdate();
 	void Die();
+	void DashUpdate();
 	void ResetPlayer();
 	bool LoadAttributes(pugi::xml_node config);
 public:
@@ -50,6 +51,9 @@ public:
 	j1PerfTimer stepSFXTimer;
 	bool startMove = false;
 	bool lockInput = false;
+
+private:
+	bool startDash = false;
 };
 
 #endif
