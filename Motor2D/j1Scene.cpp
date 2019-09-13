@@ -153,8 +153,19 @@ bool j1Scene::PostUpdate()
 	{
 		App->entityFactory->player->spriteIncrease += 0.1;
 	}
-	App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
-	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;
+
+
+	if (App->entityFactory->player != nullptr)
+	{
+		iPoint playerPos = App->entityFactory->player->GetPosition();
+		
+		App->render->camera.x = LerpLabel(App->render->camera.x,- playerPos.x + App->render->camera.w * 0.5, 0.016f * 2.5f); //testing numbers
+		App->render->camera.y = LerpLabel(App->render->camera.y,- playerPos.y + App->render->camera.h * 0.5, 0.016f * 2.5f);
+
+		/*App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
+	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;*/
+
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		Loadlvl(0); //here to reset to first level (player, cam..)
@@ -175,6 +186,7 @@ bool j1Scene::PostUpdate()
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
 
 
 	return ret;
@@ -315,5 +327,10 @@ void j1Scene::PartyMaker()
 	  else if (blue <= 0 == incB == false)
 		 incB = true;
 
+}
+
+int j1Scene::LerpLabel(int v0, int v1, float t)
+{
+	return (v0 * (1-t) + v1 * t);
 }
 

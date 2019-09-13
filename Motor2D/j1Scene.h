@@ -47,7 +47,7 @@ public:
 
 	void PartyMaker();
 
-
+	int LerpLabel(int v0, int v1, float t);
 
 public:
 	int currentMap;

@@ -274,7 +274,7 @@ void j1Player::Die()
 {
 	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD)
 	{
-		state = DEAD;
+ 		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		/*ResetPlayer();*/

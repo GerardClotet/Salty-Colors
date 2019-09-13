@@ -65,6 +65,13 @@ bool j1Entity::Save(pugi::xml_node&) const
 }
 
 
+
+
+iPoint j1Entity::GetPosition()
+{
+	return position;
+}
+
 void j1Entity::MovX()
 {
 	if (state != GOD)
