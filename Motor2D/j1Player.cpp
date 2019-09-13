@@ -213,7 +213,7 @@ void j1Player::JumpingUpdate()
 	if (target_speed.y < 0)
 		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
 
-	if (target_speed.y >= 0 && target_speed.y < 13.0f)
+	if (target_speed.y >= 0 && target_speed.y < 8.0f)
 	{
 		
 			currentAnimation = App->entityFactory->player_MOMENTUM.GetCurrentFrame();
@@ -308,6 +308,7 @@ void j1Player::Die()
 void j1Player::DashUpdate()
 {
 	//flipx false Dreta
+	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
 
 	if (!flipX && startDash)
 	{

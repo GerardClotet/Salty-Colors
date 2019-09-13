@@ -39,6 +39,7 @@ public:
 	Animation player_JUMP;
 	Animation player_FALL;
 	Animation player_MOMENTUM;
+	Animation player_DASH;
 
 	std::string sprite_route;
 	int maxframes = 4;
