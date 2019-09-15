@@ -73,18 +73,18 @@ bool j1Scene::PreUpdate()
 	}
 
 	//<------WIP------>
-	//if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
-	//{
-	//	App->render->ResetViewPort();
-	//}
-	//if (viewportResize == true)
-	//{
-	//	/*resizeTimer.Start();
-	//	viewportResize = false;*/
-	//}
+	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_REPEAT)
+	{
+		App->render->ResetViewPort();
+	}
+	if (viewportResize == true)
+	{
+		/*resizeTimer.Start();
+		viewportResize = false;*/
+	}
 
-	//PartyMaker();
-	//App->render->SetBackgroundColor({ red,green,blue });
+	PartyMaker();
+	App->render->SetBackgroundColor({ red,green,blue });
 
 	//if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
 	//{

@@ -130,7 +130,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y /** speed*/) + y * scale; //TODO make other blit function for parallax
+	rect.y = (int)(camera.y *speed) + y * scale; //TODO make other blit function for parallax
 
 	if(section != NULL)
 	{
@@ -166,6 +166,57 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	}
 
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angles, p, flip) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
+bool j1Render::BlitMap(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speedX, float speedY, bool flipX, bool flipY, float spriteScale, double angle, int pivot_x, int pivot_y) const
+{
+	bool ret = true;
+	uint scale = App->win->GetScale();
+
+	SDL_Rect rect;
+	rect.x = (int)(camera.x * speedX) + x * scale;
+	rect.y = (int)(camera.y *speedY) + y * scale; //TODO make other blit function for parallax
+
+	if (section != NULL)
+	{
+		rect.w = section->w * spriteScale;
+		rect.h = section->h * spriteScale;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	rect.w *= scale;
+	rect.h *= scale;
+
+	SDL_Point* p = NULL;
+	SDL_Point pivot;
+
+	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
+	{
+		pivot.x = pivot_x;
+		pivot.y = pivot_y;
+		p = &pivot;
+	}
+
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	if (flipX)
+	{
+		if (flipY) flip = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
+		else flip = SDL_FLIP_HORIZONTAL;
+	}
+	else {
+		if (flipY) flip = SDL_FLIP_VERTICAL;
+	}
+
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angles, p, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;

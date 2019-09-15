@@ -25,7 +25,7 @@
   <scene>
     <map_name name="Level1.tmx"></map_name>
     <map_name name="map1.tmx"></map_name>
-    <fade_time value="3"/>
+    <fade_time value="2"/>
   </scene>
 
   <entityFactory>
