@@ -150,7 +150,7 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 			if (App->scene->actualMap == "Level1.tmx") //to polish
 				App->scene->maptoReset = 0;
 
-			else if (App->scene->actualMap == "map1.tmx")//to polish
+			else if (App->scene->actualMap == "Level2.tmx")//to polish
 				App->scene->maptoReset = 1;
 
 			return true;
@@ -182,7 +182,7 @@ bool j1MapChange::Load(pugi::xml_node& node)
 				App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 			}
 
-			else if (scene_name == "map1.tmx")
+			else if (scene_name == "Level2.tmx")
 			{
 				App->scene->maptoReset = 1;
 				App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);

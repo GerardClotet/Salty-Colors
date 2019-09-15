@@ -138,7 +138,7 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 	if(data.backgroundimage!=nullptr)
-		App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 0.0f);
+		App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 1.0f,1.0F);
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 

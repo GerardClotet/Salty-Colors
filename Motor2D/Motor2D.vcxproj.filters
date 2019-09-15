@@ -174,7 +174,7 @@
     <None Include="..\Game\maps\Level1.tmx">
       <Filter>Desenvolupament  ========\XML</Filter>
     </None>
-    <None Include="..\Game\maps\map1.tmx">
+    <None Include="..\Game\maps\Level2.tmx">
       <Filter>Desenvolupament  ========\XML</Filter>
     </None>
   </ItemGroup>
