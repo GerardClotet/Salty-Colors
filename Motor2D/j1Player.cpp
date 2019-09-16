@@ -220,7 +220,7 @@ void j1Player::MovingUpdate()
 
 void j1Player::JumpingUpdate()
 {
- 	target_speed.y += gravity; // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
+ 	//target_speed.y += gravity; // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
 	if (target_speed.y < 0)
 		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
 
@@ -237,8 +237,8 @@ void j1Player::JumpingUpdate()
 		currentAnimation = App->entityFactory->player_FALL.GetCurrentFrame();
 
 
-	if (target_speed.y > fall_speed) 
-		target_speed.y = fall_speed; //limit falling speed
+	//if (target_speed.y > fall_speed) 
+	//	target_speed.y = fall_speed; //limit falling speed
 
 	if (!lockInput)
 	{
