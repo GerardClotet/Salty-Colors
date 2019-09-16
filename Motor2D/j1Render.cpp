@@ -130,7 +130,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y *speed) + y * scale; //TODO make other blit function for parallax
+	rect.y = (int)(camera.y *speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -181,7 +181,7 @@ bool j1Render::BlitMap(SDL_Texture* texture, int x, int y, const SDL_Rect* secti
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speedX) + x * scale;
-	rect.y = (int)(camera.y *speedY) + y * scale; //TODO make other blit function for parallax
+	rect.y = (int)(camera.y *speedY) + y * scale; 
 
 	if (section != NULL)
 	{

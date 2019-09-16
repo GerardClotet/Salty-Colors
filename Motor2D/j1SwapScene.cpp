@@ -53,7 +53,7 @@ bool j1MapChange::Update(float dt)
 
 	float normalized = 1.0f < ((float)now / (float)total_time) ? 1.0f : ((float)now / (float)total_time);
 
-	switch (current_step) //NEVER GOES IN
+	switch (current_step)
 	{
 	case fade_step::fade_to_black:
 	{
@@ -71,7 +71,6 @@ bool j1MapChange::Update(float dt)
 				{
 					App->map->SwitchMaps((*item).data());
 					App->entityFactory->player->lockInput = false;
-
 				}
 
 				++i;
@@ -92,7 +91,7 @@ bool j1MapChange::Update(float dt)
 
 		if (now >= total_time)
 		{
-			//App->entityFactory->player->ResetPlayer();
+			
 			current_step = fade_step::none;
 			App->collision->Triggercolliding = false;
 			
@@ -147,10 +146,10 @@ bool j1MapChange::Save(pugi::xml_node& node) const
 		{
 			scene_node.append_attribute("name") = (*item).data();
 
-			if (App->scene->actualMap == "Level1.tmx") //to polish
+			if (App->scene->actualMap == "Level1.tmx") 
 				App->scene->maptoReset = 0;
 
-			else if (App->scene->actualMap == "Level2.tmx")//to polish
+			else if (App->scene->actualMap == "Level2.tmx")
 				App->scene->maptoReset = 1;
 
 			return true;
@@ -192,7 +191,6 @@ bool j1MapChange::Load(pugi::xml_node& node)
 			App->map->SwitchMaps((*item).data());
 			return true;
 		}
-		//else App->map->SwitchMaps((*item).data());
 
 		++item;
 	}

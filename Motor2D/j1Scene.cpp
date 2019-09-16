@@ -50,6 +50,7 @@ bool j1Scene::Start()
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
 	endLvlSFX = App->audio->LoadFx("audio/fx/EndLevel.wav");
+	dashSFX = App->audio->LoadFx("audio/fx/dash.wav");
 
 	return true;
 }
@@ -168,17 +169,15 @@ bool j1Scene::PostUpdate()
 		App->render->camera.x = LerpLabel(App->render->camera.x,- playerPos.x + App->render->camera.w * 0.5, 0.016f * 2.5f); //testing numbers
 		App->render->camera.y = LerpLabel(App->render->camera.y,- playerPos.y + App->render->camera.h * 0.5, 0.016f * 2.5f);
 
-		/*App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w * 0.5;
-		App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h * 0.5;*/
 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Loadlvl(0); //here to reset to first level (player, cam..)
+		Loadlvl(0); //reset to first level (player, cam..)
 
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		ReLoadLevel(); //here to reset current level (player, cam..)
+		ReLoadLevel(); // reset current level (player, cam..)
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		Loadlvl(1);
@@ -270,7 +269,7 @@ void j1Scene::ReLoadLevel()
 {
 	
 	
- 	Loadlvl(maptoReset); //may change
+ 	Loadlvl(maptoReset); 
 	
 }
 

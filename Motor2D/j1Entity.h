@@ -27,16 +27,7 @@ enum  PlayerState {
 	GOD,
 	MAX
 };
-//enum EntityState
-//{
-//	N_STATE = -1,
-//	IDLE,
-//	DEAD,
-//	GOD,
-//	WIN,
-//	MOVING,
-//	JUMPING,
-//};
+
 
 class j1Entity 
 {
@@ -86,14 +77,10 @@ public:
 	bool flipX = false;
 	bool is_grounded = false;
 
-	int coll_offSet;
 
 	PlayerState state = IDLE;
 
-	//virtual void MovingUpdate();
-	///*virtual void IdleUpdate();
-	//virtual void JumpingUpdate();*/
-	//virtual void Jump() {};
+
 	
 };
 #endif

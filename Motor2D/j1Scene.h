@@ -62,7 +62,7 @@ public:
 	unsigned int landSFX;
 	unsigned int jumpSFX;
 	unsigned int endLvlSFX;
-
+	unsigned int dashSFX;
 private:
 	bool viewportResize = false;
 	bool incR = true;

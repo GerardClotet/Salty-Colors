@@ -10,18 +10,18 @@
 		<scene name="Level1.tmx" />
 	</swap_scene>
 	<entityFactory>
-		<Player x="2427" y="726">
-			<velocity x="0" />
+		<Player x="3012" y="566">
+			<velocity x="7.35491085" />
 			<velocity y="0" />
-			<target_speed x="0" />
+			<target_speed x="7.5" />
 			<target_speed y="0" />
-			<state value="0" />
+			<state value="1" />
 			<is_grounded value="true" />
-			<flipX value="true" />
+			<flipX value="false" />
 		</Player>
 	</entityFactory>
 	<collision />
 	<renderer>
-		<camera x="-1914" y="-312" />
+		<camera x="-2352" y="-182" />
 	</renderer>
 </game_state>

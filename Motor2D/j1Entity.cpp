@@ -45,13 +45,7 @@ bool j1Entity::CleanUp()
 
 void j1Entity::Draw()
 {
-	//if (entityTex != nullptr)
-	//	App->render->Blit(entityTex, position.x, position.y, &currentAnimation.GetCurrentFrame()); //or animation
 
-	/*else if(currentAnimation != nullptr)
-		App->render->Blit()*/
-
-	LOG("entity drawn");
 }
 
 bool j1Entity::Load(pugi::xml_node&)
@@ -88,14 +82,11 @@ void j1Entity::MovX()
 	}
 
 	if (fabs(velocity.x) < threshold)
-	{
-
 		velocity.x = 0.0F;
-	}
+	
 
 	position.x += velocity.x;
 	collider->rect.x = position.x;
-	pivot.x = position.x + (collider->rect.w / 2);
 }
 
 void j1Entity::MovY()
@@ -106,12 +97,10 @@ void j1Entity::MovY()
 		{
 			velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider));
 			if (velocity.y == 0) target_speed.y = 0.0F;
-			//MAI pasa a ser 0
 		}
 		else
 		{
 			float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
-			//	LOG("velocity Y %f", velocity.y);
 			velocity.y = MIN(velocity.y, distance);
 			is_grounded = (distance == 0) ? true : false;
 
@@ -119,10 +108,11 @@ void j1Entity::MovY()
 
 	}
 
-	if (fabs(velocity.y) < threshold) velocity.y = 0.0F;
+	if (fabs(velocity.y) < threshold) 
+		velocity.y = 0.0F;
 
 	position.y += velocity.y;
-	collider->rect.y = position.y; //+ coll_offSet;
+	collider->rect.y = position.y; 
 
 }
 

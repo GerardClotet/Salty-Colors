@@ -16,14 +16,12 @@ j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
 	LOG("%s", App->entityFactory->sprite_route.data());
 	position = pos;
-	//currentAnimation = App->entityFactory->player_IDLE;
 
 	animation_Coll = { 0,0,24,42 };
-	coll_offSet = 13;
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_PLAYER, App->entityFactory, true);
 
 	collider->rect.x = position.x;
-	collider->rect.y = position.y;// +coll_offSet;
+	collider->rect.y = position.y;
 
 }
 
@@ -34,7 +32,6 @@ j1Player::~j1Player()
 bool j1Player::Start()
 {
 	
-	//collider = App->collision->AddCollider;
 
 	return true;
 }
@@ -64,8 +61,7 @@ bool j1Player::PreUpdate()
 	velocity.x = target_speed.x * acceleration + velocity.x * (1 - acceleration);
 	velocity.y = target_speed.y * acceleration + velocity.y * (1 - acceleration);
 
-	/*if (!is_grounded && state != GOD)
-		state = JUMPING;*/
+	
 	return true;
 
 }
@@ -131,6 +127,7 @@ void j1Player::IdleUpdate()
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		{
 			state = DASH;
+			App->audio->PlayFx(App->scene->dashSFX, 0);
 			startDash = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
@@ -146,7 +143,6 @@ void j1Player::IdleUpdate()
 			App->audio->PlayFx(App->scene->jumpSFX, 0);
 			state = JUMPING;
 
-			//jump sfx
 		}
 	}
 	if (!is_grounded) state = JUMPING;
@@ -175,6 +171,7 @@ void j1Player::MovingUpdate()
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		{
 			state = DASH;
+			App->audio->PlayFx(App->scene->dashSFX, 0);
 			startDash = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
@@ -234,6 +231,7 @@ void j1Player::JumpingUpdate()
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes !=0)
 		{
 			state = DASH;
+			App->audio->PlayFx(App->scene->dashSFX, 0);
 			startDash = true;
 			dashes -= 1;
 		}
@@ -299,7 +297,6 @@ void j1Player::Die()
  		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
-		/*ResetPlayer();*/
 		App->audio->SetVolume(0);
 	}
 
@@ -307,7 +304,6 @@ void j1Player::Die()
 
 void j1Player::DashUpdate()
 {
-	//flipx false Dreta
 	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
 
 	if (!flipX && startDash)

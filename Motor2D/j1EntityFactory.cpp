@@ -76,7 +76,6 @@ bool j1EntityFactory::Start()
 	}
 
 
-	//Load entities textures
 
 	return true;
 }
@@ -116,11 +115,11 @@ bool j1EntityFactory::Update(float dt)
 			}
 			else
 			{
-				if ((*item)->type == ENTITY_TYPE::ENT_PLAYER)
-				{
-					//player = nullptr;
-					LOG("");
-				}
+				//if ((*item)->type == ENTITY_TYPE::ENT_PLAYER)
+				//{
+				//	//player = nullptr;
+				//	LOG("");
+				//}
 
 				(*item)->CleanUp();
 				delete(*item);
@@ -213,17 +212,13 @@ bool j1EntityFactory::Save(pugi::xml_node& data) const
 	
 
 	Ppos = data.append_child("Player");
-	LOG("%i x %i y", player->position.x, player->position.y);
-	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
+
 	Ppos.append_attribute("x") = player->position.x;
 	Ppos.append_attribute("y") = player->position.y;
-	/*Ppos.append_child("position").append_attribute("x") = player->position.x;
-	Ppos.append_child("position").append_attribute("y") = player->position.y;*/
-	LOG("%i x %i y", player->position.x, player->position.y);
+
 
 	Ppos.append_child("velocity").append_attribute("x") = player->velocity.x;
 	Ppos.append_child("velocity").append_attribute("y") = player->velocity.y;
-	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
 
 	Ppos.append_child("target_speed").append_attribute("x") = player->target_speed.x;
 	Ppos.append_child("target_speed").append_attribute("y") = player->target_speed.y;
@@ -238,17 +233,13 @@ bool j1EntityFactory::Save(pugi::xml_node& data) const
 
 bool j1EntityFactory::Load(pugi::xml_node& data)
 {
-	LOG("%i x %i y", player->position.x, player->position.y);
-	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
+	
 	player->position.x = data.child("Player").attribute("x").as_int();
 	player->position.y = data.child("Player").attribute("y").as_int();
-	/*player->position.x = data.child("Player").child("position").attribute("x").as_int();
-	player->position.y = data.child("Player").child("position").attribute("y").as_int();*/
-	LOG("%i x %i y", player->position.x, player->position.y);
+
 
 	player->velocity.x = data.child("Player").child("velocity").attribute("x").as_float();
 	player->velocity.y = data.child("Player").child("velocity").attribute("y").as_float();
-	LOG("vel %i x  vel%i y", player->velocity.x, player->velocity.y);
 
 	player->target_speed.x = data.child("Player").child("target_speed").attribute("x").as_float();
 	player->target_speed.y = data.child("Player").child("target_speed").attribute("y").as_float();

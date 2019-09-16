@@ -7,23 +7,10 @@
 #include "j1Collision.h"
 #define MAX_DASHES 1
 
-//enum  PlayerState {
-//	NO_STATE =-1,
-//	IDLE,
-//	MOVING,
-//	JUMPING,
-//	DEAD,
-//	GOD,
-//	MAX
-//};
+
 class j1Player : public j1Entity
 {
-private:
 
-	//void MovingUpdate();
-	//void IdleUpdate();
-	//void JumpingUpdate();
-	//void Jump();
 	
 public:
 	j1Player(iPoint position);
@@ -46,7 +33,6 @@ public:
 	bool LoadAttributes(pugi::xml_node config);
 public:
 
-	//PlayerState state = IDLE;
 	SDL_Rect animation_Coll;
 	float spriteIncrease = 1.5f;
 	j1PerfTimer stepSFXTimer;

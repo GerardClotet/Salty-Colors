@@ -437,12 +437,10 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	/*App->render->camera.x = -App->entityFactory->player->position.x + App->render->camera.w*0.5;
-	App->render->camera.y = -App->entityFactory->player->position.y + App->render->camera.h*0.5;*/
+	
 
 	LOG("caMPOS %i %i", App->render->camera.x, App->render->camera.y);
 	LOG("playerpos %i %i",App->entityFactory->player->position.x, App->entityFactory->player->position.y);
-	//App->render->camera.y -= 500;
 	map_loaded = ret;
 	return ret;
 }
@@ -656,24 +654,10 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
 
 			if (App->entityFactory->GetPlayerState() == true)
-			{
-				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
-				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });// TO FIX: only enter when player dies or changes level not when loading a saved game
-				LOG("%i x %i y", App->entityFactory->player->position.x, App->entityFactory->player->position.y);
-				
-			}
-			
-			
-
-			
+				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+					
 			else if(App->entityFactory->GetPlayerState() == false)
 				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
-
-			/*if (App->entityFactory->GetPlayerState() == false && App->entityFactory->player == nullptr)
-				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
-
-			else if (App->entityFactory->GetPlayerState() == false && App->entityFactory->player->state == DEAD)
-				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });*/
 
 		}
 
