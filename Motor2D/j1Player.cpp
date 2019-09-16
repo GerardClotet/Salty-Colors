@@ -58,8 +58,8 @@ bool j1Player::PreUpdate()
 		break;
 	}
 
-	velocity.x = target_speed.x * acceleration + velocity.x * (1 - acceleration);
-	velocity.y = target_speed.y * acceleration + velocity.y * (1 - acceleration);
+	/*velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration))*dt;
+	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration))*dt;*/
 
 	
 	return true;
@@ -68,6 +68,20 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+
+	switch (state)
+	{
+	case JUMPING:
+		target_speed.y += gravity*dt;
+		if (target_speed.y > fall_speed)
+			target_speed.y = fall_speed; //limit falling speed
+		break;
+
+		
+	}
+	velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
+	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
+
 	MovX();
 	MovY();
 
@@ -276,17 +290,17 @@ void j1Player::GodUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A)) target_speed.x = 0.0F;
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		target_speed.x = movement_speed;
+		target_speed.x = movement_speed*5;
 		flipX = false;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		target_speed.x = -movement_speed;
+		target_speed.x = -movement_speed*5;
 		flipX = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == App->input->GetKey(SDL_SCANCODE_S)) target_speed.y = 0.0F;
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) target_speed.y = -movement_speed;
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) target_speed.y = movement_speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) target_speed.y = -movement_speed*5;
+	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) target_speed.y = movement_speed*5;
 
 }
 
@@ -369,7 +383,6 @@ bool j1Player::LoadAttributes(pugi::xml_node config)
 
 	fall_speed = config.child("entityFactory").child("player").child("fall_speed").attribute("value").as_float();
 
-	threshold = config.child("entityFactory").child("player").child("threshold").attribute("value").as_float();
 
 	return true;
 }

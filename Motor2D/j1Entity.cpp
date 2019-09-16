@@ -81,8 +81,7 @@ void j1Entity::MovX()
 		}
 	}
 
-	if (fabs(velocity.x) < threshold)
-		velocity.x = 0.0F;
+
 	
 
 	position.x += velocity.x;
@@ -108,8 +107,7 @@ void j1Entity::MovY()
 
 	}
 
-	if (fabs(velocity.y) < threshold) 
-		velocity.y = 0.0F;
+
 
 	position.y += velocity.y;
 	collider->rect.y = position.y; 
