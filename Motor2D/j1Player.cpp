@@ -50,7 +50,8 @@ bool j1Player::PreUpdate()
 		break;
 	case GOD: GodUpdate();
 		break;
-	case DASH: DashUpdate();
+	case DASH:
+		DashUpdate();
 		break;
 	case DEAD:
 		break;
@@ -319,13 +320,16 @@ void j1Player::Die()
 void j1Player::DashUpdate()
 {
 	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
-
+	LOG("velocity %f x", velocity.x);
 	if (!flipX && startDash)
 	{
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-		velocity.x = movement_speed*5;
+	//	velocity.x = movement_speed*5000000000;
+		target_speed.x = movement_speed * 20;
+
+		LOG("velocity %f x", velocity.x);
 		startDash = false;
 	}
 	else if (flipX && startDash)
@@ -333,11 +337,16 @@ void j1Player::DashUpdate()
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-		velocity.x = -movement_speed*5;
+		
+		velocity.x = -movement_speed * 50 * (1 / App->GetDt());
+		target_speed.x = - movement_speed * 20;
+
+		LOG("velocity %f x", velocity.x);
 		startDash = false;
 	}
-	
-	
+	LOG("targetSpeed %f x", target_speed.x);
+
+	LOG("velocity %f x", velocity.x);
 	if (velocity.x > -10 && flipX == true || velocity.x < 10 && flipX == false)
 	{
 		if (!is_grounded)
