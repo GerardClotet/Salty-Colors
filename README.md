@@ -1,15 +1,15 @@
 # Dev-Game
 
-###This game is for educational purposes for Development subject
+### This game is for educational purposes for Development subject
 
 
 ***
-##Instalation 
+## Instalation 
 
 Unzip the .zip file and execute the .exe that is contained inside the decompressed folder
 
 
-##Controls
+## Controls
 
 - A - Move left
 - D - Move Right
@@ -18,7 +18,7 @@ Unzip the .zip file and execute the .exe that is contained inside the decompress
 - W - Move up (God mode)
 - S - Move down (God mode)
 
-##Debug Keys
+## Debug Keys
 
 - F1 - Load first level (from the beginning)
 - F2 - Load current level (from the beginning)
@@ -45,7 +45,7 @@ Gerard Clotet Rodríguez
 
 
 
-##License
+## License
 
 MIT License
 
