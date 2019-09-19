@@ -320,7 +320,7 @@ bool j1Map::CleanUp()
 		(*collider_item)->to_delete = true;
 		++collider_item;	
 	}
-	data.colliders.clear();
+	data.colliders.clear(); //version 16.1.5
 
 	App->tex->UnLoad(data.backgroundimage);
 	data.backgroundimage = nullptr;
