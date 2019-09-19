@@ -287,24 +287,24 @@ bool j1Map::CleanUp()
 	{
 		if ((*tiles_item) != nullptr && (*tiles_item)->texture != nullptr)
 		{
-			App->tex->UnLoad((*tiles_item)->texture);
+			App->tex->UnLoad((*tiles_item)->texture); 
 			(*tiles_item)->texture = nullptr;
 		}
 		delete* tiles_item;
 		*tiles_item = nullptr;
 		++tiles_item;
 	}
-	data.tilesets.clear();
+	data.tilesets.clear(); 
 
 	// Remove all layers
 	std::list<MapLayer*>::iterator layer_item;
 	layer_item = data.layers.begin();
 	
-	while (layer_item != data.layers.end())
+	while (layer_item != data.layers.end()) //Aqui peta
 	{
 		data.layers.remove(*layer_item);
 		
-		delete* layer_item;
+		delete* layer_item; //quan ++ layerItem algo pasa q	ue no lo pilla
 		*layer_item = nullptr;
 		++layer_item;
 	}

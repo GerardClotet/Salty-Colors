@@ -63,7 +63,7 @@ bool j1MapChange::Update(float dt)
 		{
 			App->audio->SetVolume(MIX_MAX_VOLUME);
 			App->scene->maptoReset = nextMap;
-			std::list<std::string>::iterator item = App->scene->map_names.begin();
+			std::list<std::string>::const_iterator item = App->scene->map_names.begin();
 			int i = 0;
 			for (; item != App->scene->map_names.end(); ++item)
 			{
