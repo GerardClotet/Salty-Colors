@@ -302,10 +302,10 @@ bool j1Map::CleanUp()
 	
 	while (layer_item != data.layers.end()) //Aqui peta
 	{
-//		data.layers.remove(*layer_item);
+		data.layers.remove(*layer_item);
 		
-		//delete* layer_item; //quan ++ layerItem algo pasa q	ue no lo pilla
-		//*layer_item = nullptr;
+		delete* layer_item; //quan ++ layerItem algo pasa q	ue no lo pilla
+		*layer_item = nullptr;
 		++layer_item;
 	}
 	data.layers.clear();
