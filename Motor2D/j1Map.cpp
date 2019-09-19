@@ -305,8 +305,9 @@ bool j1Map::CleanUp()
 		data.layers.remove(*layer_item);
 		
 		delete* layer_item; //quan ++ layerItem algo pasa q	ue no lo pilla
-		*layer_item = nullptr;
 		++layer_item;
+		*layer_item = nullptr;
+
 	}
 	data.layers.clear();
 
