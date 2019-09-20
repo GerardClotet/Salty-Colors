@@ -141,7 +141,7 @@ void j1Map::Draw()
 		App->render->Blit(data.backgroundimage, 0, 0, &data.backgroundrectangle, 1.0f,1.0F);
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
-
+	int tilesdrawing = 0;
 	for(; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = (*item);
@@ -160,13 +160,27 @@ void j1Map::Draw()
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
+					iPoint cam = WorldToMap(App->render->camera.x, App->render->camera.y);
+					if (layer->parallaxSpeed <= 1.0f) //for parallax layers
+					{
+						App->render->BlitMap(tileset->texture, pos.x, pos.y, &r, layer->parallaxSpeed, 1.0f);
+						tilesdrawing += 1;
 
-					App->render->BlitMap(tileset->texture, pos.x, pos.y, &r,layer->parallaxSpeed,1.0f); 
+					}
+					else if (pos.x >= -App->render->camera.x - 30 && pos.x <= -App->render->camera.x  + App->render->camera.w + 30) //doesn't blit tiles outisde camera rect --+PERFORMANCE+--
+					{
+						
+						if (pos.y >= -App->render->camera.y -30  && pos.y <= -App->render->camera.y  + App->render->camera.h + 30)
+						{
+							App->render->BlitMap(tileset->texture, pos.x, pos.y, &r, layer->parallaxSpeed, 1.0f);
+							tilesdrawing += 1;
+						}
+					}
 				}
 			}
 		}
 	}
-
+	LOG("tilesdrawing %i", tilesdrawing);
 	DrawBFS();
 }
 
