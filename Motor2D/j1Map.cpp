@@ -161,7 +161,7 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 					iPoint cam = WorldToMap(App->render->camera.x, App->render->camera.y);
-					if (layer->parallaxSpeed <= 1.0f) //for parallax layers
+					if (layer->parallaxSpeed != 1.0f) //for parallax layers
 					{
 						App->render->BlitMap(tileset->texture, pos.x, pos.y, &r, layer->parallaxSpeed, 1.0f);
 						tilesdrawing += 1;
