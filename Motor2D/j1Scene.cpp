@@ -321,7 +321,7 @@ void j1Scene::PartyMaker()
 
 
 	 if (blue < 255 && incB == true)
-		 blue += 5;
+		 blue += 150;
 
 	  if (blue >= 255 && incB == true)
 		 incB = false;
