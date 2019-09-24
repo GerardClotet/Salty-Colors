@@ -70,16 +70,7 @@ bool j1Player::PreUpdate()
 bool j1Player::Update(float dt)
 {
 
-	switch (state)
-	{
-	case JUMPING:
-		target_speed.y += gravity*dt;
-		if (target_speed.y > fall_speed)
-			target_speed.y = fall_speed; //limit falling speed
-		break;
 
-		
-	}
 	velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
 	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
 
@@ -221,7 +212,7 @@ void j1Player::MovingUpdate()
 
 void j1Player::JumpingUpdate()
 {
- 	//target_speed.y += gravity; // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
+ 	target_speed.y += gravity*App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
 	if (target_speed.y < 0)
 		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
 
@@ -238,8 +229,8 @@ void j1Player::JumpingUpdate()
 		currentAnimation = App->entityFactory->player_FALL.GetCurrentFrame();
 
 
-	//if (target_speed.y > fall_speed) 
-	//	target_speed.y = fall_speed; //limit falling speed
+	if (target_speed.y > fall_speed) 
+		target_speed.y = fall_speed; //limit falling speed
 
 	if (!lockInput)
 	{
@@ -320,16 +311,14 @@ void j1Player::Die()
 void j1Player::DashUpdate()
 {
 	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
-	LOG("velocity %f x", velocity.x);
 	if (!flipX && startDash)
 	{
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-	//	velocity.x = movement_speed*5000000000;
-		target_speed.x = movement_speed * 20;
-
-		LOG("velocity %f x", velocity.x);
+		
+		target_speed.x = movement_speed*400*App->GetDt();
+		init_distance = position.x;
 		startDash = false;
 	}
 	else if (flipX && startDash)
@@ -337,17 +326,16 @@ void j1Player::DashUpdate()
 		velocity.y = 0;
 		target_speed.y = 0;
 		target_speed.x = 0;
-		
-		velocity.x = -movement_speed * 50 * (1 / App->GetDt());
-		target_speed.x = - movement_speed * 20;
 
-		LOG("velocity %f x", velocity.x);
+		target_speed.x = -movement_speed * 400 *  App->GetDt();
+		init_distance = position.x;
 		startDash = false;
 	}
-	LOG("targetSpeed %f x", target_speed.x);
 
-	LOG("velocity %f x", velocity.x);
-	if (velocity.x > -10 && flipX == true || velocity.x < 10 && flipX == false)
+	distance = position.x - init_distance;
+	
+	
+	if(abs(distance) >=150|| previous_pos == position.x)
 	{
 		if (!is_grounded)
 		{
@@ -365,6 +353,7 @@ void j1Player::DashUpdate()
 		}
 	}
 
+	previous_pos = position.x;
 }
 
 void j1Player::ResetPlayer()
