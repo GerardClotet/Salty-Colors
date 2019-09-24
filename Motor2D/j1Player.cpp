@@ -161,6 +161,7 @@ void j1Player::IdleUpdate()
 				target_speed.y = -jump_speed/**App->getDt()*/;
 				target_speed.x = -movement_speed /** App->GetDt()*/;
 				ready_toBounce_left = false;
+				LOG("IdleUpdate to left");
 
 			}
 			if (!flipX) //right
@@ -168,13 +169,16 @@ void j1Player::IdleUpdate()
 				target_speed.y = -jump_speed/**App->getDt()*/;
 				target_speed.x = movement_speed /** App->GetDt()*/;
 				ready_toBounce_right = false;
+				LOG("IdleUpdate to right");
+
+
 			}
 
 			state = BOUNCE;
 		}
 
 	}
-	if (!is_grounded) state = JUMPING;
+	if (!is_grounded && state != BOUNCE) state = JUMPING;
 
 }
 
@@ -197,28 +201,7 @@ void j1Player::MovingUpdate()
 	if (!lockInput)
 	{
 
-		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-
-		{
-
-			/*if (ready_toBounce_left) flipX = true;
-			if(ready)*/
-			if (flipX) //left
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed /** App->GetDt()*/;
-
-			}
-			if (!flipX) //right
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed /** App->GetDt()*/;
-
-			}
-			ready_toBounce_left = false;
-			ready_toBounce_right = false;
-			state = BOUNCE;
-		}
+		
 
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		{
@@ -252,6 +235,33 @@ void j1Player::MovingUpdate()
 		}
 
 
+		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+
+		{
+
+			if (ready_toBounce_left) flipX = false;
+			if (ready_toBounce_right) flipX = true;
+
+			if (flipX) //left
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = -movement_speed * 10 /** App->GetDt()*/;
+				ready_toBounce_left = false;
+				LOG("MovingUpdate to left");
+
+			}
+			if (!flipX) //right
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = movement_speed * 10 /** App->GetDt()*/;
+				ready_toBounce_right = false;
+				LOG("MovingUpdate to right");
+
+			}
+			ready_toBounce_left = false;
+			ready_toBounce_right = false;
+			state = BOUNCE;
+		}
 	}
 	if (!is_grounded) state = JUMPING;
 
@@ -285,19 +295,20 @@ void j1Player::JumpingUpdate()
 		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
 			if (ready_toBounce_left)flipX = false;
-			if (ready_toBounce_right)flipX = true;
+			if (ready_toBounce_right)flipX = true; // now is a goood way
 			if (flipX) //left
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed*100 /** App->GetDt()*/;
+				target_speed.x = -movement_speed*10 /** App->GetDt()*/;
 				ready_toBounce_left = false;
-
+				LOG("JumpingUpdate to left");
 			}
 			if (!flipX) //right
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed*100 /** App->GetDt()*/;
+				target_speed.x = movement_speed*10 /** App->GetDt()*/;
 				ready_toBounce_right = false;
+				LOG("JumpingUpdate to right ");
 			}
 
 			state = BOUNCE;
@@ -314,6 +325,7 @@ void j1Player::JumpingUpdate()
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
+			LOG("going right");
 			target_speed.x = movement_speed*1.5f;
 			flipX = false;
 		}
@@ -454,21 +466,27 @@ void j1Player::BounceUpdate()
 	}
 	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		if (ready_toBounce_left) flipX = false;
-		if (ready_toBounce_right) flipX = true;
+		if (ready_toBounce_left) flipX = true;
+		if (ready_toBounce_right) flipX = false;
 		if (flipX) //left
 		{
-			target_speed.y = -jump_speed*100/**App->getDt()*/;
-			target_speed.x = movement_speed *100/** App->GetDt()*/;
+			target_speed.y = -jump_speed/**App->getDt()*/;
+			target_speed.x = movement_speed*2 /** App->GetDt()*/;
+			LOG("BounceUpdate to left");
+			ready_toBounce_left = false;
 
 		}
 		if (!flipX) //right
 		{
-			target_speed.y = -jump_speed*100/**App->getDt()*/;
-			target_speed.x = -movement_speed*100 /** App->GetDt()*/;
+			target_speed.y = -jump_speed/**App->getDt()*/;
+			target_speed.x = -movement_speed*2/** App->GetDt()*/;
+			ready_toBounce_right = false;
+			LOG("BounceUpdate to right");
 
 		}
 	}
+
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{
