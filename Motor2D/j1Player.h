@@ -29,6 +29,7 @@ public:
 	void GodUpdate();
 	void Die();
 	void DashUpdate();
+	void BounceUpdate();
 	void ResetPlayer();
 	bool LoadAttributes(pugi::xml_node config);
 public:
@@ -38,6 +39,8 @@ public:
 	j1PerfTimer stepSFXTimer;
 	bool startMove = false;
 	bool lockInput = false;
+	bool ready_toBounce_left = false;
+	bool ready_toBounce_right = false;
 
 private:
 	bool startDash = false;
@@ -45,6 +48,7 @@ private:
 	float distance;
 	float init_distance;
 	float previous_pos;
+	
 };
 
 #endif

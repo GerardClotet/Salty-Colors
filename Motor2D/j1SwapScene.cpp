@@ -58,7 +58,7 @@ bool j1MapChange::Update(float dt)
 	case fade_step::fade_to_black:
 	{
 		App->entityFactory->player->spriteIncrease += 0.1;
-		App->entityFactory->player->Die();
+		App->entityFactory->player->ResetPlayer();
 
 
 		if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
@@ -90,7 +90,7 @@ bool j1MapChange::Update(float dt)
 	{
 		normalized = 1.0f - normalized;
 		App->entityFactory->player->spriteIncrease = 1.5f;
-		App->entityFactory->player->Die();
+		App->entityFactory->player->ResetPlayer();
 
 		if (now >= total_time)
 		{

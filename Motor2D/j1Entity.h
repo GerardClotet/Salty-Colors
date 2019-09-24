@@ -24,7 +24,9 @@ enum  PlayerState {
 	JUMPING,
 	DEAD,
 	DASH,
+	BOUNCE,
 	GOD,
+
 	MAX
 };
 

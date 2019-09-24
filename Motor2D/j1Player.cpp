@@ -55,6 +55,8 @@ bool j1Player::PreUpdate()
 		break;
 	case DEAD:
 		break;
+	case BOUNCE: BounceUpdate();
+		break;
 	default:
 		break;
 	}
@@ -150,6 +152,27 @@ void j1Player::IdleUpdate()
 			state = JUMPING;
 
 		}
+
+
+		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (flipX) //left
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = -movement_speed /** App->GetDt()*/;
+				ready_toBounce_left = false;
+
+			}
+			if (!flipX) //right
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = movement_speed /** App->GetDt()*/;
+				ready_toBounce_right = false;
+			}
+
+			state = BOUNCE;
+		}
+
 	}
 	if (!is_grounded) state = JUMPING;
 
@@ -173,6 +196,29 @@ void j1Player::MovingUpdate()
 
 	if (!lockInput)
 	{
+
+		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+
+		{
+
+			/*if (ready_toBounce_left) flipX = true;
+			if(ready)*/
+			if (flipX) //left
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = movement_speed /** App->GetDt()*/;
+
+			}
+			if (!flipX) //right
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = -movement_speed /** App->GetDt()*/;
+
+			}
+			ready_toBounce_left = false;
+			ready_toBounce_right = false;
+			state = BOUNCE;
+		}
 
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		{
@@ -204,6 +250,8 @@ void j1Player::MovingUpdate()
 			App->audio->PlayFx(App->scene->jumpSFX, 0);
 			state = JUMPING;
 		}
+
+
 	}
 	if (!is_grounded) state = JUMPING;
 
@@ -234,6 +282,26 @@ void j1Player::JumpingUpdate()
 
 	if (!lockInput)
 	{
+		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (ready_toBounce_left)flipX = false;
+			if (ready_toBounce_right)flipX = true;
+			if (flipX) //left
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = movement_speed*100 /** App->GetDt()*/;
+				ready_toBounce_left = false;
+
+			}
+			if (!flipX) //right
+			{
+				target_speed.y = -jump_speed/**App->getDt()*/;
+				target_speed.x = -movement_speed*100 /** App->GetDt()*/;
+				ready_toBounce_right = false;
+			}
+
+			state = BOUNCE;
+		}
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes !=0)
 		{
 			state = DASH;
@@ -255,6 +323,8 @@ void j1Player::JumpingUpdate()
 			target_speed.x = -movement_speed*1.5f;
 			flipX = true;
 		}
+
+
 	}
 		if (is_grounded)
 		{
@@ -337,6 +407,7 @@ void j1Player::DashUpdate()
 	
 	if(abs(distance) >=150|| previous_pos == position.x)
 	{
+
 		if (!is_grounded)
 		{
 			state = JUMPING;
@@ -356,6 +427,58 @@ void j1Player::DashUpdate()
 	previous_pos = position.x;
 }
 
+void j1Player::BounceUpdate()
+{
+	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
+
+	target_speed.y += gravity * App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
+
+	if (target_speed.y > fall_speed)
+		target_speed.y = fall_speed; //limit falling speed
+
+	if (is_grounded)
+	{
+		if (dashes < MAX_DASHES)
+			dashes += 1;
+
+		App->audio->PlayFx(App->scene->landSFX, 0);
+		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+			state = IDLE;
+
+		else
+			state = MOVING;
+
+		target_speed.y = 0.0F;
+		velocity.y = 0.0F;
+		LOG("grounded");
+	}
+	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (ready_toBounce_left) flipX = false;
+		if (ready_toBounce_right) flipX = true;
+		if (flipX) //left
+		{
+			target_speed.y = -jump_speed*100/**App->getDt()*/;
+			target_speed.x = movement_speed *100/** App->GetDt()*/;
+
+		}
+		if (!flipX) //right
+		{
+			target_speed.y = -jump_speed*100/**App->getDt()*/;
+			target_speed.x = -movement_speed*100 /** App->GetDt()*/;
+
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
+	{
+		state = DASH;
+		App->audio->PlayFx(App->scene->dashSFX, 0);
+		startDash = true;
+		dashes -= 1;
+	}
+}
+
 void j1Player::ResetPlayer()
 {
 
@@ -363,6 +486,8 @@ void j1Player::ResetPlayer()
 
 	velocity = { 0.0f, 0.0f };
 	target_speed = { 0.0f, 0.0f };
+
+
 	flipX = false;
 	
 }

@@ -177,6 +177,11 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 					if (new_distance < distance)
 					{
 						distance = new_distance;
+						if (distance == 0)
+						{
+							App->entityFactory->player->ready_toBounce_right = true;
+							App->entityFactory->player->flipX = true;
+						}
 					}
 				}
 			}
@@ -201,6 +206,12 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 					if (new_distance > distance)
 					{
 						distance = new_distance;
+						if (distance == 0)
+						{
+							App->entityFactory->player->ready_toBounce_left = true;
+							App->entityFactory->player->flipX = false;
+
+						}
 					}
 				}
 			}
