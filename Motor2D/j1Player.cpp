@@ -159,7 +159,7 @@ void j1Player::IdleUpdate()
 			if (flipX) //left
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed /** App->GetDt()*/;
+				target_speed.x = -movement_speed*100 * App->GetDt();
 				ready_toBounce_left = false;
 				LOG("IdleUpdate to left");
 
@@ -167,7 +167,7 @@ void j1Player::IdleUpdate()
 			if (!flipX) //right
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed /** App->GetDt()*/;
+				target_speed.x = movement_speed *100* App->GetDt();
 				ready_toBounce_right = false;
 				LOG("IdleUpdate to right");
 
@@ -245,7 +245,7 @@ void j1Player::MovingUpdate()
 			if (flipX) //left
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed * 10 /** App->GetDt()*/;
+				target_speed.x = movement_speed * 100 * App->GetDt();
 				ready_toBounce_left = false;
 				LOG("MovingUpdate to left");
 
@@ -253,7 +253,7 @@ void j1Player::MovingUpdate()
 			if (!flipX) //right
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed * 10 /** App->GetDt()*/;
+				target_speed.x = -movement_speed * 100 * App->GetDt();
 				ready_toBounce_right = false;
 				LOG("MovingUpdate to right");
 
@@ -299,14 +299,14 @@ void j1Player::JumpingUpdate()
 			if (flipX) //left
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed*10 /** App->GetDt()*/;
+				target_speed.x = movement_speed * 100 * App->GetDt();
 				ready_toBounce_left = false;
 				LOG("JumpingUpdate to left");
 			}
 			if (!flipX) //right
 			{
 				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed*10 /** App->GetDt()*/;
+				target_speed.x = -movement_speed * 100 * App->GetDt();
 				ready_toBounce_right = false;
 				LOG("JumpingUpdate to right ");
 			}
@@ -471,7 +471,7 @@ void j1Player::BounceUpdate()
 		if (flipX) //left
 		{
 			target_speed.y = -jump_speed/**App->getDt()*/;
-			target_speed.x = movement_speed*2 /** App->GetDt()*/;
+			target_speed.x = movement_speed * 100 * App->GetDt();
 			LOG("BounceUpdate to left");
 			ready_toBounce_left = false;
 
@@ -479,7 +479,7 @@ void j1Player::BounceUpdate()
 		if (!flipX) //right
 		{
 			target_speed.y = -jump_speed/**App->getDt()*/;
-			target_speed.x = -movement_speed*2/** App->GetDt()*/;
+			target_speed.x = -movement_speed * 100 * App->GetDt();
 			ready_toBounce_right = false;
 			LOG("BounceUpdate to right");
 

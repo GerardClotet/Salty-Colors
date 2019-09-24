@@ -27747,7 +27747,7 @@
   <object id="175" type="floor" x="178" y="-708" width="30" height="1410"/>
  </objectgroup>
  <objectgroup id="6" name="triggers">
-  <object id="83" name="spawn" type="start" x="514" y="766" width="32" height="32"/>
+  <object id="83" name="spawn" type="start" x="92" y="754" width="32" height="32"/>
   <object id="174" type="end" x="4510" y="712" width="22.6667" height="26"/>
  </objectgroup>
 </map>
