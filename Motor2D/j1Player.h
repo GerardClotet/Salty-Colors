@@ -42,7 +42,9 @@ public:
 private:
 	bool startDash = false;
 	int dashes = 1;
-	
+	float distance;
+	float init_distance;
+	float previous_pos;
 };
 
 #endif

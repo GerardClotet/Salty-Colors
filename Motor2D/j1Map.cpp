@@ -180,7 +180,7 @@ void j1Map::Draw()
 			}
 		}
 	}
-	LOG("tilesdrawing %i", tilesdrawing);
+//	LOG("tilesdrawing %i", tilesdrawing);
 	DrawBFS();
 }
 
