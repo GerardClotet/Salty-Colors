@@ -87,6 +87,7 @@ bool j1Player::Update(float dt)
 	
 
 	
+ 
 	
 	Draw();
 	if(state != DEAD)
@@ -123,61 +124,15 @@ void j1Player::SetPos(iPoint pos)
 
 	state = JUMPING;
 }
-
 void j1Player::IdleUpdate()
 {
 	target_speed.x = 0.0f;
 	currentAnimation = App->entityFactory->player_IDLE.GetCurrentFrame();
 
 	if (!lockInput)
+		IdleActPool();
 
-	{
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		{
-			state = DASH;
-			App->audio->PlayFx(App->scene->dashSFX, 0);
-			startDash = true;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
-		{
-			state = MOVING;
-			startMove = true;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			target_speed.y = -jump_speed;
-			is_grounded = false;
-			App->audio->PlayFx(App->scene->jumpSFX, 0);
-			state = JUMPING;
-
-		}
-
-
-		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			if (flipX) //left
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed*100 * App->GetDt();
-				ready_toBounce_left = false;
-				LOG("IdleUpdate to left");
-
-			}
-			if (!flipX) //right
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed *100* App->GetDt();
-				ready_toBounce_right = false;
-				LOG("IdleUpdate to right");
-
-
-			}
-
-			state = BOUNCE;
-		}
-
-	}
+	
 	if (!is_grounded && state != BOUNCE) state = JUMPING;
 
 }
@@ -192,82 +147,17 @@ void j1Player::MovingUpdate()
 		stepSFXTimer.Start();
 	}
 
-	if (stepSFXTimer.ReadMs() > 250.0f)
-	{
-		App->audio->PlayFx(App->scene->stepSFX, 0);
-		stepSFXTimer.Start();
-	}
+	CheckWalkSound();
 
 	if (!lockInput)
-	{
-
+		MovingActPool();
 		
 
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		{
-			state = DASH;
-			App->audio->PlayFx(App->scene->dashSFX, 0);
-			startDash = true;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-		{
-			state = IDLE;
-			target_speed.x = 0.0F;
-		}
-
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			target_speed.x = movement_speed*1.5f;
-			flipX = false;
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			target_speed.x = -movement_speed*1.5f;
-			flipX = true;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			target_speed.y = -jump_speed;
-			is_grounded = false;
-			App->audio->PlayFx(App->scene->jumpSFX, 0);
-			state = JUMPING;
-		}
-
-
-		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-
-		{
-
-			if (ready_toBounce_left) flipX = false;
-			if (ready_toBounce_right) flipX = true;
-
-			if (flipX) //left
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed * 100 * App->GetDt();
-				ready_toBounce_left = false;
-				LOG("MovingUpdate to left");
-
-			}
-			if (!flipX) //right
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed * 100 * App->GetDt();
-				ready_toBounce_right = false;
-				LOG("MovingUpdate to right");
-
-			}
-			ready_toBounce_left = false;
-			ready_toBounce_right = false;
-			state = BOUNCE;
-		}
-	}
+	
 	if (!is_grounded) state = JUMPING;
 
 	
 }
-
 void j1Player::JumpingUpdate()
 {
  	target_speed.y += gravity*App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
@@ -275,13 +165,11 @@ void j1Player::JumpingUpdate()
 		currentAnimation = App->entityFactory->player_JUMP.GetCurrentFrame();
 
 	if (target_speed.y >= 0 && target_speed.y < 8.0f)
-	{
-		
 			currentAnimation = App->entityFactory->player_MOMENTUM.GetCurrentFrame();
 
  		
 
-	}
+	
 
 	else if (target_speed.y  >= 10.0)
 		currentAnimation = App->entityFactory->player_FALL.GetCurrentFrame();
@@ -291,69 +179,10 @@ void j1Player::JumpingUpdate()
 		target_speed.y = fall_speed; //limit falling speed
 
 	if (!lockInput)
-	{
-		if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			if (ready_toBounce_left)flipX = false;
-			if (ready_toBounce_right)flipX = true; // now is a goood way
-			if (flipX) //left
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = movement_speed * 100 * App->GetDt();
-				ready_toBounce_left = false;
-				LOG("JumpingUpdate to left");
-			}
-			if (!flipX) //right
-			{
-				target_speed.y = -jump_speed/**App->getDt()*/;
-				target_speed.x = -movement_speed * 100 * App->GetDt();
-				ready_toBounce_right = false;
-				LOG("JumpingUpdate to right ");
-			}
+		JumpActPool();
 
-			state = BOUNCE;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes !=0)
-		{
-			state = DASH;
-			App->audio->PlayFx(App->scene->dashSFX, 0);
-			startDash = true;
-			dashes -= 1;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-			target_speed.x = 0.0f;
+	
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			LOG("going right");
-			target_speed.x = movement_speed*1.5f;
-			flipX = false;
-		}
-
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			target_speed.x = -movement_speed*1.5f;
-			flipX = true;
-		}
-
-
-	}
-		if (is_grounded)
-		{
-			if( dashes < MAX_DASHES)
-				dashes += 1;
-
-			App->audio->PlayFx(App->scene->landSFX, 0);
-			if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
-				state = IDLE;
-
-			else
-				state = MOVING;
-
-			target_speed.y = 0.0F;
-			velocity.y = 0.0F;
-			LOG("grounded");
-		}
 	
 }
 
@@ -438,7 +267,6 @@ void j1Player::DashUpdate()
 
 	previous_pos = position.x;
 }
-
 void j1Player::BounceUpdate()
 {
 	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
@@ -447,6 +275,128 @@ void j1Player::BounceUpdate()
 
 	if (target_speed.y > fall_speed)
 		target_speed.y = fall_speed; //limit falling speed
+
+	BounceActPool();
+}
+
+void j1Player::ResetPlayer()
+{
+
+	state = IDLE;
+
+	velocity = { 0.0f, 0.0f };
+	target_speed = { 0.0f, 0.0f };
+
+
+	flipX = false;
+	
+}
+
+
+void j1Player::IdleActPool()
+{
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		state = DASH;
+		App->audio->PlayFx(App->scene->dashSFX, 0);
+		startDash = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
+	{
+		state = MOVING;
+		startMove = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		target_speed.y = -jump_speed;
+		is_grounded = false;
+		App->audio->PlayFx(App->scene->jumpSFX, 0);
+		state = JUMPING;
+
+	}
+
+}
+
+void j1Player::MovingActPool()
+{
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		state = DASH;
+		App->audio->PlayFx(App->scene->dashSFX, 0);
+		startDash = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+	{
+		state = IDLE;
+		target_speed.x = 0.0F;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		target_speed.x = movement_speed * 1.5f;
+		flipX = false;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		target_speed.x = -movement_speed * 1.5f;
+		flipX = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		target_speed.y = -jump_speed;
+		is_grounded = false;
+		App->audio->PlayFx(App->scene->jumpSFX, 0);
+		state = JUMPING;
+	}
+}
+
+void j1Player::JumpActPool()
+{
+	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		if (flipX && ready_toBounce_right) //left
+		{
+			target_speed.y = -jump_speed * App->GetDt() * 60;
+			target_speed.x = -movement_speed * 100 * App->GetDt();
+			LOG("BounceUpdate to left");
+			ready_toBounce_right = false;
+
+
+		}
+		if (!flipX && ready_toBounce_left) //right
+		{
+			target_speed.y = -jump_speed * App->GetDt() * 60;
+			target_speed.x = movement_speed * 100 * App->GetDt();
+			LOG("BounceUpdate to right");
+			ready_toBounce_left = false;
+
+		}
+
+		state = BOUNCE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
+	{
+		state = DASH;
+		App->audio->PlayFx(App->scene->dashSFX, 0);
+		startDash = true;
+		dashes -= 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A) && state != BOUNCE)
+		target_speed.x = 0.0f;
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		target_speed.x = movement_speed * 1.5f;
+		flipX = false;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		target_speed.x = -movement_speed * 1.5f;
+		flipX = true;
+	}
 
 	if (is_grounded)
 	{
@@ -464,29 +414,49 @@ void j1Player::BounceUpdate()
 		velocity.y = 0.0F;
 		LOG("grounded");
 	}
-	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+}
+
+void j1Player::BounceActPool()
+{
+	if (is_grounded)
 	{
-		if (ready_toBounce_left) flipX = true;
-		if (ready_toBounce_right) flipX = false;
-		if (flipX) //left
+		if (dashes < MAX_DASHES)
+			dashes += 1;
+
+		App->audio->PlayFx(App->scene->landSFX, 0);
+		if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
+			state = IDLE;
+
+		else
+			state = MOVING;
+
+		target_speed.y = 0.0F;
+		velocity.y = 0.0F;
+		LOG("grounded");
+	}
+	if (/*(ready_toBounce_left || ready_toBounce_right) &&*/ App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+
+		if (flipX && ready_toBounce_right) //left
 		{
-			target_speed.y = -jump_speed/**App->getDt()*/;
-			target_speed.x = movement_speed * 100 * App->GetDt();
+			target_speed.y = -jump_speed * App->GetDt() * 60;
+			target_speed.x = -movement_speed * 100 * App->GetDt();
 			LOG("BounceUpdate to left");
-			ready_toBounce_left = false;
+			ready_toBounce_right = false;
+
 
 		}
-		if (!flipX) //right
+		if (!flipX && ready_toBounce_left) //right
 		{
-			target_speed.y = -jump_speed/**App->getDt()*/;
-			target_speed.x = -movement_speed * 100 * App->GetDt();
-			ready_toBounce_right = false;
+			target_speed.y = -jump_speed * App->GetDt() * 60;
+			target_speed.x = movement_speed * 100 * App->GetDt();
 			LOG("BounceUpdate to right");
+			ready_toBounce_left = false;
 
 		}
 	}
 
-	
+
 
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{
@@ -496,21 +466,6 @@ void j1Player::BounceUpdate()
 		dashes -= 1;
 	}
 }
-
-void j1Player::ResetPlayer()
-{
-
-	state = IDLE;
-
-	velocity = { 0.0f, 0.0f };
-	target_speed = { 0.0f, 0.0f };
-
-
-	flipX = false;
-	
-}
-
-
 
 bool j1Player::LoadAttributes(pugi::xml_node config)
 {
@@ -526,4 +481,13 @@ bool j1Player::LoadAttributes(pugi::xml_node config)
 
 
 	return true;
+}
+
+void j1Player::CheckWalkSound()
+{
+	if (stepSFXTimer.ReadMs() > 250.0f)
+	{
+		App->audio->PlayFx(App->scene->stepSFX, 0);
+		stepSFXTimer.Start();
+	}
 }

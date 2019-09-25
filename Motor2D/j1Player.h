@@ -41,7 +41,11 @@ public:
 	bool lockInput = false;
 	bool ready_toBounce_left = false;
 	bool ready_toBounce_right = false;
-
+	void CheckWalkSound();
+	void MovingActPool();
+	void IdleActPool();
+	void JumpActPool();
+	void BounceActPool();
 private:
 	bool startDash = false;
 	int dashes = 1;

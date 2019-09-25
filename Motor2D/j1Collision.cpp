@@ -182,6 +182,8 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 							App->entityFactory->player->ready_toBounce_right = true;
 							App->entityFactory->player->flipX = true;
 						}
+						else App->entityFactory->player->ready_toBounce_right = false;
+
 					}
 				}
 			}
@@ -212,6 +214,7 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 							App->entityFactory->player->flipX = false;
 
 						}
+						else App->entityFactory->player->ready_toBounce_left = false;
 					}
 				}
 			}
