@@ -51,7 +51,7 @@ public:
 	void PartyMaker();
 
 	int LerpLabel(int v0, int v1, float t);
-
+	void CameraFollowingUpdate();
 public:
 	int currentMap;
 	float fadeTime;
@@ -71,7 +71,8 @@ private:
 	bool incR = true;
 	bool incG = true;
 	bool incB = true;
-
+	bool stopX = false;
+	bool stopY = false;
 
 	Uint8 red=0;
 	Uint8 green=125;

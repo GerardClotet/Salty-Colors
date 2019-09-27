@@ -14,6 +14,7 @@ struct Properties
 	{
 		std::string name;
 		int value;
+		
 	};
 
 	~Properties()
@@ -31,6 +32,8 @@ struct Properties
 	}
 
 	int Get(const char* name, int default_value = 0) const;
+	float Getf(const char* name, float default_value = 0) const;
+
 
 	std::list<Property*>	list;
 };
@@ -43,6 +46,7 @@ struct MapLayer
 	int			height;
 	uint*		data;
 	float		parallaxSpeed;
+	int			noDraw;
 	Properties	properties;
 
 	MapLayer() : data(NULL)

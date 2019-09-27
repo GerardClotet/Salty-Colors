@@ -47,7 +47,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	{
 		MapLayer* layer = *item;
 
-		if (layer->properties.Get("Navigation", 0) == 0)
+		if (layer->name !="Navigation")
 			continue;
 
 		uchar * map = new uchar[layer->width * layer->height];
@@ -144,10 +144,13 @@ void j1Map::Draw()
 	int tilesdrawing = 0;
 	for(; item != data.layers.end(); ++item)
 	{
+		(*item)->noDraw;
 		MapLayer* layer = (*item);
 
-		if(layer->properties.Get("Nodraw") != 0)
+		if (layer->noDraw != 0)
 			continue;
+	/*	else if(layer->noDraw ==0)
+			break;*/
 
 		for(int y = 0; y < data.height; ++y)
 		{
@@ -185,6 +188,21 @@ void j1Map::Draw()
 }
 
 int Properties::Get(const char* value, int default_value) const
+{
+	std::list<Property*>::const_iterator item;
+	item = list.begin();
+
+	while (item != list.end())
+	{
+		if ((*item)->name == value)
+			return (*item)->value;
+		++item;
+	}
+
+	return default_value;
+}
+
+float Properties::Getf(const char* value, float default_value) const
 {
 	std::list<Property*>::const_iterator item;
 	item = list.begin();
@@ -596,11 +614,18 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
+
+
 	LoadProperties(node, layer->properties);
-	pugi::xml_node layer_data = node.child("data");
 	
 	if (layer->properties.Get("walkable") == 1);
 		
+
+	 layer->noDraw= layer->properties.Get("rNodraw");
+	// layer->parallaxSpeed = layer->properties.Getf("parallaxSpeed");
+	 pugi::xml_node layer_data = node.child("data");
+
+
 	if(layer_data == NULL)
 	{
 		LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
@@ -639,7 +664,6 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 			p->name = prop.attribute("name").as_string();
 			p->value = prop.attribute("value").as_int();
-
 			properties.list.push_back(p);
 		}
 	}
