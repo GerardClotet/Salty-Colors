@@ -137,7 +137,7 @@ bool j1App::Start()
 		++item;
 	}
 
-	startup_time.Start();
+	ms_timer.Start();
 
 	PERF_PEEK(ptimer);
 	return ret;
@@ -240,8 +240,8 @@ void j1App::FinishUpdate()
 		last_sec_frame_count = 0;
 	}
 
-	float avg_fps = float(frame_count) / startup_time.ReadSec();
-	float seconds_since_startup = startup_time.ReadSec();
+	float avg_fps = float(frame_count) / ms_timer.ReadSec();
+	float seconds_since_startup = ms_timer.ReadSec();
 	double last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
@@ -261,7 +261,7 @@ void j1App::FinishUpdate()
 		waiting_time = 0;
 	}
 
-	if (frame_cap)
+	if (vsync)
 	{
 		SDL_Delay(waiting_time);
 	}

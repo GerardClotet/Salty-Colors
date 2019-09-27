@@ -1,8 +1,11 @@
-#ifndef __j1SCENE_H__
+﻿#ifndef __j1SCENE_H__
 #define __j1SCENE_H__
 
 #include "j1Module.h"
 #include "j1Timer.h"
+
+
+
 struct SDL_Texture;
 
 class j1Scene : public j1Module

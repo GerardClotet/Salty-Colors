@@ -458,6 +458,8 @@ void j1Player::BounceActPool()
 
 
 
+
+
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{
 		state = DASH;

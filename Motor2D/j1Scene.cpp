@@ -121,31 +121,29 @@ bool j1Scene::Update(float dt)
 
 	
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 5;
+	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//	App->render->camera.y += 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 5;
+	//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//	App->render->camera.y -= 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 5;
+	//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//	App->render->camera.x += 5;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 5;
+	//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//	App->render->camera.x -= 5;
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		App->map->ResetBFS();
+	//if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	//	App->map->ResetBFS();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		App->map->PropagateBFS();
+	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	//	App->map->PropagateBFS();
 
 
 	App->map->Draw();
 
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+	
 	
 	
 	return true;
@@ -164,9 +162,63 @@ bool j1Scene::PostUpdate()
 
 	if (App->entityFactory->player != nullptr)
 	{
+		bool stopX = false;
+		bool stopY = false;
 		iPoint playerPos = App->entityFactory->player->GetPosition();
+		iPoint MapPOOs = App->map->MapToWorld(App->map->data.width, App->map->data.height);
 		
+		if (App->render->camera.x  - App->render->camera.w -50< -MapPOOs.x) //going to right
+		{
+ 			if (playerPos.x > MapPOOs.x - 600)
+			{
+				stopX = true;
+			}
+			else if (playerPos.x < MapPOOs.x- 600)
+			{
+				stopX = false;
+			}
+		}
+	
+		else if (App->render->camera.x > -13 ) //going to left 
+		{
+
+			if (playerPos.x > 600)
+			{
+				stopX = false;
+			}
+			else if (playerPos.x <= 600)
+			{
+				stopX = true;
+			}
+				
+			
+
+		}
+		if (App->render->camera.y - App->render->camera.h - 50 < -MapPOOs.y) //going down
+		{
+			LOG("in bottom border");
+			if (playerPos.y > 900)
+			{
+				stopY = true;
+				LOG("loko");
+			}
+			else if (playerPos.y < 900) stopY = false;
+		}
+		
+		 if (App->render->camera.y >= -200)
+		{
+			if (playerPos.y <= 50)
+				stopY = true;
+			else if (playerPos.y >= 50)
+			{
+				stopY = false;
+			}
+		}
+
+		if(!stopX)
 		App->render->camera.x = LerpLabel(App->render->camera.x,- playerPos.x + App->render->camera.w * 0.5, 0.016f * 2.5f); //testing numbers
+
+		if(!stopY)
 		App->render->camera.y = LerpLabel(App->render->camera.y,- playerPos.y + App->render->camera.h * 0.5, 0.016f * 2.5f);
 
 
