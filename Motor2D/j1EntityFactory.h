@@ -40,7 +40,8 @@ public:
 	Animation player_FALL;
 	Animation player_MOMENTUM;
 	Animation player_DASH;
-
+	Animation player_WALL;
+	Animation player_BOUNCE;
 	std::string sprite_route;
 	int maxframes = 4;
 	bool playerActive = false;

@@ -76,6 +76,7 @@ public:
 	fPoint pivot = { 0.0F, 0.0F };
 	bool ignore_platforms = false;
 	bool flipX = false;
+	bool in_contact = false;
 	bool is_grounded = false;
 
 

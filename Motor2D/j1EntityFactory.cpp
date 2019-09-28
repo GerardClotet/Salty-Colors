@@ -44,6 +44,11 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 		else if (animationID == 6)
 			player_DASH.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 
+		else if (animationID == 7)
+			player_BOUNCE.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+
+		else if (animationID == 8)
+			player_WALL.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 	}
 	player_IDLE.loop = true;
 	player_IDLE.speed = 10.0f;
@@ -61,6 +66,12 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 
 	player_DASH.loop = true;
 	player_DASH.speed = 10.0f;
+
+	player_WALL.loop = true;
+	player_WALL.speed = 10.0f;	
+	
+	player_BOUNCE.loop = true;
+	player_BOUNCE.speed = 20.0f;
 	return ret;
 }
 

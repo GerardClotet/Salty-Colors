@@ -181,6 +181,8 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 						{
 							App->entityFactory->player->ready_toBounce_right = true;
 							App->entityFactory->player->flipX = true;
+							App->entityFactory->player->in_contact = true;
+
 						}
 						else App->entityFactory->player->ready_toBounce_right = false;
 
@@ -212,7 +214,8 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 						{
 							App->entityFactory->player->ready_toBounce_left = true;
 							App->entityFactory->player->flipX = false;
-
+							App->entityFactory->player->in_contact = true;
+							
 						}
 						else App->entityFactory->player->ready_toBounce_left = false;
 					}

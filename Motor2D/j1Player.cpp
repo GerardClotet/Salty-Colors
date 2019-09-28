@@ -269,7 +269,11 @@ void j1Player::DashUpdate()
 }
 void j1Player::BounceUpdate()
 {
-	currentAnimation = App->entityFactory->player_DASH.GetCurrentFrame();
+	if (in_contact)
+	{
+		currentAnimation = App->entityFactory->player_WALL.GetCurrentFrame();
+	}
+	if(!in_contact)currentAnimation = App->entityFactory->player_BOUNCE.GetCurrentFrame();
 
 	target_speed.y += gravity * App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
 
@@ -436,7 +440,7 @@ void j1Player::BounceActPool()
 	}
 	if (/*(ready_toBounce_left || ready_toBounce_right) &&*/ App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-
+		in_contact = false;
 		if (flipX && ready_toBounce_right) //left
 		{
 			target_speed.y = -jump_speed * App->GetDt() * 60;
