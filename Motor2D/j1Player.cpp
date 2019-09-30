@@ -272,9 +272,13 @@ void j1Player::BounceUpdate()
 	if (in_contact)
 	{
 		currentAnimation = App->entityFactory->player_WALL.GetCurrentFrame();
+		LOG("in contact");
 	}
-	if(!in_contact)currentAnimation = App->entityFactory->player_BOUNCE.GetCurrentFrame();
-
+	if (!in_contact)
+	{
+		currentAnimation = App->entityFactory->player_BOUNCE.GetCurrentFrame();
+		LOG("no contact");
+	}
 	target_speed.y += gravity * App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
 
 	if (target_speed.y > fall_speed)
@@ -377,8 +381,8 @@ void j1Player::JumpActPool()
 			ready_toBounce_left = false;
 
 		}
-
 		state = BOUNCE;
+		in_contact = false;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{

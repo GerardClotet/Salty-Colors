@@ -326,8 +326,7 @@ void j1Scene::CameraFollowingUpdate()
 	
 	iPoint playerPos = App->entityFactory->player->GetPosition();
 	iPoint MapPOOs = App->map->MapToWorld(App->map->data.width, App->map->data.height);
-	//App->render->camera.x = 0;
-	//App->render->camera.y = 50; // if cam >0 cam =0;
+
 
 
 	if (App->render->camera.x - App->render->camera.w - 50 < -MapPOOs.x) //going to right
@@ -370,7 +369,7 @@ void j1Scene::CameraFollowingUpdate()
 		else if (playerPos.y < 900) stopY = false;
 	}
 
-	if (App->render->camera.y >= 0)
+	if (App->render->camera.y >= 0) //going up
 	{
 		
 		if (playerPos.y <= 100)
