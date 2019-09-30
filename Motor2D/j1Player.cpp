@@ -364,6 +364,8 @@ void j1Player::JumpActPool()
 {
 	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
+		App->audio->PlayFx(App->scene->bounceSFX, 0);
+
 		if (flipX && ready_toBounce_right) //left
 		{
 			target_speed.y = -jump_speed * App->GetDt() * 60;
