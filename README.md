@@ -1,4 +1,4 @@
-# Dev-Game
+﻿# Dev-Game
 
 ### This game is for educational purposes for Development subject
 
@@ -14,19 +14,34 @@ Unzip the .zip file and execute the .exe that is contained inside the decompress
 - A - Move left
 - D - Move Right
 - Space - Jump
-- L - Dash
 - W - Move up (God mode)
 - S - Move down (God mode)
+- L - Dash
+
+* The wall bounce works when you jump to a wall and then jump again against the wall. 
+As a result the wall will force your direction to change in the oposite side.
+
 
 ## Debug Keys
 
 - F1 - Load first level (from the beginning)
-- F2 - Load current level (from the beginning)
-- F3 - Load second level (from the beginning)
+- F2 - Load second level (from the beginning)
+- F3 - Load current level (from the beginning)
 - F5 - Save current state 
 - F6 - Load previous state 
 - F9 - View colliders
 - F10 - GodMode 
+
+## Inovations
+
+- Loading animations via XML
+
+- Entity System
+
+- Dash
+
+- Wall bounce
+
 
 
 ## Authors
@@ -49,7 +64,7 @@ Gerard Clotet Rodríguez
 
 MIT License
 
-Copyright (c) 2018 [Alexandru Mihai Cercel, Gerard Clotet]
+Copyright (c) 2019 [Alexandru Mihai Cercel, Gerard Clotet]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 
 - Dash
 
--Psychedelic background
+- Psychedelic background
 
 - Level 1 and level 2
 
@@ -32,3 +32,6 @@ All notable changes to this project will be documented in this file.
 
 - Save and Load 
 
+- Wall bounce 
+
+- Camera limits

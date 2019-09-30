@@ -51,6 +51,7 @@ bool j1Scene::Start()
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
 	endLvlSFX = App->audio->LoadFx("audio/fx/EndLevel.wav");
 	dashSFX = App->audio->LoadFx("audio/fx/dash.wav");
+	bounceSFX = App->audio->LoadFx("audio/fx/bounce.wav");
 
 	return true;
 }

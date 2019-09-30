@@ -66,6 +66,7 @@ public:
 	unsigned int jumpSFX;
 	unsigned int endLvlSFX;
 	unsigned int dashSFX;
+	unsigned int bounceSFX;
 private:
 	bool viewportResize = false;
 	bool incR = true;
