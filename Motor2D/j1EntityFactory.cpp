@@ -212,6 +212,22 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 	return nullptr;
 }
 
+j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos)
+{
+	enemy = new j1Enemy(pos);
+
+	if (enemy != nullptr)
+	{
+		entities.push_back(enemy);
+		return enemy;
+	}
+
+	LOG("Failed to create player");
+	return enemy;
+}
+
+
+
 bool j1EntityFactory::GetPlayerState()
 {
 	return playerActive;

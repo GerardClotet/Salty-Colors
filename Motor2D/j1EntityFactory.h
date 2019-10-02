@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "j1Entity.h"
 #include "j1Player.h"
+#include "j1Enemy.h"
 #include <vector>
 #include <list>
 
@@ -22,7 +23,9 @@ public:
 	bool CleanUp();
 
 	j1Player* CreatePlayer(iPoint pos);
+	j1Enemy* CreateEnemy(iPoint pos);
 	bool GetPlayerState();
+	bool GetEnemyState();
 
 	bool Save(pugi::xml_node&)const;
 
@@ -32,7 +35,8 @@ public:
 	
 	std::list<j1Entity*>	entities;
 
-	j1Player*				player = nullptr;
+	j1Player*	player = nullptr;
+	j1Enemy*	enemy = nullptr;
 	SDL_Texture* playerSprite = nullptr;
 	Animation player_IDLE;
 	Animation player_RUN;
@@ -43,6 +47,7 @@ public:
 	Animation player_WALL;
 	Animation player_BOUNCE;
 	std::string sprite_route;
+
 	int maxframes = 4;
 	bool playerActive = false;
 
