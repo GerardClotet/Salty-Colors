@@ -24,6 +24,9 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
+	void Draw();
+
+	float spriteIncrease = 1.5f;
 
 
 	
