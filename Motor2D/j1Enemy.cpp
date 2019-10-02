@@ -70,6 +70,12 @@ bool j1Enemy::Update(float dt)
 
 }
 
+void j1Enemy::Draw()
+{
+	if (entityTex != nullptr)
+		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false, spriteIncrease);
+}
+
 
 
 
