@@ -120,13 +120,14 @@ private:
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	uint32				capTime = 0;
-	bool				frame_cap = false;
-	double				frame_rate;
 	float				dt = 0.0f;
-	bool				capFrames = false;
 	float				seconds_since_startup = 0.0f;
+
+public:
 	float				frame_rateCap = 0.0f;
+	double				frame_rate;
+	bool				capFrames = false;
+
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

@@ -92,14 +92,11 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.assign(app_config.child("title").child_value());
 		organization.assign(app_config.child("organization").child_value());
-		capFrames = app_config.attribute("cap_frames").as_bool();
 		frame_rate = app_config.attribute("framerate_cap").as_uint(); //to be changed
-		vsync = config.child("renderer").child("vsync").attribute("value").as_bool();
+		capFrames = config.child("renderer").child("vsync").attribute("value").as_bool();
 		frame_rateCap = app_config.attribute("framerate_cap").as_float();
-		capTime = app_config.attribute("framerate_cap").as_int();
 
-		if (capTime != 0)
-			capTime = 1000 / capTime;
+		
 	}
 
 	if(ret == true)
@@ -185,10 +182,12 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
 	if (pause)
 		dt = 0.0f;
 	else
-		dt = 1.0f / frame_rateCap;
+		dt = 1.0f / frame_rate;
 
 
 	frame_time.Start();
@@ -246,8 +245,8 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %.2f Last sec frames: %i Vsync: %s ",
-		avg_fps, last_frame_ms, frames_on_last_update, vsync ? "ON" : "OFF");
+	sprintf_s(title, 256, "Last sec frames: %i Av.FPS: %.2f Last Frame Ms: %.2f  Vsync: %s, CAP %s ",
+		frames_on_last_update, avg_fps, last_frame_ms,  vsync ? "ON" : "OFF", capFrames ? "ON":"OFF");
 	App->win->SetTitle(title);
 
 
@@ -261,7 +260,7 @@ void j1App::FinishUpdate()
 		waiting_time = 0;
 	}
 
-	if (vsync)
+	if (capFrames)
 	{
 		SDL_Delay(waiting_time);
 	}

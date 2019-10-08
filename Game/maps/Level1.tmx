@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="177">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="178">
  <properties>
   <property name="BackgroudMusic" value="OuterWorldBGM.ogg"/>
  </properties>
@@ -34659,6 +34659,7 @@
   <object id="171" type="floor" x="4210.67" y="480" width="263.333" height="293.333"/>
   <object id="172" type="floor" x="4475.33" y="768.667" width="73.3333" height="174.667"/>
   <object id="173" type="floor" x="4547.33" y="2.667" width="57.3333" height="764"/>
+  <object id="177" type="floor" x="312" y="-708" width="28" height="1416"/>
  </objectgroup>
  <objectgroup id="6" name="triggers">
   <object id="83" name="spawn" type="start" x="95" y="783" width="32" height="32"/>

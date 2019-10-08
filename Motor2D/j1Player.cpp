@@ -272,12 +272,10 @@ void j1Player::BounceUpdate()
 	if (in_contact)
 	{
 		currentAnimation = App->entityFactory->player_WALL.GetCurrentFrame();
-		LOG("in contact");
 	}
 	if (!in_contact)
 	{
 		currentAnimation = App->entityFactory->player_BOUNCE.GetCurrentFrame();
-		LOG("no contact");
 	}
 	target_speed.y += gravity * App->GetDt(); // if targetspeed speed <0 ascending anim // if targetspeed >=0 falling anim
 
@@ -368,18 +366,18 @@ void j1Player::JumpActPool()
 
 		if (flipX && ready_toBounce_right) //left
 		{
-			target_speed.y = -jump_speed * App->GetDt() * 60;
-			target_speed.x = -movement_speed * 100 * App->GetDt();
-			LOG("BounceUpdate to left");
+			target_speed.y = -bounce_speed * App->GetDt();
+			target_speed.x = -movement_speed * 70 * App->GetDt();
+			LOG("JumpUdate to left");
 			ready_toBounce_right = false;
 
 
 		}
 		if (!flipX && ready_toBounce_left) //right
 		{
-			target_speed.y = -jump_speed * App->GetDt() * 60;
-			target_speed.x = movement_speed * 100 * App->GetDt();
-			LOG("BounceUpdate to right");
+			target_speed.y = -bounce_speed * App->GetDt();
+			target_speed.x = movement_speed * 70 * App->GetDt();
+			LOG("JumpUpdate to right");
 			ready_toBounce_left = false;
 
 		}
@@ -451,8 +449,8 @@ void j1Player::BounceActPool()
 		in_contact = false;
 		if (flipX && ready_toBounce_right) //left
 		{
-			target_speed.y = -jump_speed * App->GetDt() * 60;
-			target_speed.x = -movement_speed * 100 * App->GetDt();
+			target_speed.y = -bounce_speed * App->GetDt();
+			target_speed.x = -movement_speed * 70 * App->GetDt();
 			LOG("BounceUpdate to left");
 			ready_toBounce_right = false;
 
@@ -460,8 +458,8 @@ void j1Player::BounceActPool()
 		}
 		if (!flipX && ready_toBounce_left) //right
 		{
-			target_speed.y = -jump_speed * App->GetDt() * 60;
-			target_speed.x = movement_speed * 100 * App->GetDt();
+			target_speed.y = -bounce_speed * App->GetDt();
+			target_speed.x = movement_speed * 70 * App->GetDt();
 			LOG("BounceUpdate to right");
 			ready_toBounce_left = false;
 
@@ -493,6 +491,7 @@ bool j1Player::LoadAttributes(pugi::xml_node config)
 
 	fall_speed = config.child("entityFactory").child("player").child("fall_speed").attribute("value").as_float();
 
+	bounce_speed = config.child("entityFactory").child("player").child("bounce_speed").attribute("value").as_float();
 
 	return true;
 }
