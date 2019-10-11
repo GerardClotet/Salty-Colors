@@ -8,6 +8,7 @@
 #define BOTTOM_OFFSET 900
 #define TOP_OFFSET 100
 #define SIDE_OFFSET 600
+#define TRAVEL_SPEED 0.04
 struct SDL_Texture;
 
 class j1Scene : public j1Module
@@ -41,7 +42,7 @@ public:
 
 	bool Loadlvl(int lvl);
 
-	bool TriggerColl();
+	void TriggerColl();
 
 	void ReLoadLevel();
 	bool DoViewportResize();

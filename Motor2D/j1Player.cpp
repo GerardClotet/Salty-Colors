@@ -144,7 +144,7 @@ void j1Player::MovingUpdate()
 	currentAnimation = player_RUN.GetCurrentFrame();
 	if (startMove)
 	{
-		App->audio->PlayFx(App->scene->stepSFX, 0);
+		App->audio->PlayFx(App->scene->stepSFX, NO_REPEAT);
 		startMove = false;
 		stepSFXTimer.Start();
 	}
@@ -204,7 +204,9 @@ void j1Player::GodUpdate()
 		flipX = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == App->input->GetKey(SDL_SCANCODE_S)) target_speed.y = 0.0F;
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) target_speed.y = -movement_speed*5;
+
 	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) target_speed.y = movement_speed*5;
 
 }
@@ -216,7 +218,7 @@ void j1Player::Die()
  		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
-		App->audio->SetVolume(0);
+		App->audio->SetVolume(0.0f);
 	}
 
 }
@@ -231,7 +233,7 @@ void j1Player::DashUpdate()
 		target_speed.y = 0;
 		target_speed.x = 0;
 
-		flipX ? target_speed.x = -movement_speed*5 : target_speed.x = movement_speed*7;
+		flipX ? target_speed.x = -movement_speed*7 : target_speed.x = movement_speed*7;
 		init_distance = position.x;
 		startDash = false;
 	}
@@ -299,7 +301,7 @@ void j1Player::IdleActPool()
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 	{
 		state = DASH;
-		App->audio->PlayFx(App->scene->dashSFX, 0);
+		App->audio->PlayFx(App->scene->dashSFX, NO_REPEAT);
 		startDash = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
@@ -312,7 +314,7 @@ void j1Player::IdleActPool()
 	{
 		target_speed.y = -jump_speed;
 		is_grounded = false;
-		App->audio->PlayFx(App->scene->jumpSFX, 0);
+		App->audio->PlayFx(App->scene->jumpSFX, NO_REPEAT);
 		state = JUMPING;
 
 	}
@@ -324,7 +326,7 @@ void j1Player::MovingActPool()
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 	{
 		state = DASH;
-		App->audio->PlayFx(App->scene->dashSFX, 0);
+		App->audio->PlayFx(App->scene->dashSFX, NO_REPEAT);
 		startDash = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
@@ -348,25 +350,28 @@ void j1Player::MovingActPool()
 	{
 		target_speed.y = -jump_speed;
 		is_grounded = false;
-		App->audio->PlayFx(App->scene->jumpSFX, 0);
+		App->audio->PlayFx(App->scene->jumpSFX, NO_REPEAT);
 		state = JUMPING;
 	}
 }
 
-void j1Player::JumpActPool()
+bool j1Player::JumpActPool()
 {
 	if ((ready_toBounce_left || ready_toBounce_right) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		Bounce();
 		state = BOUNCE;
 		in_contact = false;
+		return true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{
 		state = DASH;
-		App->audio->PlayFx(App->scene->dashSFX, 0);
+		App->audio->PlayFx(App->scene->dashSFX, NO_REPEAT);
 		startDash = true;
 		dashes -= 1;
+		return true;
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A) && state != BOUNCE)
 		target_speed.x = 0.0f;
@@ -385,7 +390,8 @@ void j1Player::JumpActPool()
 
 	if (is_grounded)
 		Ground();
-	
+
+	return true;
 }
 
 void j1Player::BounceActPool()
@@ -404,7 +410,7 @@ void j1Player::BounceActPool()
 	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN && dashes != 0)
 	{
 		state = DASH;
-		App->audio->PlayFx(App->scene->dashSFX, 0);
+		App->audio->PlayFx(App->scene->dashSFX, NO_REPEAT);
 		startDash = true;
 		dashes -= 1;
 	}
@@ -412,9 +418,9 @@ void j1Player::BounceActPool()
 
 
 
-void j1Player::Bounce()
+bool j1Player::Bounce()
 {
-	App->audio->PlayFx(App->scene->bounceSFX, 0);
+	App->audio->PlayFx(App->scene->bounceSFX, NO_REPEAT);
 
 	in_contact = false;
 	if (flipX && ready_toBounce_right) //left
@@ -423,7 +429,7 @@ void j1Player::Bounce()
 		target_speed.x = -movement_speed * 2;
 		LOG("BounceUpdate to left");
 		ready_toBounce_right = false;
-
+		return true;
 
 	}
 	if (!flipX && ready_toBounce_left) //right
@@ -432,7 +438,7 @@ void j1Player::Bounce()
 		target_speed.x = movement_speed * 2;
 		LOG("BounceUpdate to right");
 		ready_toBounce_left = false;
-
+		return true;
 	}
 }
 
@@ -441,7 +447,7 @@ void j1Player::Ground()
 	if (dashes < MAX_DASHES)
 		dashes += 1;
 
-	App->audio->PlayFx(App->scene->landSFX, 0);
+	App->audio->PlayFx(App->scene->landSFX, NO_REPEAT);
 	if (App->input->GetKey(SDL_SCANCODE_D) == App->input->GetKey(SDL_SCANCODE_A))
 		state = IDLE;
 
@@ -458,7 +464,7 @@ void j1Player::CheckWalkSound()
 {
 	if (stepSFXTimer.ReadMs() > STEP_TIME)
 	{
-		App->audio->PlayFx(App->scene->stepSFX, 0);
+		App->audio->PlayFx(App->scene->stepSFX, NO_REPEAT);
 		stepSFXTimer.Start();
 	}
 }

@@ -35,9 +35,9 @@ public:
 	void CheckWalkSound();
 	void MovingActPool();
 	void IdleActPool();
-	void JumpActPool();
+	bool JumpActPool();
 	void BounceActPool();
-	void Bounce();
+	bool Bounce();
 	void Ground();
 
 	bool Load(pugi::xml_node&);

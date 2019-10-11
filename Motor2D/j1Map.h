@@ -8,6 +8,7 @@
 #include "j1Collision.h"
 #include <list>
 // ----------------------------------------------------
+#define CAM_MARGIN 30
 struct Properties
 {
 	struct Property

@@ -6,7 +6,8 @@
 #include <list>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
-
+#define NO_REPEAT 0
+#define LOOP_REPEAT -1
 struct _Mix_Music;
 struct Mix_Chunk;
 

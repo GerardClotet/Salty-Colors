@@ -236,7 +236,7 @@ bool j1Scene::Loadlvl(int lvl)
 	return true;
 }
 
-bool j1Scene::TriggerColl()
+void j1Scene::TriggerColl()
 {
 
 	
@@ -249,8 +249,6 @@ bool j1Scene::TriggerColl()
 	
 	
 
-
-	return true;
 }
 
 void j1Scene::ReLoadLevel()
@@ -388,10 +386,10 @@ void j1Scene::CameraFollowingUpdate()
 	}
 
 	if (!stopX)
-		App->render->camera.x = LerpLabel(App->render->camera.x, -playerPos.x + App->render->camera.w * 0.5, 0.016f * 2.5f); //testing numbers
+		App->render->camera.x = LerpLabel(App->render->camera.x, -playerPos.x + App->render->camera.w * 0.5, TRAVEL_SPEED ); //testing numbers
 
 	if (!stopY)
-		App->render->camera.y = LerpLabel(App->render->camera.y, -playerPos.y + App->render->camera.h * 0.5, 0.016f * 2.5f);
+		App->render->camera.y = LerpLabel(App->render->camera.y, -playerPos.y + App->render->camera.h * 0.5, TRAVEL_SPEED );
 
 }
 
