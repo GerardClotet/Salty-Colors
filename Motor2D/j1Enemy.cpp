@@ -12,7 +12,7 @@
 
 j1Enemy::j1Enemy(iPoint pos) : j1Entity(ENT_ENEMY, pos)
 {
-	entityTex = App->tex->Load(App->entityFactory->sprite_route.data());
+//	entityTex = App->tex->Load(sprite_route.data());
 	position = pos;
 
 	animation_Coll = { 0,0,0,0 };

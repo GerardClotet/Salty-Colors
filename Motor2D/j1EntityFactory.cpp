@@ -19,59 +19,7 @@ bool j1EntityFactory::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
-	sprite_route = PATH(config.child("folder").child_value(), config.child("sprite").child_value());
-	int animationID;
-	for (auto node : config.child("player").child("animations").children("frame"))
-	{
-		animationID = node.attribute("id").as_int();
 
-		if (animationID == 1)
-			player_IDLE.PushBack({node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int()});
-		
-		else if(animationID ==2)
-			player_RUN.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-		else if(animationID ==3)
-			player_JUMP.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-		else if (animationID == 4)
-			player_FALL.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-
-		else if (animationID == 5)
-			player_MOMENTUM.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-		else if (animationID == 6)
-			player_DASH.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-		else if (animationID == 7)
-			player_BOUNCE.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-
-		else if (animationID == 8)
-			player_WALL.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
-	}
-	player_IDLE.loop = true;
-	player_IDLE.speed = 10.0f;
-	player_RUN.loop = true;
-	player_RUN.speed = 10.0f;
-
-	player_JUMP.loop = true;
-	player_JUMP.speed = 5.0f;
-
-	player_FALL.loop = true;
-	player_FALL.speed = 5.0f;
-
-	player_MOMENTUM.loop = true;
-	player_MOMENTUM.speed = 5.0F;
-
-	player_DASH.loop = true;
-	player_DASH.speed = 10.0f;
-
-	player_WALL.loop = true;
-	player_WALL.speed = 10.0f;	
-	
-	player_BOUNCE.loop = true;
-	player_BOUNCE.speed = 20.0f;
 	return ret;
 }
 

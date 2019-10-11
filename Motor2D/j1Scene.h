@@ -5,7 +5,9 @@
 #include "j1Timer.h"
 
 
-
+#define BOTTOM_OFFSET 900
+#define TOP_OFFSET 100
+#define SIDE_OFFSET 600
 struct SDL_Texture;
 
 class j1Scene : public j1Module

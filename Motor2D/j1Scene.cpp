@@ -173,8 +173,9 @@ bool j1Scene::PostUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		if (App->capFrames) App->capFrames = false;
-		else if (!App->capFrames)App->capFrames = true;
+		App->capFrames ? App->capFrames = false, 
+			App->entityFactory->player->norm_moves = App->GetInvers_AVG_FPS() : App->capFrames = true;
+
 	}
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -336,11 +337,11 @@ void j1Scene::CameraFollowingUpdate()
 
 	if (App->render->camera.x - App->render->camera.w - 50 < -MapPOOs.x) //going to right
 	{
-		if (playerPos.x > MapPOOs.x - 600)
+		if (playerPos.x > MapPOOs.x - SIDE_OFFSET)
 		{
 			stopX = true;
 		}
-		else if (playerPos.x < MapPOOs.x - 600)
+		else if (playerPos.x < MapPOOs.x - SIDE_OFFSET)
 		{
 			stopX = false;
 		}
@@ -349,11 +350,11 @@ void j1Scene::CameraFollowingUpdate()
 	else if (App->render->camera.x > -13) //going to left 
 	{
 
-		if (playerPos.x > 600)
+		if (playerPos.x > SIDE_OFFSET)
 		{
 			stopX = false;
 		}
-		else if (playerPos.x <= 600)
+		else if (playerPos.x <= SIDE_OFFSET)
 		{
 			stopX = true;
 		}
@@ -366,23 +367,20 @@ void j1Scene::CameraFollowingUpdate()
 	if (App->render->camera.y - App->render->camera.h - 50 < -MapPOOs.y) //going down
 	{
 		LOG("in bottom border");
-		if (playerPos.y > 900)
-		{
-			stopY = true;
-			LOG("loko");
-		}
-		else if (playerPos.y < 900) stopY = false;
+		if (playerPos.y > BOTTOM_OFFSET)	stopY = true;
+		
+		else if (playerPos.y < BOTTOM_OFFSET) stopY = false;
 	}
 
 	if (App->render->camera.y >= 0) //going up
 	{
 		
-		if (playerPos.y <= 100)
+		if (playerPos.y <= TOP_OFFSET)
 		{
 			App->render->camera.y = 0;
 			stopY = true;
 		}
-		else if (playerPos.y >= 100)
+		else if (playerPos.y >= TOP_OFFSET)
 		{
 			App->render->camera.y = 0;
  			stopY = false;

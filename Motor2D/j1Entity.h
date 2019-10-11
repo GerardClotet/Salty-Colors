@@ -46,10 +46,10 @@ public:
 	virtual bool CleanUp();
 
 	virtual void Draw();
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
+	virtual bool Load(pugi::xml_node&);
+	virtual bool Save(pugi::xml_node&) const;
 
-	iPoint GetPosition();
+	virtual iPoint GetPosition();
 	void MovX();
 
 	void MovY();
@@ -84,7 +84,7 @@ public:
 
 	PlayerState state = IDLE;
 
-
+	float norm_moves;
 	
 };
 #endif

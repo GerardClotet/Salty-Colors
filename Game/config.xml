@@ -36,7 +36,7 @@
 
       <movement_speed value="270.0f"/>
       <jump_speed value="1700.0f"/>
-      <gravity value="6500.0f"/>
+      <gravity value="216.0f"/>
       <acceleration value="1.1f"/>
       <fall_speed value="1700.0f"/>
       <bounce_speed value ="40000"/>

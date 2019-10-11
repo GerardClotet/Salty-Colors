@@ -6,8 +6,8 @@
 #include "p2Animation.h"
 #include "j1Collision.h"
 #define MAX_DASHES 1
-
-
+#define DASH_DISTANCE 150
+#define STEP_TIME 250.0F
 class j1Player : public j1Entity
 {
 
@@ -46,6 +46,8 @@ public:
 	void IdleActPool();
 	void JumpActPool();
 	void BounceActPool();
+	void Bounce();
+	void Ground();
 private:
 	bool startDash = false;
 	int dashes = 1;
@@ -53,6 +55,18 @@ private:
 	float init_distance;
 	float previous_pos;
 	
+
+public:
+
+	Animation player_IDLE;
+	Animation player_RUN;
+	Animation player_JUMP;
+	Animation player_FALL;
+	Animation player_MOMENTUM;
+	Animation player_DASH;
+	Animation player_WALL;
+	Animation player_BOUNCE;
+	std::string sprite_route;
 };
 
 #endif

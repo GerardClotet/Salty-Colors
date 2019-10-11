@@ -37,16 +37,7 @@ public:
 
 	j1Player*	player = nullptr;
 	j1Enemy*	enemy = nullptr;
-	SDL_Texture* playerSprite = nullptr;
-	Animation player_IDLE;
-	Animation player_RUN;
-	Animation player_JUMP;
-	Animation player_FALL;
-	Animation player_MOMENTUM;
-	Animation player_DASH;
-	Animation player_WALL;
-	Animation player_BOUNCE;
-	std::string sprite_route;
+
 
 	int maxframes = 4;
 	bool playerActive = false;

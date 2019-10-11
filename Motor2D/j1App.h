@@ -52,6 +52,7 @@ public:
 	void SaveGame(const char* file) const;
 	void GetSaveGames(std::list<std::string>& list_to_fill) const;
 	float GetDt();
+	float GetInvers_AVG_FPS();
 
 public:
 	pugi::xml_document	config_file;
