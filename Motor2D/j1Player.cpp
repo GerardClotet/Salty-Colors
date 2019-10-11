@@ -12,7 +12,7 @@
 j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
 {
 
-	LoadAttributes(App->config);
+	AwakeAttributes(App->config);
 	entityTex = App->tex->Load(sprite_route.data());
 	LOG("%s", sprite_route.data());
 	position = pos;
@@ -453,6 +453,7 @@ void j1Player::Ground()
 	LOG("grounded");
 }
 
+
 void j1Player::CheckWalkSound()
 {
 	if (stepSFXTimer.ReadMs() > STEP_TIME)
@@ -463,7 +464,52 @@ void j1Player::CheckWalkSound()
 }
 
 
-bool j1Player::LoadAttributes(pugi::xml_node config)
+bool j1Player::Load(pugi::xml_node&data)
+{
+	position.x = data.child("Player").attribute("x").as_int();
+	position.y = data.child("Player").attribute("y").as_int();
+
+
+	velocity.x = data.child("Player").child("velocity").attribute("x").as_float();
+	velocity.y = data.child("Player").child("velocity").attribute("y").as_float();
+
+	target_speed.x = data.child("Player").child("target_speed").attribute("x").as_float();
+	target_speed.y = data.child("Player").child("target_speed").attribute("y").as_float();
+
+	state = (PlayerState)data.child("Player").child("state").attribute("value").as_int();
+	is_grounded = data.child("Player").child("is_grounded").attribute("value").as_bool();
+	flipX = data.child("Player").child("flipX").attribute("value").as_bool();
+
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node&data) const
+{
+	pugi::xml_node Ppos;
+
+
+	Ppos = data.append_child("Player");
+
+	Ppos.append_attribute("x") = position.x;
+	Ppos.append_attribute("y") = position.y;
+
+
+	Ppos.append_child("velocity").append_attribute("x") = velocity.x;
+	Ppos.append_child("velocity").append_attribute("y") = velocity.y;
+
+	Ppos.append_child("target_speed").append_attribute("x") = target_speed.x;
+	Ppos.append_child("target_speed").append_attribute("y") = target_speed.y;
+
+
+	Ppos.append_child("state").append_attribute("value") = state != DEAD ? (int)state : (int)IDLE;
+	Ppos.append_child("is_grounded").append_attribute("value") = is_grounded;
+	Ppos.append_child("flipX").append_attribute("value") = flipX;
+
+	return true;
+}
+
+
+bool j1Player::AwakeAttributes(pugi::xml_node config)
 {
 	movement_speed = config.child("entityFactory").child("player").child("movement_speed").attribute("value").as_float();
 	

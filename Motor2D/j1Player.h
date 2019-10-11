@@ -31,7 +31,17 @@ public:
 	void DashUpdate();
 	void BounceUpdate();
 	void ResetPlayer();
-	bool LoadAttributes(pugi::xml_node config);
+	bool AwakeAttributes(pugi::xml_node config);
+	void CheckWalkSound();
+	void MovingActPool();
+	void IdleActPool();
+	void JumpActPool();
+	void BounceActPool();
+	void Bounce();
+	void Ground();
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 public:
 
 	SDL_Rect animation_Coll;
@@ -41,13 +51,7 @@ public:
 	bool lockInput = false;
 	bool ready_toBounce_left = false;
 	bool ready_toBounce_right = false;
-	void CheckWalkSound();
-	void MovingActPool();
-	void IdleActPool();
-	void JumpActPool();
-	void BounceActPool();
-	void Bounce();
-	void Ground();
+
 private:
 	bool startDash = false;
 	int dashes = 1;
@@ -55,9 +59,6 @@ private:
 	float init_distance;
 	float previous_pos;
 	
-
-public:
-
 	Animation player_IDLE;
 	Animation player_RUN;
 	Animation player_JUMP;

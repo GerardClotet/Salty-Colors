@@ -183,7 +183,17 @@ bool j1EntityFactory::GetPlayerState()
 
 bool j1EntityFactory::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node Ppos;
+
+	std::list<j1Entity*>::const_iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		(*item)->Save(data);
+
+		//here can draw debug for entitys
+	}
+	
+
+	/*pugi::xml_node Ppos;
 	
 
 	Ppos = data.append_child("Player");
@@ -201,7 +211,7 @@ bool j1EntityFactory::Save(pugi::xml_node& data) const
 
 	Ppos.append_child("state").append_attribute("value") = player->state != DEAD ? (int)player->state : (int)IDLE;
 	Ppos.append_child("is_grounded").append_attribute("value") = player->is_grounded;
-	Ppos.append_child("flipX").append_attribute("value") = player->flipX;
+	Ppos.append_child("flipX").append_attribute("value") = player->flipX;*/
 
 	return true;
 }
@@ -209,7 +219,14 @@ bool j1EntityFactory::Save(pugi::xml_node& data) const
 bool j1EntityFactory::Load(pugi::xml_node& data)
 {
 	
-	player->position.x = data.child("Player").attribute("x").as_int();
+	std::list<j1Entity*>::iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
+	{
+		(*item)->Load(data);
+
+	}
+
+	/*player->position.x = data.child("Player").attribute("x").as_int();
 	player->position.y = data.child("Player").attribute("y").as_int();
 
 
@@ -222,7 +239,7 @@ bool j1EntityFactory::Load(pugi::xml_node& data)
 	player->state = (PlayerState)data.child("Player").child("state").attribute("value").as_int();
 	player->is_grounded = data.child("Player").child("is_grounded").attribute("value").as_bool();
 	player->flipX = data.child("Player").child("flipX").attribute("value").as_bool();
-
+*/
 
 
  	return true;
