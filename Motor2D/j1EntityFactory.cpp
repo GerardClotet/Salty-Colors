@@ -170,7 +170,7 @@ j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos)
 		return enemy;
 	}
 
-	LOG("Failed to create player");
+	LOG("Failed to create enemy");
 	return enemy;
 }
 

@@ -655,8 +655,9 @@ bool j1Map::LoadEnemies(pugi::xml_node& enemies)
 {
 	for (pugi::xml_node enemy = enemies.child("object"); enemy; enemy = enemy.next_sibling("object"))
 	{
-		iPoint position = { enemy.attribute("x").as_float(), enemy.attribute("y").as_float() };
-		App->entityFactory->CreateEnemy(position);
+		LOG("POLLA");
+		//iPoint position = { enemy.attribute("x").as_float(), enemy.attribute("y").as_float() };
+		//App->entityFactory->CreateEnemy(position);
 	}
 
 	return true;
