@@ -651,6 +651,17 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
+bool j1Map::LoadEnemies(pugi::xml_node& enemies)
+{
+	for (pugi::xml_node enemy = enemies.child("object"); enemy; enemy = enemy.next_sibling("object"))
+	{
+		iPoint position = { enemy.attribute("x").as_float(), enemy.attribute("y").as_float() };
+		App->entityFactory->CreateEnemy(position);
+	}
+
+	return true;
+}
+
 // Load a group of properties from a node and fill a list with it
 bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
@@ -712,4 +723,5 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 	
 	return true;
 }
+
 
