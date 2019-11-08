@@ -54,7 +54,7 @@ Gerard Clotet Rodríguez
 [Github account](https://github.com/GerardClotet)
 
 
-##Link to GitHub repository:
+## Link to GitHub repository:
 
 [Repository](https://github.com/GerardClotet/Dev-Game)
 
