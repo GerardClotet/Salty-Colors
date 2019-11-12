@@ -160,18 +160,19 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 	return nullptr;
 }
 
-j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos)
+j1Enemy* j1EntityFactory::CreateEnemy(ENTITY_TYPE type, iPoint pos)
 {
-	enemy = new j1Enemy(pos);
+	p2SString id;
 
-	if (enemy != nullptr)
+	switch (type)
 	{
-		entities.push_back(enemy);
-		return enemy;
+	case ENT_ENEMY:
+		break;
+	case ENT_FLYING:
+		break;
+	default:
+		break;
 	}
-
-	LOG("Failed to create enemy");
-	return enemy;
 }
 
 
