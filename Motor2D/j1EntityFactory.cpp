@@ -145,6 +145,8 @@ bool j1EntityFactory::CleanUp()
 	return ret;
 }
 
+
+//It will be substitued with a general function to create Entities
 j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 {
 	player = new j1Player(pos);
@@ -155,12 +157,14 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 		playerActive = true;
 		return player;
 	}
-
-	LOG("Failed to create player");
+	else LOG("Failed to create player");
 	return nullptr;
 }
 
+
 j1Enemy* j1EntityFactory::CreateEnemy(ENTITY_TYPE type, iPoint pos)
+
+
 {
 	p2SString id;
 
