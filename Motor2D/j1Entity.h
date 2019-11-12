@@ -16,6 +16,7 @@ enum  ENTITY_TYPE
 	NO_TYPE,
 	ENT_PLAYER,
 	ENT_ENEMY,
+	ENT_FLYING,
 	ENT_MAX
 };
 enum  PlayerState {
