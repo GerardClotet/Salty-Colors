@@ -23,7 +23,7 @@ public:
 	bool CleanUp();
 
 	j1Player* CreatePlayer(iPoint pos);
-	j1Enemy* CreateEnemy(ENTITY_TYPE type, iPoint pos);
+	j1Enemy* CreateEnemy(iPoint pos);
 	bool GetPlayerState();
 	bool GetEnemyState();
 

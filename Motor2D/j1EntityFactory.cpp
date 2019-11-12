@@ -186,27 +186,18 @@ bool j1EntityFactory::GetPlayerState()
 	return playerActive;
 }
 
-bool j1EntityFactory::Save(pugi::xml_node& file) const
+bool j1EntityFactory::Save(pugi::xml_node& data) const
 {
 
-	for (p2List_item<j1Entity*>* entity = entities.start; entity; entity = entity->next)
+	std::list<j1Entity*>::const_iterator item = entities.begin();
+	for (; item != entities.end(); ++item)
 	{
-		entity->data->Save(file.append_child(entity->data->id.GetString()));
+		(*item)->Save(data);
+
 	}
-	return true;
 	
 
 
-
-	return true;
-}
-
-bool j1EntityFactory::LoadEnemies(pugi::xml_node &file)
-{
-	for (p2List_item<j1Entity*>* entity = entities.start; entity; entity = entity->next)
-	{
-		entity->data->Load(file.child(entity->data->id.GetString()));
-	}
 
 	return true;
 }
@@ -223,5 +214,3 @@ bool j1EntityFactory::Load(pugi::xml_node& data)
 
  	return true;
 }
-
-
