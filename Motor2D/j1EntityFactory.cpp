@@ -155,8 +155,7 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 		playerActive = true;
 		return player;
 	}
-
-	LOG("Failed to create player");
+	else LOG("Failed to create player");
 	return nullptr;
 }
 
