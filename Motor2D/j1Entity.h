@@ -12,7 +12,13 @@
 #include "SDL_image/include/SDL_image.h"
 
 
+enum class E_TYPE{
 
+	NONE,
+	PLAYER,
+	ENEMY
+
+};
 enum  PlayerState {
 	NO_STATE = -1,
 	IDLE,
@@ -52,6 +58,7 @@ virtual void SetPos(iPoint pos);
 
 
 public:
+	E_TYPE entity_type = E_TYPE::NONE;
 	Collider* collider;
 
 	iPoint position;

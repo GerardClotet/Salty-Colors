@@ -58,6 +58,7 @@ bool j1Collision::PreUpdate()
 							App->scene->TriggerColl();
 							App->audio->PlayFx(App->scene->endLvlSFX, NO_REPEAT);
 							App->entityFactory->player->ResetPlayer();
+							App->entityFactory->DeleteAllEnemies();
 							Triggercolliding = true;
 							App->entityFactory->player->lockInput = true;
 						}

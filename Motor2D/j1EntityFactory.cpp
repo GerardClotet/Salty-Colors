@@ -222,3 +222,23 @@ bool j1EntityFactory::Load(pugi::xml_node& data)
 
  	return true;
 }
+
+void j1EntityFactory::DeleteAllEnemies()
+{
+	std::list<j1Entity*>::iterator it = entities.begin();
+
+	while (it != entities.end())
+	{
+		if ((*it)->entity_type == E_TYPE::ENEMY)
+		{
+			(*it)->CleanUp();
+			
+			RELEASE(*it);
+			delete (*it);
+			*it = nullptr;
+			entities.erase(it);
+		}
+	
+		++it;
+	}
+}

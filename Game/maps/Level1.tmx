@@ -34662,8 +34662,8 @@
   <object id="177" type="floor" x="312" y="-708" width="28" height="1416"/>
  </objectgroup>
  <objectgroup id="6" name="triggers">
+  <object id="178" name="enemy" type="test_enemy" x="160" y="594" width="50" height="54"/>
   <object id="83" name="spawn" type="start" x="95" y="783" width="32" height="32"/>
   <object id="174" type="end" x="4510" y="712" width="22.6667" height="26"/>
-  <object id="178" name="enemy" type="test_enemy" x="160" y="594" width="50" height="54"/>
  </objectgroup>
 </map>

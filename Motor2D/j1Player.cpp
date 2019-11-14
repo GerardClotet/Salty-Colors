@@ -21,6 +21,7 @@ j1Player::j1Player(iPoint pos) : j1Entity(pos)
 
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
+	entity_type = E_TYPE::PLAYER;
 
 }
 
@@ -211,6 +212,7 @@ void j1Player::Die()
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
+		App->entityFactory->DeleteAllEnemies();
 	}
 
 }

@@ -12,7 +12,7 @@
 j1Enemy::j1Enemy(iPoint pos) : j1Entity(pos) //DRUM aquesta classe ha d'estar buida o lo minim, classe que forma els enemics
 {
 
-
+	entity_type = E_TYPE::ENEMY;
 }
 
 
