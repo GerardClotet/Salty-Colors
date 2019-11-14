@@ -719,12 +719,13 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 
 		}
 
-		else if (endTrigger == collider.attribute("type").as_string())
+		else if (endTrigger == collider.attribute("type").as_string()) //this and the oher are in another calss of colliders layer
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
 			
 		if (enemy == collider.attribute("type").as_string()) //WIP DRUm you fix it aixo realmetn es molt guarro!!!
 		{
 			pugi::xml_node spawn_e = node.find_child_by_attribute("name", "enemy");
+
 
 			App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
 		}

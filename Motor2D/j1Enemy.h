@@ -19,12 +19,12 @@ class j1Enemy : public j1Entity
 {
 public:
 
-	SDL_Rect animation_Coll;
+	//SDL_Rect animation_Coll;
 
 	j1Enemy(iPoint position);
 	virtual ~j1Enemy();
 
-virtual	bool Start();
+	virtual bool Start();
 virtual	bool PreUpdate();
 virtual	bool Update(float dt);
 virtual	bool CleanUp();
@@ -37,7 +37,7 @@ public:
 
 	iPoint position;
 
-
+	Animation e_test_IDLE;
 
 };
 

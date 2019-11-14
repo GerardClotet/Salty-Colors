@@ -90,7 +90,7 @@ bool j1Player::Update(float dt)
 	
  
 	
-	Draw();
+//	Draw();
 	if(state != DEAD)
 		Die();
 

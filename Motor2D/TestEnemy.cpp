@@ -1,5 +1,4 @@
 #include "j1Render.h"
-#include "j1Textures.h"
 #include "TestEnemy.h"
 #include "j1EntityFactory.h"
 #include "p2Log.h"
@@ -9,7 +8,7 @@ TestEnemy::TestEnemy(iPoint pos) : j1Enemy(pos)
 {
 	AwakeAttributes(App->config);
 	entityTex = App->tex->Load(sprite_route.data());
-	//entityTex = App->tex->Load("textures/enemies/enemy.png");
+	
 	LOG("%s", sprite_route.data());
 	position = pos;
 	animation_Coll = { 0,0,52,41 };
@@ -31,22 +30,25 @@ bool TestEnemy::PreUpdate()
 
 bool TestEnemy::Update(float dt)
 {
+
+	currentAnimation = e_test_IDLE.GetCurrentFrame();
+
 	//velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
 	//velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
 
 	//MovX();//need to review this (this function only works for player, need to set one for enemies
 	//MovY();
 
-	Draw();
+	//Draw();
 	return true;
 }
 
-void TestEnemy::Draw()
-{
-	if(entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false);
-	//For some reason the texture isnt rendering
-}
+//void TestEnemy::Draw()
+//{
+//	if(entityTex != nullptr)
+//		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false);
+//	//For some reason the texture isnt rendering
+//}
 
 void TestEnemy::SetPos(iPoint pos)
 {
@@ -105,7 +107,7 @@ bool TestEnemy::AwakeAttributes(pugi::xml_node config)
 	}
 
 	e_test_IDLE.loop = true;
-	e_test_IDLE.speed = 5.0f;
+	e_test_IDLE.speed = 10.0f;
 
 	return true;
 }

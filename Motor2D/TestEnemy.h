@@ -16,14 +16,17 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
-	void Draw();
+	
 	void SetPos(iPoint pos);
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&)const;
 	bool AwakeAttributes(pugi::xml_node config);
 
+
+	
+
 private:
-	Animation e_test_IDLE;
+	//Animation e_test_IDLE;
 	
 };
 

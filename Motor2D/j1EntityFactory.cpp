@@ -103,17 +103,18 @@ bool j1EntityFactory::PostUpdate()
 	for (; item != entities.end(); ++item)
 	{
 		(*item)->PostUpdate();
+		(*item)->Draw();
 	}
 
-	std::vector<j1Entity*>::iterator drawItem = draw_entities.begin();
-	for (; drawItem != draw_entities.end(); ++drawItem)
-	{
-		(*drawItem)->Draw();
+	//std::vector<j1Entity*>::iterator drawItem = draw_entities.begin();
+	//for (; drawItem != draw_entities.end(); ++drawItem)
+	//{
+	//	(*drawItem)->Draw();
 
-		//here can draw debug for entitys
-	}
+	//	//here can draw debug for entitys
+	//}
 
-	draw_entities.clear();
+//	draw_entities.clear();
 
 	return true;
 

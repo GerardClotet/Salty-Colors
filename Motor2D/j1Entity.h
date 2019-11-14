@@ -81,6 +81,6 @@ public:
 
 	std::string sprite_route;
 
-	
+	SDL_Rect animation_Coll;
 };
 #endif
