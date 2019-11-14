@@ -726,10 +726,10 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 		{
 			pugi::xml_node spawn_e = node.find_child_by_attribute("type", "test_enemy");
 
-			if (App->entityFactory->dirty_test)
-				App->entityFactory->enemy->SetPos({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() });
+			//if (App->entityFactory->dirty_test)
+				//App->entityFactory->enemy->SetPos({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() });*/
 
-			else if(!App->entityFactory->dirty_test)
+			//else if(!App->entityFactory->dirty_test)
 				App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
 
 

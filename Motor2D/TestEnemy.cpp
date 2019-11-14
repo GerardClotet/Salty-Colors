@@ -70,7 +70,7 @@ bool TestEnemy::CleanUp()
 bool TestEnemy::Load(pugi::xml_node&data)
 {
 	position.x = data.child("enemy").child("TestEnemy").attribute("x").as_int();
-	position.y = data.child("Enemy").child("TestEnemy").attribute("y").as_int();
+	position.y = data.child("enemy").child("TestEnemy").attribute("y").as_int();
 
 	flipX = data.child("enemy").child("TestEnemy").child("flipX").attribute("value").as_bool();
 
