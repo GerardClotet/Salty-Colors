@@ -117,14 +117,7 @@ bool j1Player::CleanUp()
 	return true;
 }
 
-void j1Player::SetPos(iPoint pos)
-{
-	position = pos;
-	if (collider)
-		collider->SetPos(position.x, position.y);
 
-	state = JUMPING;
-}
 void j1Player::IdleUpdate()
 {
 	target_speed.x = 0.0f;

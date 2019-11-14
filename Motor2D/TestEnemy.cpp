@@ -81,7 +81,7 @@ bool TestEnemy::Save(pugi::xml_node&data) const
 {
 	pugi::xml_node e_data;
 
-	e_data = data.append_child("enemy").child("TestEnemy");
+	e_data = data.append_child("enemy").append_child("TestEnemy");
 
 	e_data.append_attribute("x") = position.x;
 	e_data.append_attribute("y") = position.y;

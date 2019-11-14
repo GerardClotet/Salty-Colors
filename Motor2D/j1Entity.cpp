@@ -114,4 +114,14 @@ void j1Entity::MovY()
 
 }
 
+void j1Entity::SetPos(iPoint pos)
+{
+	
+		position = pos;
+		if (collider)
+			collider->SetPos(position.x, position.y);
+
+	
+}
+
 

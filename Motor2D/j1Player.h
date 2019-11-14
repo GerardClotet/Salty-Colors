@@ -19,7 +19,6 @@ public:
 	bool Update(float dt);
 	void Draw();
 	bool CleanUp();
-	void SetPos(iPoint pos);
 
 	void IdleUpdate();
 	void MovingUpdate();

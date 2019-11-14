@@ -44,6 +44,7 @@ public:
 	int maxframes = 4;
 	bool playerActive = false;
 
+	bool dirty_test = false;
 private:
 	std::vector<j1Entity*>	draw_entities;
 

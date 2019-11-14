@@ -48,6 +48,7 @@ public:
 	void MovX();
 
 	void MovY();
+virtual void SetPos(iPoint pos);
 
 
 public:

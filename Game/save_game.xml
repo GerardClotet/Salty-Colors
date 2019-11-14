@@ -10,8 +10,8 @@
 		<scene name="Level1.tmx" />
 	</swap_scene>
 	<entityFactory>
-		<Player x="95" y="790">
-			<velocity x="0" />
+		<Player x="192" y="790">
+			<velocity x="3.43829458e-39" />
 			<velocity y="0" />
 			<target_speed x="0" />
 			<target_speed y="0" />
@@ -19,12 +19,14 @@
 			<is_grounded value="true" />
 			<flipX value="false" />
 		</Player>
-    <enemy>
-      
-    </enemy>
+		<enemy>
+			<TestEnemy x="160" y="594">
+				<flipX value="false" />
+			</TestEnemy>
+		</enemy>
 	</entityFactory>
 	<collision />
 	<renderer>
-		<camera x="0" y="-333" />
+		<camera x="0" y="-381" />
 	</renderer>
 </game_state>
