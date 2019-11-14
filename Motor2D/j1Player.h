@@ -2,9 +2,7 @@
 #define __J1PLAYER_H__
 
 #include "j1Entity.h"
-#include "p2Point.h"
-#include "p2Animation.h"
-#include "j1Collision.h"
+
 #define MAX_DASHES 1
 #define DASH_DISTANCE 150
 #define STEP_TIME 250.0F
@@ -67,7 +65,6 @@ private:
 	Animation player_DASH;
 	Animation player_WALL;
 	Animation player_BOUNCE;
-	std::string sprite_route;
 };
 
 #endif

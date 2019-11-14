@@ -5,6 +5,7 @@
 #include "j1Entity.h"
 #include "j1Player.h"
 #include "j1Enemy.h"
+#include "TestEnemy.h"
 #include <vector>
 #include <list>
 
@@ -23,7 +24,8 @@ public:
 	bool CleanUp();
 
 	j1Player* CreatePlayer(iPoint pos);
-	j1Enemy* CreateEnemy(iPoint pos);
+//	j1Enemy* CreateEnemy(iPoint pos, ENTITY_TYPE type /*!!!! NEED TO CHANGE THIS ENUM FOR 1 exclusivly for enemies*/);
+	j1Enemy* CreateEnemy(iPoint pos, ENEMY_TYPE type);
 	bool GetPlayerState();
 	bool GetEnemyState();
 

@@ -1,5 +1,4 @@
 #include "j1Render.h"
-#include "j1Textures.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
@@ -9,7 +8,7 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1EntityFactory.h"
-j1Player::j1Player(iPoint pos) : j1Entity(ENT_PLAYER, pos)
+j1Player::j1Player(iPoint pos) : j1Entity(pos)
 {
 
 	AwakeAttributes(App->config);
@@ -532,7 +531,7 @@ bool j1Player::AwakeAttributes(pugi::xml_node config)
 
 
 
-	sprite_route = PATH(config.child("entityFactory").child("folder").child_value(), config.child("entityFactory").child("sprite").child_value());
+	sprite_route = PATH(config.child("entityFactory").child("player").child("folder").child_value(), config.child("entityFactory").child("player").child("sprite").child_value());
 	int animationID;
 	for (auto node : config.child("entityFactory").child("player").child("animations").children("frame"))
 	{

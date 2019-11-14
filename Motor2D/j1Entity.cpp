@@ -5,7 +5,7 @@
 #include "p2Log.h"
 
 
-j1Entity::j1Entity(ENTITY_TYPE type, iPoint position)
+j1Entity::j1Entity(iPoint position)
 {
 	LOG("entity constructed");
 }

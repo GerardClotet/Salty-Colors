@@ -6,19 +6,13 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "j1Textures.h"
+#include "j1Collision.h"
 #include "j1App.h"
 
 #include "SDL_image/include/SDL_image.h"
 
 
-enum  ENTITY_TYPE
-{
-	NO_TYPE,
-	ENT_PLAYER,
-	ENT_ENEMY,
-	ENT_FLYING,
-	ENT_MAX
-};
+
 enum  PlayerState {
 	NO_STATE = -1,
 	IDLE,
@@ -36,7 +30,7 @@ enum  PlayerState {
 class j1Entity 
 {
 public:
-	j1Entity(ENTITY_TYPE type, iPoint position);
+	j1Entity(iPoint position);
 	virtual ~j1Entity();
 
 	virtual bool Start();
@@ -55,7 +49,6 @@ public:
 
 	void MovY();
 
-	/*ENTITY_TYPE type;*/
 
 public:
 	Collider* collider;
@@ -64,7 +57,6 @@ public:
 	bool to_delete = false;
 	SDL_Rect entityRect;
 	SDL_Texture* entityTex;
-	ENTITY_TYPE type;
 	SDL_Rect currentAnimation;
 
 	float movement_speed;
@@ -86,6 +78,9 @@ public:
 	PlayerState state = IDLE;
 
 	float norm_moves;
+
+	std::string sprite_route;
+
 	
 };
 #endif

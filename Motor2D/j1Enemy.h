@@ -2,14 +2,18 @@
 #define __J1ENEMY_H__
 
 #include "j1Entity.h"
-#include "p2Point.h"
-#include "p2Animation.h"
-#include "j1Collision.h"
+
 
 
 
 #define MAX_JUMPS 1
 
+enum class  ENEMY_TYPE
+{
+	NO_TYPE = -1,
+	ENEMY_TEST,
+	MAX
+};
 
 class j1Enemy : public j1Entity
 {
@@ -18,18 +22,23 @@ public:
 	SDL_Rect animation_Coll;
 
 	j1Enemy(iPoint position);
-	~j1Enemy();
+	virtual ~j1Enemy();
 
-	bool Start();
-	bool PreUpdate();
-	bool Update(float dt);
-	bool CleanUp();
-	void Draw();
+virtual	bool Start();
+virtual	bool PreUpdate();
+virtual	bool Update(float dt);
+virtual	bool CleanUp();
+virtual	void Draw();
 
+
+public:
 	float spriteIncrease = 1.5f;
 
 
-	
+	iPoint position;
+
+
+
 };
 
 

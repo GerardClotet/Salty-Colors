@@ -29,11 +29,30 @@
   </scene>
 
   <entityFactory>
-    <folder>textures/player</folder>
-    <sprite>adventurer-v1.5-Sheet.png</sprite>
+    <!--<folder>textures/player</folder>
+    <sprite>adventurer-v1.5-Sheet.png</sprite>-->
 
+    <enemy>
+
+      <folder>textures/enemies</folder> <!--For SomeReason Doesnt blit enemy-->
+      <sprite>enemy.png</sprite>
+
+      <animations>
+        <frame id ="1" x="28" y="23" w ="52" h="41"/> <!--IDLE--> 
+        <frame id ="1" x="124" y="22" w ="52" h="42"/>
+        <frame id ="1" x="220" y="22" w ="52" h="42"/>
+        <frame id ="1" x="316" y="23" w ="52" h="41"/>
+        <frame id ="1" x="412" y="23" w ="52" h="41"/>
+
+      </animations>
+      
+    </enemy>
     <player>
-
+      
+      <folder>textures/player</folder>
+      <sprite>adventurer-v1.5-Sheet.png</sprite>
+      
+      
       <movement_speed value="270.0f"/>
       <jump_speed value="1700.0f"/>
       <gravity value="216.0f"/>

@@ -3,6 +3,7 @@
 #include "p2Log.h"
 #include "j1Render.h"
 #include "j1Window.h"
+
 #include <algorithm>
 
 j1EntityFactory::j1EntityFactory()
@@ -162,24 +163,28 @@ j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
 }
 
 
-j1Enemy* j1EntityFactory::CreateEnemy(ENTITY_TYPE type, iPoint pos)
 
 
+
+
+j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
 {
-	p2SString id;
-
+	j1Enemy* enemy = nullptr;// = new j1Enemy(pos);
 	switch (type)
 	{
-	case ENT_ENEMY:
-		break;
-	case ENT_FLYING:
+	case ENEMY_TYPE::ENEMY_TEST:
+
+		enemy = new TestEnemy(pos);
+		entities.push_back(enemy);
+		return enemy;
 		break;
 	default:
 		break;
 	}
+
+	LOG("Failed To Create enemy type %i", type);
+	return enemy;
 }
-
-
 
 bool j1EntityFactory::GetPlayerState()
 {

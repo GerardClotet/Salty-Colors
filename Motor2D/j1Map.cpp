@@ -711,15 +711,24 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			if (App->entityFactory->GetPlayerState() == true)
 				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
 					
-			else if(App->entityFactory->GetPlayerState() == false)
+			else if (App->entityFactory->GetPlayerState() == false)
+			{
 				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
+				App->entityFactory->CreateEnemy({ spawn.attribute("x").as_int() + 5, spawn.attribute("y").as_int() },ENEMY_TYPE::ENEMY_TEST);
+			}
 
 		}
 
 		else if (endTrigger == collider.attribute("type").as_string())
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
 			
-		
+		if (enemy == collider.attribute("type").as_string()) //WIP DRUm you fix it aixo realmetn es molt guarro!!!
+		{
+			pugi::xml_node spawn_e = node.find_child_by_attribute("name", "enemy");
+
+			App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
+		}
+
 	}
 	
 	return true;
