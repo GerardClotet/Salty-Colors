@@ -714,7 +714,7 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 			else if (App->entityFactory->GetPlayerState() == false)
 			{
 				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
-				App->entityFactory->CreateEnemy({ spawn.attribute("x").as_int() + 5, spawn.attribute("y").as_int() },ENEMY_TYPE::ENEMY_TEST);
+		//		App->entityFactory->CreateEnemy({ spawn.attribute("x").as_int() + 5, spawn.attribute("y").as_int() },ENEMY_TYPE::ENEMY_TEST);
 			}
 
 		}
