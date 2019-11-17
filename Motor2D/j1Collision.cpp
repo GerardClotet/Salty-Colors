@@ -17,7 +17,7 @@ j1Collision::~j1Collision()
 
 bool j1Collision::Awake(pugi::xml_node& config)
 {
-	max_colliders = 100;
+	max_colliders = 1000;
 	colliders = new Collider * [max_colliders];
 	for (uint i = 0; i < max_colliders; ++i)
 		colliders[i] = nullptr;
@@ -153,6 +153,8 @@ void j1Collision::DebugDraw()
 		case COLLIDER_ENEMY:
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha, true);
 			break;
+		case COLLIDER_FLYING:
+			App->render->DrawQuad(colliders[i]->rect, 130, 214, 237, alpha, true);
 		default:
 			break;
 		}

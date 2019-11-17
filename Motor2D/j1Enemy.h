@@ -12,6 +12,7 @@ enum class  ENEMY_TYPE
 {
 	NO_TYPE = -1,
 	ENEMY_TEST,
+	ENEMY_FLYING,
 	MAX
 };
 

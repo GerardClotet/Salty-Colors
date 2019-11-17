@@ -23,7 +23,7 @@ public:
 	bool AwakeAttributes(pugi::xml_node config);
 
 
-
+	Animation IDLE_Flying;
 
 private:
 	//Animation e_test_IDLE;
