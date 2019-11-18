@@ -17,6 +17,7 @@ FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 	animation_Coll = { 0,0, 40, 40 };
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_ENEMY);
 
+	LOG("Created FlyingEnemy");
 
 }
 
@@ -69,6 +70,7 @@ bool FlyingEnemy::AwakeAttributes(pugi::xml_node config)
 
 	for (auto node : config.child("entityFactory").child("FlyingEnemy").child("animations").child("frame"))
 	{
+		LOG("IMMA INNNN BOI");
 		animationID = node.attribute("id").as_int();
 		if (animationID == 1)
 			IDLE_Flying.PushBack({ node.attribute("x").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });

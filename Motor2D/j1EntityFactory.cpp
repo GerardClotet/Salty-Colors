@@ -176,14 +176,14 @@ j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
 	case ENEMY_TYPE::ENEMY_TEST:
 
 
-		dirty_test = true;
+		
 		enemy = new TestEnemy(pos);
 		entities.push_back(enemy);
 		return enemy;
 		break;
 	case ENEMY_TYPE::ENEMY_FLYING:
 
-		dirty_test = true;
+		
 		enemy = new FlyingEnemy(pos);
 		entities.push_back(enemy);
 		return enemy;
