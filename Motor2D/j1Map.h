@@ -170,6 +170,7 @@ private:
 	std::string startTrigger = "start";
 	std::string endTrigger = "end";
 	std::string enemy = "test_enemy";
+	std::string FlyingEnemy = "FlyingEnemy";
 	/// BFS
 	p2Queue<iPoint>		frontier;
 	std::list<iPoint*>		visited;

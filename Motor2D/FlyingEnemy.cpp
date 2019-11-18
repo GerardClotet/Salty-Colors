@@ -64,16 +64,16 @@ bool FlyingEnemy::Save(pugi::xml_node&) const
 
 bool FlyingEnemy::AwakeAttributes(pugi::xml_node config)
 {
-	sprite_route = PATH(config.child("entityFactory").child("FlyingEnemy").child_value(), config.child("entityFactory").child("FlyingEnemy").child("sprite").child_value());
+	sprite_route = PATH(config.child("entityFactory").child("FlyingEnemy").child("folder").child_value(), config.child("entityFactory").child("FlyingEnemy").child("sprite").child_value());
 
 	int animationID;
 
-	for (auto node : config.child("entityFactory").child("FlyingEnemy").child("animations").child("frame"))
+	for (auto node : config.child("entityFactory").child("FlyingEnemy").child("animations").children("frame"))
 	{
 		LOG("IMMA INNNN BOI");
 		animationID = node.attribute("id").as_int();
 		if (animationID == 1)
-			IDLE_Flying.PushBack({ node.attribute("x").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
+			IDLE_Flying.PushBack({ node.attribute("x").as_int(), node.attribute("y").as_int(), node.attribute("w").as_int(), node.attribute("h").as_int() });
 	}
 
 	IDLE_Flying.loop = true;

@@ -34665,7 +34665,7 @@
   <object id="178" name="enemy" type="test_enemy" x="160" y="594" width="50" height="54"/>
   <object id="83" name="spawn" type="start" x="95" y="783" width="32" height="32"/>
   <object id="174" type="end" x="4510" y="712" width="22.6667" height="26"/>
-  <object id="179" name="FlyingEnemy" type="FlyingEnemy" x="248" y="596" width="50" height="58"/>
+  <object id="179" name="enemy" type="FlyingEnemy" x="248" y="596" width="50" height="58"/>
   <object id="180" x="-34" y="634"/>
  </objectgroup>
 </map>

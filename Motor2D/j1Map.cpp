@@ -732,6 +732,16 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 
 		}
 
+		if (FlyingEnemy == collider.attribute("type").as_string()) //WIP DRUm you fix it aixo realmetn es molt guarro!!!
+		{
+			pugi::xml_node spawn_e = node.find_child_by_attribute("type", "FlyingEnemy");
+
+
+
+			App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_FLYING);
+
+		}
+
 	}
 	
 	return true;

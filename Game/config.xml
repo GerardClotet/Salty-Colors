@@ -39,8 +39,8 @@
       <sprite>enemy.png</sprite>
 
       <animations>
-        <frame id ="1" x="28" y="23" w ="52" h="41"/>
         <!--IDLE-->
+        <frame id ="1" x="28" y="23" w ="52" h="41"/>
         <frame id ="1" x="124" y="22" w ="52" h="42"/>
         <frame id ="1" x="220" y="22" w ="52" h="42"/>
         <frame id ="1" x="316" y="23" w ="52" h="41"/>
