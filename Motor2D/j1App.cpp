@@ -15,6 +15,7 @@
 #include "j1EntityFactory.h"
 #include "j1Collision.h"
 #include "j1SwapScene.h"
+#include "j1Pathfinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -34,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entityFactory = new j1EntityFactory();
 	collision = new j1Collision();
 	swapScene = new j1MapChange();
+	pathfinding = new j1PathFinding();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -45,6 +47,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(swapScene);
 	AddModule(entityFactory);
 	AddModule(collision);
+	AddModule(pathfinding);
 	// render last to swap buffer
 	AddModule(render);
 

@@ -17,6 +17,7 @@ class j1Map;
 class j1EntityFactory;
 class j1Collision;
 class j1MapChange;
+class j1PathFinding;
 class j1App
 {
 public:
@@ -94,7 +95,9 @@ public:
 	j1Map*				map;
 	j1EntityFactory*	entityFactory;
 	j1Collision*		collision;
+	j1PathFinding*		pathfinding;
 	j1MapChange*		swapScene;
+	
 
 	bool				vsync = false;
 	bool				pause = false;
