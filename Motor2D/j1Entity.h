@@ -52,9 +52,14 @@ public:
 
 	virtual iPoint GetPosition();
 	void MovX();
-
 	void MovY();
-virtual void SetPos(iPoint pos);
+
+	virtual void IdleUpdate() {};
+	virtual void MovingUpdate() {};
+	virtual void JumpingUpdate() {};
+	virtual void Jump() {};
+
+  virtual void SetPos(iPoint pos);
 
 
 public:
@@ -70,7 +75,7 @@ public:
 	float movement_speed;
 	float jump_speed;
 	float gravity;
-	float acceleration;
+	float acceleration=0.0f;
 	float fall_speed;
 	float bounce_speed;
 	fPoint target_speed = { 0.0F,0.0F };

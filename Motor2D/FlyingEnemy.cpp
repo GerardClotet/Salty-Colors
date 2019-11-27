@@ -14,9 +14,12 @@ FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 	LOG("%s", sprite_route.data());
 
 	position = pos;
-	animation_Coll = { 0,0, 40, 40 };
-	collider = App->collision->AddCollider(animation_Coll, COLLIDER_ENEMY);
+	animation_Coll = { 0,0, 19, 30 };
 
+	collider = App->collision->AddCollider(animation_Coll, COLLIDER_FLYING, App->entityFactory, true);
+	collider->rect.x = position.x;
+	collider->rect.y = position.y;
+	
 	LOG("Created FlyingEnemy");
 
 }

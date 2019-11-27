@@ -22,8 +22,37 @@ public:
 	bool Save(pugi::xml_node&)const;
 	bool AwakeAttributes(pugi::xml_node config);
 
+	void IdleUpdate();
+	void MovingUpdate();
+	void JumpingUpdate();
+	void Jump();
 
 
+	//Pathfinding variables
+
+	float chase_distance = 0.0F;
+	int current_destination = 0;
+	int previous_destination = 0;
+	int next_destination = -1;
+	int jump_height = 2;
+	bool reached_X = false;
+	bool reached_Y = false;
+	bool current_is_grounded = false;
+	iPoint destination = { -1, -1 };
+
+
+	//Pathfinding methods
+
+	bool GetPath();
+	virtual void ResetPathfindingVariables();
+
+
+	
+	void PathfindingUpdate();
+	void PathfindingPreupdate();
+	void DrawPath();
+	virtual void PathfindX();
+	virtual void PathfindY();
 	
 
 private:

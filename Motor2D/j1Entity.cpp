@@ -125,3 +125,5 @@ void j1Entity::SetPos(iPoint pos)
 }
 
 
+
+

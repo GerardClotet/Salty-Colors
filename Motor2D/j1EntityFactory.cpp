@@ -3,6 +3,7 @@
 #include "p2Log.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "j1Input.h"
 
 #include <algorithm>
 
@@ -59,6 +60,10 @@ bool j1EntityFactory::PreUpdate()
 
 bool j1EntityFactory::Update(float dt)
 {
+
+	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
+		draw_path = !draw_path;
+
 	bool ret = true;
 	std::list<j1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end();)
