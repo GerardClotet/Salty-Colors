@@ -18,6 +18,8 @@ class j1EntityFactory;
 class j1Collision;
 class j1MapChange;
 class j1PathFinding;
+class j1ParticleSystem;
+
 class j1App
 {
 public:
@@ -97,7 +99,7 @@ public:
 	j1Collision*		collision;
 	j1PathFinding*		pathfinding;
 	j1MapChange*		swapScene;
-	
+	j1ParticleSystem*	particles;
 
 	bool				vsync = false;
 	bool				pause = false;

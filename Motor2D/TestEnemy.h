@@ -23,6 +23,7 @@ public:
 	bool AwakeAttributes(pugi::xml_node config);
 
 
+
 	
 
 private:

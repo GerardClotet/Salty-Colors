@@ -70,6 +70,18 @@
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1ParticleSystem.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="grounded_particle.cpp">
+      <Filter>Desenvolupament  ========\Entities\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="projectile.cpp">
+      <Filter>Desenvolupament  ========\Entities\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>Desenvolupament  ========\Entities\particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -165,6 +177,18 @@
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1ParticleSystem.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="grounded_particle.h">
+      <Filter>Desenvolupament  ========\Entities\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="projectile.h">
+      <Filter>Desenvolupament  ========\Entities\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -190,6 +214,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{d416471b-708b-4253-b3c5-35f3219218f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\particles">
+      <UniqueIdentifier>{3ba652f3-2e6a-48e0-915d-c110142e7f41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

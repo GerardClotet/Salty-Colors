@@ -16,7 +16,7 @@
 #include "j1Collision.h"
 #include "j1SwapScene.h"
 #include "j1Pathfinding.h"
-
+#include "j1ParticleSystem.h"
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -36,6 +36,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision();
 	swapScene = new j1MapChange();
 	pathfinding = new j1PathFinding();
+	particles = new j1ParticleSystem();
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -48,6 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityFactory);
 	AddModule(collision);
 	AddModule(pathfinding);
+	AddModule(particles);
 	// render last to swap buffer
 	AddModule(render);
 

@@ -8,6 +8,7 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1EntityFactory.h"
+#include "j1ParticleSystem.h"
 j1Player::j1Player(iPoint pos) : j1Entity(pos)
 {
 
@@ -244,6 +245,7 @@ void j1Player::DashUpdate()
 		
 		else if (is_grounded)
 		{
+			//App->particles->AddParticle(App->particles->test, position.x, position.y, { 1,1 });
 			if (App->input->GetKey(SDL_SCANCODE_D) != App->input->GetKey(SDL_SCANCODE_A))
 			{
 				state = MOVING;
@@ -438,6 +440,8 @@ bool j1Player::Bounce()
 
 void j1Player::Ground()
 {
+	//App->particles->AddParticle(App->particles->test, position.x, position.y, { 1,1 });
+
 	if (dashes < MAX_DASHES)
 		dashes += 1;
 
