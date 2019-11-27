@@ -75,7 +75,7 @@ public:
 	float movement_speed;
 	float jump_speed;
 	float gravity;
-	float acceleration;
+	float acceleration=0.0f;
 	float fall_speed;
 	float bounce_speed;
 	fPoint target_speed = { 0.0F,0.0F };

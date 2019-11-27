@@ -37,7 +37,8 @@ public:
 	virtual	bool CleanUp();
 	virtual	void Draw();
 
-
+ void MovX();
+ void MovY();
 	
 
 

@@ -56,11 +56,21 @@ bool TestEnemy::Update(float dt)
 
 	currentAnimation = e_test_IDLE.GetCurrentFrame();
 
-	//velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
-	//velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
+	
 
-	//MovX();//need to review this (this function only works for player, need to set one for enemies
-	//MovY();
+	if (state == JUMPING)
+	{
+		target_speed.y += gravity * dt;
+		if (target_speed.y > fall_speed) target_speed.y = fall_speed; //limit falling speed
+	}
+
+	
+	MovX();
+	MovY();
+
+	velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
+	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
+
 
 	//Draw();
 	return true;

@@ -46,6 +46,8 @@ public:
 	bool GetPath();
 	virtual void ResetPathfindingVariables();
 
+
+	
 	void PathfindingUpdate();
 	void PathfindingPreupdate();
 	void DrawPath();
