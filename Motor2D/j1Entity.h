@@ -52,9 +52,14 @@ public:
 
 	virtual iPoint GetPosition();
 	void MovX();
-
 	void MovY();
-virtual void SetPos(iPoint pos);
+
+	virtual void IdleUpdate() {};
+	virtual void MovingUpdate() {};
+	virtual void JumpingUpdate() {};
+	virtual void Jump() {};
+
+  virtual void SetPos(iPoint pos);
 
 
 public:
