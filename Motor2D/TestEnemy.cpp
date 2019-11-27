@@ -1,6 +1,8 @@
 #include "j1Render.h"
 #include "TestEnemy.h"
 #include "j1EntityFactory.h"
+#include "j1PathFinding.h"
+#include "j1Map.h"
 #include "p2Log.h"
 
 
@@ -110,4 +112,123 @@ bool TestEnemy::AwakeAttributes(pugi::xml_node config)
 	e_test_IDLE.speed = 10.0f;
 
 	return true;
+}
+void TestEnemy::IdleUpdate()
+{
+	target_speed.x = 0.0F;
+	if (moving_left != moving_right)
+		state = MOVING;
+	if (jump) Jump();
+
+	if (!is_grounded) state = JUMPING;
+}
+
+void TestEnemy::MovingUpdate()
+{
+
+	if (moving_left == moving_right)
+	{
+		state = IDLE;
+		target_speed.x = 0.0F;
+	}
+	else if (moving_right)
+	{
+		target_speed.x = movement_speed;
+		flipX = false;
+	}
+	else if (moving_left)
+	{
+		target_speed.x = -movement_speed;
+		flipX = true;
+	}
+
+	if (jump)
+	{
+		Jump();
+	}
+
+	if (!is_grounded)
+		state = JUMPING;
+
+}
+
+void TestEnemy::JumpingUpdate()
+{
+	if (moving_left == moving_right)
+	{
+		target_speed.x = 0.0F;
+	}
+	else if (moving_right)
+	{
+		target_speed.x = movement_speed;
+		flipX = false;
+	}
+	else if (moving_left)
+	{
+		target_speed.x = -movement_speed;
+		flipX = true;
+	}
+
+	if (is_grounded)
+	{
+		if (moving_left == moving_right) state = IDLE;
+		else state = MOVING;
+
+		target_speed.y = 0.0F;
+		velocity.y = 0.0F;
+		total_jumps = 0;
+	}
+
+	if (jump && total_jumps < MAX_JUMPS)
+	{
+		Jump();
+	}
+}
+
+
+void TestEnemy::Jump()
+{
+	target_speed.y = -jump_speed;
+	is_grounded = false;
+	state = JUMPING;
+	total_jumps++;
+}
+
+
+bool TestEnemy::GetPath()
+{
+
+	iPoint new_destination = App->map->WorldToMap(App->entityFactory->player->pivot.x, App->entityFactory->player->pivot.y);
+
+	if (new_destination != destination || current_path.Count() == 0)
+	{
+		iPoint origin = App->map->WorldToMap(pivot.x, pivot.y);
+		destination = new_destination;
+
+		App->pathfinding->CreatePath(origin, destination, jump_height);
+
+		const p2DynArray<iPoint>* tmp_array = App->pathfinding->GetLastPath();
+		current_path.Clear();
+		for (int i = 0; i < tmp_array->Count(); i++)
+		{
+			iPoint p = App->map->MapToWorld(tmp_array->At(i)->x, tmp_array->At(i)->y);
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2 + App->entityFactory->player->spriteIncrease;
+			current_path.PushBack(p);
+		}
+		current_destination = current_path.Count() > 1 ? 1 : 0;
+		previous_destination = 0;
+		next_destination = current_path.Count() > 2 ? 2 : -1;
+
+		ResetPathfindingVariables();
+	}
+
+	return true;
+}
+
+void TestEnemy::ResetPathfindingVariables()
+{
+	moving_right = false;
+	moving_left = false;
+	jump = false;
 }

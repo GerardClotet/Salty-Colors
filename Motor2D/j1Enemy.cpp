@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "j1Input.h"
 #include "j1Enemy.h"
+#include "j1Pathfinding.h"
 #include "j1EntityFactory.h"
 
 j1Enemy::j1Enemy(iPoint pos) : j1Entity(pos) //DRUM aquesta classe ha d'estar buida o lo minim, classe que forma els enemics
@@ -49,92 +50,16 @@ void j1Enemy::Draw()
 
 }
 
-void j1Enemy::IdleUpdate()
-{
-	target_speed.x = 0.0F;
-	if (moving_left != moving_right)
-		state = MOVING;
-	if (jump) Jump();
 
-	if (!is_grounded) state = JUMPING;
-}
 
-void j1Enemy::MovingUpdate()
-{
 
-	if (moving_left == moving_right)
-	{
-		state = IDLE;
-		target_speed.x = 0.0F;
-	}
-	else if (moving_right)
-	{
-		target_speed.x = movement_speed;
-		flipX = false;
-	}
-	else if (moving_left)
-	{
-		target_speed.x = -movement_speed;
-		flipX = true;
-	}
-
-	if (jump)
-	{
-		Jump();
-	}
-
-	if (!is_grounded)
-		state = JUMPING;
-
-}
-
-void j1Enemy::JumpingUpdate()
-{
-	if (moving_left == moving_right)
-	{
-		target_speed.x = 0.0F;
-	}
-	else if (moving_right)
-	{
-		target_speed.x = movement_speed;
-		flipX = false;
-	}
-	else if (moving_left)
-	{
-		target_speed.x = -movement_speed;
-		flipX = true;
-	}
-
-	if (is_grounded)
-	{
-		if (moving_left == moving_right) state = IDLE;
-		else state = MOVING;
-
-		target_speed.y = 0.0F;
-		velocity.y = 0.0F;
-		total_jumps = 0;
-	}
-
-	if (jump && total_jumps < MAX_JUMPS)
-	{
-		Jump();
-	}
-}
-
-void j1Enemy::Jump()
-{
-}
 
 
 
 
 bool j1Enemy::CleanUp()
 {
-	target_speed.y = -jump_speed;
-	is_grounded = false;
-	state = JUMPING;
-	total_jumps++;
-
+	
 	
 	return true;
 }

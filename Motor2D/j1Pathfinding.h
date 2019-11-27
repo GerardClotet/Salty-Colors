@@ -31,7 +31,7 @@ public:
 	void SetMap(uint width, uint height, uchar* data);
 
 	// Main function to request a path from A to B
-	int CreatePath(const iPoint& origin, const iPoint& destination, int characterWidth, int characterHeight, short maxCharacterJumpHeight);
+	int CreatePath(const iPoint& origin, const iPoint& destination, short maxCharacterJumpHeight);
 
 	// To request all tiles involved in the last generated path
 	const p2DynArray<iPoint>* GetLastPath() const;

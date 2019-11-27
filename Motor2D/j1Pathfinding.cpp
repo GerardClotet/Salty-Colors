@@ -183,7 +183,7 @@ int PathNode::CalculateF(const iPoint& destination, int jump_length)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, int characterWidth, int characterHeight, short maxCharacterJumpHeight)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, short maxCharacterJumpHeight)
 {
 	// TODO 1: if origin or destination are not walkable, return -1
 	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;

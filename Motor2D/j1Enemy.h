@@ -2,7 +2,7 @@
 #define __J1ENEMY_H__
 
 #include "j1Entity.h"
-
+#include "p2DynArray.h"
 
 
 
@@ -38,14 +38,14 @@ public:
 	virtual	void Draw();
 
 
-	void IdleUpdate();
-	void MovingUpdate();
-	void JumpingUpdate();
-	void Jump();
+	
+
+
 
 public:
 	float spriteIncrease = 1.5f;
 
+	p2DynArray<iPoint> current_path;
 
 	iPoint position;
 
