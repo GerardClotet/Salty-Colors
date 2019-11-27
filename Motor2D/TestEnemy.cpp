@@ -27,6 +27,27 @@ TestEnemy::~TestEnemy()
 
 bool TestEnemy::PreUpdate()
 {
+	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance)
+		chase = true;
+	else
+		chase = false;
+
+	PathfindingPreupdate();
+
+	switch (state) {
+	case IDLE: IdleUpdate();
+		break;
+	case MOVING: MovingUpdate();
+		break;
+	case JUMPING: JumpingUpdate();
+		break;
+	case DEAD:
+		break;
+	default:
+		break;
+	}
+
+	
 	return true;
 }
 
@@ -231,4 +252,98 @@ void TestEnemy::ResetPathfindingVariables()
 	moving_right = false;
 	moving_left = false;
 	jump = false;
+}
+
+void TestEnemy::PathfindingUpdate()
+{
+	if (chase && state != JUMPING)
+		GetPath();
+	if (App->entityFactory->draw_path)
+		DrawPath();
+}
+
+void TestEnemy::PathfindingPreupdate()
+{
+	if (current_path.Count() > 0)
+	{
+		ResetPathfindingVariables();
+
+		PathfindX();
+		PathfindY();
+
+		if (reached_X && reached_Y)
+		{
+			previous_destination = current_destination;
+			current_destination++;
+			next_destination = current_destination + 1;
+
+			if (next_destination >= current_path.Count())
+				next_destination = -1;
+
+			if (current_destination >= current_path.Count())
+				current_path.Clear();
+		}
+	}
+}
+
+void TestEnemy::PathfindX()
+{
+	reached_X = (current_path.At(previous_destination)->x <= current_path.At(current_destination)->x && current_path.At(current_destination)->x <= pivot.x)
+		|| (current_path.At(previous_destination)->x >= current_path.At(current_destination)->x && current_path.At(current_destination)->x >= pivot.x);
+
+	if (!reached_X)
+	{
+		if (pivot.x < current_path.At(current_destination)->x)
+			moving_right = true;
+
+		else if (pivot.x > current_path.At(current_destination)->x)
+			moving_left = true;
+	}
+	else
+	{
+		if (next_destination > 0)
+		{
+			iPoint point = App->map->WorldToMap(current_path.At(next_destination)->x, current_path.At(next_destination)->y);
+			if (!App->pathfinding->IsGround({ point.x, point.y + 1 }))
+			{
+				moving_right = false;
+				moving_left = false;
+			}
+			else
+			{
+				if (pivot.x < current_path.At(next_destination)->x)
+					moving_right = true;
+				else if (pivot.x > current_path.At(next_destination)->x)
+					moving_left = true;
+			}
+		}
+	}
+}
+
+
+void TestEnemy::PathfindY()
+
+{
+	reached_Y = (current_path.At(previous_destination)->y <= current_path.At(current_destination)->y && pivot.y >= current_path.At(current_destination)->y)
+		|| (current_path.At(previous_destination)->y >= current_path.At(current_destination)->y && pivot.y <= current_path.At(current_destination)->y);
+
+	if (!reached_Y)
+	{
+		if (pivot.y > current_path.At(current_destination)->y)
+			jump = true;
+	}
+}
+
+
+void TestEnemy::DrawPath()
+{
+	for (int i = 0; i < current_path.Count(); i++)
+	{
+		iPoint p = { current_path.At(i)->x, current_path.At(i)->y };
+		p.x -= App->map->data.tile_width / 2;
+		p.y -= App->map->data.tile_height / 2;
+
+		SDL_Rect quad = { p.x, p.y, App->map->data.tile_width , App->map->data.tile_height };
+		App->render->DrawQuad(quad, 255, 255, 0, 75, true);
+	}
 }

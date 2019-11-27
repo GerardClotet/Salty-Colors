@@ -46,11 +46,11 @@ public:
 	bool GetPath();
 	virtual void ResetPathfindingVariables();
 
-	//void PathfindingUpdate();
-	//void PathfindingPreupdate();
-
-	//virtual void PathfindX();
-	//virtual void PathfindY();
+	void PathfindingUpdate();
+	void PathfindingPreupdate();
+	void DrawPath();
+	virtual void PathfindX();
+	virtual void PathfindY();
 	
 
 private:

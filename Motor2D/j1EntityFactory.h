@@ -28,8 +28,9 @@ public:
 //	j1Enemy* CreateEnemy(iPoint pos, ENTITY_TYPE type /*!!!! NEED TO CHANGE THIS ENUM FOR 1 exclusivly for enemies*/);
 	j1Enemy* CreateEnemy(iPoint pos, ENEMY_TYPE type);
 	bool GetPlayerState();
-	bool GetEnemyState();
+	//bool GetEnemyState();
 
+	bool draw_path = false;
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
