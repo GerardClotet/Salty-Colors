@@ -20,7 +20,6 @@
  <tileset firstgid="551" name="base" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="base.png" trans="ff00ff" width="512" height="512"/>
  </tileset>
- <tileset firstgid="807" source="G:/Download/Development_Assignment-0.0.2.1/Development_Assignment-0.0.2.1/Game/maps/navigation_tileset.tsx"/>
  <layer id="1" name="Parallax3" width="144" height="48" offsetx="109" offsety="0">
   <properties>
    <property name="parallaxSpeed" type="float" value="0.8"/>

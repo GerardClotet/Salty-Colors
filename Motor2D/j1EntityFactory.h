@@ -27,7 +27,7 @@ public:
 	j1Player* CreatePlayer(iPoint pos);
 //	j1Enemy* CreateEnemy(iPoint pos, ENTITY_TYPE type /*!!!! NEED TO CHANGE THIS ENUM FOR 1 exclusivly for enemies*/);
 	j1Enemy* CreateEnemy(iPoint pos, ENEMY_TYPE type);
-	bool GetPlayerState();
+	bool GetPlayerState()const;
 	//bool GetEnemyState();
 
 	bool draw_path = false;

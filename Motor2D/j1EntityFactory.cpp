@@ -201,7 +201,7 @@ j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
 	return enemy;
 }
 
-bool j1EntityFactory::GetPlayerState()
+bool j1EntityFactory::GetPlayerState()const
 {
 	return playerActive;
 }

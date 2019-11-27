@@ -411,6 +411,15 @@ bool j1Map::Load(const char* file_name)
 
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
+
+	for (auto node : map_file.child("map").children("layer"))
+	{
+		MapLayer* lay = new MapLayer();
+		ret = LoadLayer(node, lay);
+		if (ret == true)
+			data.layers.push_back(lay);
+	}
+
 	for(layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* lay = new MapLayer();
@@ -421,22 +430,23 @@ bool j1Map::Load(const char* file_name)
 			data.layers.push_back(lay);
 		
 	}
-	// load obj groups
-	std::string test = "triggers";
-	pugi::xml_node obj_group;
-	for (obj_group = map_file.child("map").child("objectgroup"); obj_group && ret; obj_group = obj_group.next_sibling("objectgroup"))
-	{
-		
-		if (ret)
-		{
 
-			if (collObjGroup == map_file.child("map").child("objectgroup").attribute("name").as_string())
-			{
-				//load colliders
-				LoadCollidersLayer(obj_group);
-			}
-			
-		}
+
+	// load obj groups
+	for (auto node : map_file.child("map").children("objectgroup")/*.child("animations").children("frame")*/)
+	{
+	
+		
+		std::string type = node.attribute("name").as_string();
+
+		if(type == "colliders")
+			LoadCollidersLayer(node);
+
+		else if (type == "triggers")
+			LoadUtilsLayer(node);
+
+		
+		
 
 		LOG("iteracio");
 	}
@@ -692,59 +702,67 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 {
-	pugi::xml_node collider;
 
-	for (collider = node.child("object"); collider; collider = collider.next_sibling("object"))
+
+
+	pugi::xml_node_iterator it = node/*.child("map").child("objectgroup")*/.begin();
+	while (it != node.end())
 	{
-		SDL_Rect rect = { collider.attribute("x").as_int(),collider.attribute("y").as_int(), collider.attribute("width").as_int(), collider.attribute("height").as_int() };
 
-		if (collFloor == collider.attribute("type").as_string())
+
+		SDL_Rect rect = { (*it).attribute("x").as_int(),(*it).attribute("y").as_int(), (*it).attribute("width").as_int(), (*it).attribute("height").as_int() };
+
+		if (collFloor == (*it).attribute("type").as_string())
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_FLOOR));
-		
-		else if(collPlatform == collider.attribute("type").as_string())
+
+		else if (collPlatform == (*it).attribute("type").as_string())
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_PLATFORM));
 
-		else if (startTrigger == collider.attribute("type").as_string())
+		++it;
+	}
+	
+	return true;
+}
+
+
+
+bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
+{
+
+
+	pugi::xml_node_iterator it = node.begin();
+	while (it != node.end())
+	{
+
+
+		SDL_Rect rect = { (*it).attribute("x").as_int(),(*it).attribute("y").as_int(), (*it).attribute("width").as_int(), (*it).attribute("height").as_int() };
+
+		if (strcmp("start", (*it).attribute("type").as_string()) == 0)
 		{
-			
-			pugi::xml_node spawn = node.find_child_by_attribute("name", "spawn");
-
 			if (App->entityFactory->GetPlayerState() == true)
-				App->entityFactory->player->SetPos({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
-					
-			else if (App->entityFactory->GetPlayerState() == false)
-			{
-				App->entityFactory->CreatePlayer({ spawn.attribute("x").as_int(), spawn.attribute("y").as_int() });
-		//		App->entityFactory->CreateEnemy({ spawn.attribute("x").as_int() + 5, spawn.attribute("y").as_int() },ENEMY_TYPE::ENEMY_TEST);
-			}
+				App->entityFactory->player->SetPos({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() });
 
+			else if (App->entityFactory->GetPlayerState() == false)
+				App->entityFactory->CreatePlayer({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() });
 		}
 
-		else if (endTrigger == collider.attribute("type").as_string()) //this and the oher are in another calss of colliders layer
+		else if (strcmp("end", (*it).attribute("type").as_string())==0)
 			data.colliders.push_back(App->collision->AddCollider(rect, COLLIDER_TRIGGER));
-			
-		if (enemy == collider.attribute("type").as_string()) //WIP DRUm you fix it aixo realmetn es molt guarro!!!
-		{
-			pugi::xml_node spawn_e = node.find_child_by_attribute("type", "test_enemy");
+
+
+		
+		else if (strcmp("test_enemy", (*it).attribute("type").as_string()) == 0)
+			App->entityFactory->CreateEnemy({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
 
 		
 
-				App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
-
-		}
-
-		if (FlyingEnemy == collider.attribute("type").as_string()) //WIP DRUm you fix it aixo realmetn es molt guarro!!!
-		{
-			pugi::xml_node spawn_e = node.find_child_by_attribute("type", "FlyingEnemy");
+		else if (strcmp("FlyingEnemy" , (*it).attribute("type").as_string())==0)
+			App->entityFactory->CreateEnemy({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, ENEMY_TYPE::ENEMY_FLYING);
 
 
-
-			App->entityFactory->CreateEnemy({ spawn_e.attribute("x").as_int(), spawn_e.attribute("y").as_int() }, ENEMY_TYPE::ENEMY_FLYING);
-
-		}
-
+		++it;
 	}
-	
+
 	return true;
 }
 
