@@ -213,7 +213,7 @@ void j1Player::Die()
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
-		App->entityFactory->DeleteAllEnemies();
+		//App->entityFactory->DeleteAllEnemies();
 	}
 
 }

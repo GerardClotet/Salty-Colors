@@ -170,7 +170,7 @@ bool j1Scene::PostUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
-		App->entityFactory->DeleteAllEnemies();
+		//App->entityFactory->DeleteAllEnemies();
 		App->LoadGame("save_game.xml");
 	}
 
