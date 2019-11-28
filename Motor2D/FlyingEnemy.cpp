@@ -22,6 +22,7 @@ FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
 	
+	state = PlayerState::MOVING;
 	LOG("Created FlyingEnemy");
 
 }
