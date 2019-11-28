@@ -2,7 +2,6 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
-
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
 	name.assign("pathfinding");
@@ -46,9 +45,8 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	return t != INVALID_WALK_CODE && t < 2;
 }
-
 
 bool j1PathFinding::HasGroundBelow(const iPoint& pos) const
 {
@@ -93,7 +91,7 @@ const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 // PathList ------------------------------------------------------------------------
 // Looks for a node in this list and returns it's list node or NULL
 // ---------------------------------------------------------------------------------
-const p2List_item<PathNode>* PathList::Find(const iPoint& point) const
+p2List_item<PathNode>* PathList::Find(const iPoint& point) const
 {
 	p2List_item<PathNode>* item = list.start;
 	while (item)
@@ -141,7 +139,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
+uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, bool flier) const
 {
 	iPoint cell;
 	uint before = list_to_fill.list.count();
@@ -166,22 +164,29 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	if (App->pathfinding->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	/*// north_west
-	cell.create(pos.x - 1, pos.y - 1);
-	if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-	// north_east
-	cell.create(pos.x + 1, pos.y - 1);
-	if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-	// south_west
-	cell.create(pos.x - 1, pos.y + 1);
-	if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-	// south_east
-	cell.create(pos.x + 1, pos.y + 1);
-	if (App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));*/
+	if (flier)
+	{
+		// north_west
+		cell.create(pos.x - 1, pos.y - 1);
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+		// north_east
+		cell.create(pos.x + 1, pos.y - 1);
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+		// south_west
+		cell.create(pos.x - 1, pos.y + 1);
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.add(PathNode(-1, -1, cell, this));
+
+		// south_east
+		cell.create(pos.x + 1, pos.y + 1);
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	}
+
 
 	return list_to_fill.list.count();
 }
@@ -199,8 +204,14 @@ int PathNode::Score() const
 // ----------------------------------------------------------------------------------
 int PathNode::CalculateF(const iPoint& destination, int jump_length)
 {
-	g = parent->g + 1 + jump_length / 4;
+	if (jump_length > 0)
+	{
+		g = parent->g + 1 + jump_length / 4;
+	}
+	else
+		g = parent->g + 1;
 	h = pos.DistanceNoSqrt(destination);
+
 	this->jump_length = jump_length;
 
 	return g + h;
@@ -209,28 +220,35 @@ int PathNode::CalculateF(const iPoint& destination, int jump_length)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, short maxCharacterJumpHeight)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, int maxCharacterJumpHeight)
 {
+	
+	last_path.Clear();
+	bool flier = maxCharacterJumpHeight > 0 ? false : true;
+
 	// TODO 1: if origin or destination are not walkable, return -1
-	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
+	if (!IsWalkable(destination) || (!flier && !HasGroundBelow(destination))) return -1;
 
 	// TODO 2: Create two lists: open, close
 	// Add the origin tile to open
 	// Iterate while we have tile in the open list
-	last_path.Clear();
 	PathList open;
 	PathList close;
 
-	PathNode node_origin;
-	node_origin.g = 0;
-	node_origin.h = origin.DistanceNoSqrt(destination);
-	node_origin.pos = origin;
-	node_origin.parent = nullptr;
+	PathNode node_origin = PathNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);
+	open.list.add(node_origin);
 
-	if (!IsWalkable({ origin.x, origin.y + 1 }))
-		node_origin.jump_length = 0;
+
+
+	if (!flier)
+	{
+		if (IsGround({ origin.x, origin.y + 1 }))
+			node_origin.jump_length = 0;
+		else
+			node_origin.jump_length = maxCharacterJumpHeight * 2;
+	}
 	else
-		node_origin.jump_length = maxCharacterJumpHeight * 2;
+		node_origin.jump_length = 0;
 
 	open.list.add(node_origin);
 
@@ -240,26 +258,25 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, s
 		// TODO 3: Move the lowest score cell from open list to the closed list
 		close.list.add(current_node->data);
 
+
 		// TODO 4: If we just added the destination, we are done!
 		// Backtrack to create the final path
 		// Use the Pathnode::parent and Flip() the path when you are finish
 		if (close.list.end->data.pos == destination)
 		{
-			const PathNode* current_node = &close.list.end->data;
-			last_path.PushBack(current_node->pos);
-
-			while (current_node->pos != origin)
-			{
-				current_node = current_node->parent;
-				last_path.PushBack(current_node->pos);
+			const PathNode* node = nullptr;
+			for (node = &current_node->data; node->pos != origin; node = node->parent) {
+				last_path.PushBack(node->pos);
 			}
+			last_path.PushBack(node->pos);
 			last_path.Flip();
+			break;
 		}
 		else
 		{
 			// TODO 5: Fill a list of all adjancent nodes
 			PathList childs;
-			close.list.end->data.FindWalkableAdjacents(childs);
+			close.list.end->data.FindWalkableAdjacents(childs, flier);
 
 			// TODO 6: Iterate adjancent nodes:					
 			p2List_item<PathNode>* child_node = childs.list.start;
@@ -269,40 +286,50 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, s
 
 				if (!close.Find(child_node->data.pos))	// ignore nodes in the closed list
 				{
-					if (!IsWalkable({ child_node->data.pos.x, child_node->data.pos.y + 1 }))
-						on_ground = true;
-
-					int parent_jump_length = current_node->data.jump_length;
-					int child_jump_length = parent_jump_length;
-
-					if (on_ground)
-						child_jump_length = 0;
-					else if (child_node->data.pos.y < current_node->data.pos.y)
+					int child_jump_length = 0;
+					if (!flier)
 					{
-						if (parent_jump_length % 2 == 0)
-							child_jump_length = parent_jump_length + 2;
-						else
+						if (IsGround({ child_node->data.pos.x, child_node->data.pos.y + 1 }))
+							on_ground = true;
+
+						int parent_jump_length = current_node->data.jump_length;
+						child_jump_length = parent_jump_length;
+
+						if (on_ground)
+							child_jump_length = 0;
+						else if (child_node->data.pos.y < current_node->data.pos.y)
+						{
+							if (parent_jump_length % 2 == 0)
+								child_jump_length = parent_jump_length + 2;
+							else
+								child_jump_length = parent_jump_length + 1;
+						}
+						else if (child_node->data.pos.y > current_node->data.pos.y)
+						{
+							if (parent_jump_length % 2 == 0)
+								child_jump_length = MAX(maxCharacterJumpHeight * 2, parent_jump_length + 2);
+							else
+								child_jump_length = MAX(maxCharacterJumpHeight * 2, parent_jump_length + 1);
+
+							if (IsPlatform({ child_node->data.pos.x, child_node->data.pos.y }))
+							{
+								child_node = child_node->next;
+								continue;
+							}
+						}
+						else if (!on_ground && child_node->data.pos.x != current_node->data.pos.x)
 							child_jump_length = parent_jump_length + 1;
-					}
-					else if (child_node->data.pos.y > current_node->data.pos.y)
-					{
-						if (parent_jump_length % 2 == 0)
-							child_jump_length = MAX(maxCharacterJumpHeight * 2, parent_jump_length + 2);
-						else
-							child_jump_length = MAX(maxCharacterJumpHeight * 2, parent_jump_length + 1);
-					}
-					else if (!on_ground && child_node->data.pos.x != current_node->data.pos.x)
-						child_jump_length = parent_jump_length + 1;
 
-					if (parent_jump_length % 2 != 0 && current_node->data.pos.x != child_node->data.pos.x)
-					{
-						child_node = child_node->next;
-						continue;
-					}
-					if (parent_jump_length >= maxCharacterJumpHeight * 2 && current_node->data.pos.y > child_node->data.pos.y)
-					{
-						child_node = child_node->next;
-						continue;
+						if (parent_jump_length % 2 != 0 && current_node->data.pos.x != child_node->data.pos.x)
+						{
+							child_node = child_node->next;
+							continue;
+						}
+						if (parent_jump_length >= maxCharacterJumpHeight * 2 && current_node->data.pos.y > child_node->data.pos.y)
+						{
+							child_node = child_node->next;
+							continue;
+						}
 					}
 					child_node->data.CalculateF(destination, child_jump_length); // If it is NOT found, calculate its F and add it to the open list
 
@@ -310,9 +337,10 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, s
 					{
 						if (open.Find(child_node->data.pos)->data.g > child_node->data.g)
 						{
-							PathNode old_node = open.Find(child_node->data.pos)->data; // If it is a better path, Update the parent
-							old_node.parent = child_node->data.parent;
+							// If it is a better path, Update the parent
 							// replace old node at open
+							open.Find(child_node->data.pos)->data.g = child_node->data.g;
+							open.Find(child_node->data.pos)->data.parent = child_node->data.parent;
 						}
 					}
 					else open.list.add(child_node->data);
@@ -320,11 +348,8 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, s
 				child_node = child_node->next;
 			}
 		}
-
 		open.list.del(current_node);
 	}
-
-
 
 
 	return -1;
