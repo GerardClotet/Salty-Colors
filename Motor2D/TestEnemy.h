@@ -30,7 +30,7 @@ public:
 
 	//Pathfinding variables
 
-	float chase_distance = 10000.0F;
+	float chase_distance = 1000.0F;
 	int current_destination = 0;
 	int previous_destination = 0;
 	int next_destination = -1;
@@ -55,7 +55,9 @@ public:
 	virtual void PathfindX();
 	virtual void PathfindY();
 	
+	bool CheckifHasReachedDesPos(int des, int current);
 
+	int guarropos = -1;
 private:
 	//Animation e_test_IDLE;
 	

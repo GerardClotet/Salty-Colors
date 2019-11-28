@@ -39,7 +39,7 @@
       <sprite>enemy.png</sprite>
 
       <movement_speed value="270.0f"/>
-      <jump_speed value="1700.0f"/>
+      <jump_speed value="3000.0f"/>
       <gravity value="216.0f"/>
       <acceleration value="1.1f"/>
       <fall_speed value="1700.0f"/>

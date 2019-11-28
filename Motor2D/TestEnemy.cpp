@@ -220,7 +220,7 @@ void TestEnemy::JumpingUpdate()
 
 	if (is_grounded)
 	{
-		if (moving_left == moving_right) state = IDLE;
+ 		if (moving_left == moving_right) state = IDLE;
 		else state = MOVING;
 
 		target_speed.y = 0.0F;
@@ -228,10 +228,10 @@ void TestEnemy::JumpingUpdate()
 		total_jumps = 0;
 	}
 
-	if (jump && total_jumps < MAX_JUMPS)
-	{
-		Jump();
-	}
+	//if (jump && total_jumps < MAX_JUMPS)
+	//{
+	//	Jump();
+	//}
 }
 
 
@@ -299,7 +299,7 @@ void TestEnemy::PathfindingPreupdate()
 		PathfindX();
 		PathfindY();
 
-		if (reached_X && reached_Y)
+		if (reached_X /*&& reached_Y*/)
 		{
 			previous_destination = current_destination;
 			current_destination++;
@@ -319,13 +319,19 @@ void TestEnemy::PathfindX()
 	reached_X = (current_path.At(previous_destination)->x <= current_path.At(current_destination)->x && current_path.At(current_destination)->x <= pivot.x)
 		|| (current_path.At(previous_destination)->x >= current_path.At(current_destination)->x && current_path.At(current_destination)->x >= pivot.x);
 
+
+	/*if (abs(position.x - current_path.At(current_destination)->x) > 10.0f)
+			reached_X = false;*/
+
 	if (!reached_X)
 	{
-		if (position.x < current_path.At(current_destination)->x)
-			moving_right = true;
+		
+			if (position.x < current_path.At(current_destination)->x)
+				moving_right = true;
 
-		else if (position.x > current_path.At(current_destination)->x)
-			moving_left = true;
+			else if (position.x > current_path.At(current_destination)->x)
+				moving_left = true;
+		
 	}
 	else
 	{
@@ -339,14 +345,43 @@ void TestEnemy::PathfindX()
 			}
 			else
 			{
-				if (position.x < current_path.At(next_destination)->x)
-					moving_right = true;
-				else if (position.x > current_path.At(next_destination)->x)
-					moving_left = true;
+			
+				if (!CheckifHasReachedDesPos(current_path.At(next_destination)->x, position.x))
+				{
+
+					//int guarropos2 = 
+					if (position.x < current_path.At(next_destination)->x)
+					{
+						guarropos = position.x; //previ
+							moving_right = true;
+					}
+					else if (position.x > current_path.At(next_destination)->x)
+					{
+						guarropos = position.x; //previ
+						moving_left = true;
+					}
+				}
 			}
 		}
 	}
 }
+
+
+bool TestEnemy::CheckifHasReachedDesPos(int des, int current)
+{
+	if (guarropos == -1)
+		return false;
+	if (guarropos < des && current > des) // if previous pos was lower than dest_pos && current pos i bigger than dest
+	{
+		return true;
+	}
+	if (guarropos > des && current <des) // if previous pos was higher than dest_pos && current pos i lower than dest
+	{
+		return true;
+	}
+	return false;
+}
+
 
 
 void TestEnemy::PathfindY()
@@ -361,6 +396,7 @@ void TestEnemy::PathfindY()
 			jump = true;
 	}
 }
+
 
 
 void TestEnemy::DrawPath()
