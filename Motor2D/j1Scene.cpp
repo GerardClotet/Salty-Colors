@@ -67,64 +67,7 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 
-	int x, y;
-	
-	App->input->GetMousePosition(x, y);
-	iPoint alfa = { x,y };
-	alfa = App->map->WorldToMap(alfa.x, alfa.y);
 
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-	{
-		origin = { 10,10 };
-
-		destination = { 11,10 };
-
-		initpath = true;
-	}
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter == 0)
-	{
-		origin = alfa;
-		counter++;
-	}
-	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter >= 1)
-	{
-		destination = alfa;
-		counter = 0;
-		initpath = true;
-	}
-
-	
-	if (initpath)
-	{
-
-		App->pathfinding->CreatePath(origin, destination, 0);
-		const p2DynArray<iPoint>* tmpArray = App->pathfinding->GetLastPath();
-		current_path.Clear();
-		for (int i = 0; i < tmpArray->Count(); ++i)
-		{
-			iPoint p = App->map->MapToWorld(tmpArray->At(i)->x, tmpArray->At(i)->y);
-			p.x += App->map->data.tile_width / 2;
-			p.y += App->map->data.tile_height / 2;
-			current_path.PushBack(p);
-
-		}
-
-		initpath = false;
-	}
-
-	if (current_path.Count() > 0)
-	{
-		for (int i = 0; i < current_path.Count(); i++)
-		{
-			iPoint p = { current_path.At(i)->x, current_path.At(i)->y };
-			p.x -= App->map->data.tile_width / 2;
-			p.y -= App->map->data.tile_height / 2;
-
-			SDL_Rect quad = { p.x, p.y, App->map->data.tile_width , App->map->data.tile_height };
-			App->render->DrawQuad(quad, 255, 255, 0, 75, true);
-		}
-	}
 
 	
 
@@ -206,6 +149,66 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+
+
+	int x, y;
+
+	App->input->GetMousePosition(x, y);
+	iPoint alfa = { x,y };
+	alfa = App->map->WorldToMap(alfa.x, alfa.y);
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		origin = { 10,10 };
+
+		destination = { 16,10 };
+
+		initpath = true;
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter == 0)
+	{
+		origin = alfa;
+		counter++;
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter >= 1)
+	{
+		destination = alfa;
+		counter = 0;
+		initpath = true;
+	}
+
+
+	if (initpath)
+	{
+
+		App->pathfinding->CreatePath(origin, destination, 0);
+		const p2DynArray<iPoint>* tmpArray = App->pathfinding->GetLastPath();
+		current_path.Clear();
+		for (int i = 0; i < tmpArray->Count(); ++i)
+		{
+			iPoint p = App->map->MapToWorld(tmpArray->At(i)->x, tmpArray->At(i)->y);
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+			current_path.PushBack(p);
+
+		}
+
+		initpath = false;
+	}
+
+	if (current_path.Count() > 0)
+	{
+		for (int i = 0; i < current_path.Count(); i++)
+		{
+			iPoint p = { current_path.At(i)->x, current_path.At(i)->y };
+			p.x -= App->map->data.tile_width / 2;
+			p.y -= App->map->data.tile_height / 2;
+
+			SDL_Rect quad = { p.x, p.y, App->map->data.tile_width , App->map->data.tile_height };
+			App->render->DrawQuad(quad, 255, 255, 0, 75, true);
+		}
+	}
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_REPEAT)
