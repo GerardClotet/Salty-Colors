@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1SwapScene.h"
+#include "j1PathFinding.h"
 #include "j1EntityFactory.h"
 #include "j1Player.h"
 j1Scene::j1Scene() : j1Module()
@@ -46,6 +47,12 @@ bool j1Scene::Start()
 	actualMap = map_names.begin()->data();
 	App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 
+	//pathfinding
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+	
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
@@ -59,8 +66,66 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+
+	int x, y;
 	
+	App->input->GetMousePosition(x, y);
+	iPoint alfa = { x,y };
+	alfa = App->map->WorldToMap(alfa.x, alfa.y);
+
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		origin = { 10,10 };
+
+		destination = { 11,10 };
+
+		initpath = true;
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter == 0)
+	{
+		origin = alfa;
+		counter++;
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && counter >= 1)
+	{
+		destination = alfa;
+		counter = 0;
+		initpath = true;
+	}
+
 	
+	if (initpath)
+	{
+
+		App->pathfinding->CreatePath(origin, destination, 0);
+		const p2DynArray<iPoint>* tmpArray = App->pathfinding->GetLastPath();
+		current_path.Clear();
+		for (int i = 0; i < tmpArray->Count(); ++i)
+		{
+			iPoint p = App->map->MapToWorld(tmpArray->At(i)->x, tmpArray->At(i)->y);
+			p.x += App->map->data.tile_width / 2;
+			p.y += App->map->data.tile_height / 2;
+			current_path.PushBack(p);
+
+		}
+
+		initpath = false;
+	}
+
+	if (current_path.Count() > 0)
+	{
+		for (int i = 0; i < current_path.Count(); i++)
+		{
+			iPoint p = { current_path.At(i)->x, current_path.At(i)->y };
+			p.x -= App->map->data.tile_width / 2;
+			p.y -= App->map->data.tile_height / 2;
+
+			SDL_Rect quad = { p.x, p.y, App->map->data.tile_width , App->map->data.tile_height };
+			App->render->DrawQuad(quad, 255, 255, 0, 75, true);
+		}
+	}
+
 	
 
 
@@ -121,7 +186,6 @@ bool j1Scene::Update(float dt)
 
 
 
-
 	//if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	//	App->map->ResetBFS();
 
@@ -129,11 +193,12 @@ bool j1Scene::Update(float dt)
 	//	App->map->PropagateBFS();
 
 
+	
+
+
+
+	
 	App->map->Draw();
-
-
-	
-	
 	
 	return true;
 }

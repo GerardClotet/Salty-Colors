@@ -49,10 +49,30 @@ bool j1PathFinding::IsWalkable(const iPoint& pos) const
 	return t != INVALID_WALK_CODE && t > 0;
 }
 
+
+bool j1PathFinding::HasGroundBelow(const iPoint& pos) const
+{
+	bool ret = false;
+
+	for (int i = pos.y; i < height; i++)
+	{
+		if (IsGround({ pos.x,i }))
+			return true;
+	}
+
+	return ret;
+}
+
 bool j1PathFinding::IsGround(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
 	return t != INVALID_WALK_CODE && t > 0;
+}
+
+bool j1PathFinding::IsPlatform(const iPoint& pos) const
+{
+	uchar t = GetTileAt(pos);
+	return t != INVALID_WALK_CODE && t == 1;
 }
 
 // Utility: return the walkability value of a tile

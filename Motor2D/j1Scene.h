@@ -3,7 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Timer.h"
-
+#include "p2DynArray.h"
 
 #define BOTTOM_OFFSET 900
 #define TOP_OFFSET 100
@@ -64,6 +64,15 @@ public:
 
 	/*---SFX---*/
 
+
+	iPoint origin;
+	iPoint destination;
+	bool initpath = false;
+
+	p2DynArray<iPoint> current_path;
+
+	SDL_Texture* pathtile;
+
 	unsigned int stepSFX;
 	unsigned int landSFX;
 	unsigned int jumpSFX;
@@ -77,6 +86,7 @@ private:
 	bool incB = true;
 	bool stopX = false;
 	bool stopY = false;
+	int counter = 0;
 
 	Uint8 red=0;
 	Uint8 green=125;

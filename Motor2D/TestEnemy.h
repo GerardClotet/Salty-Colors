@@ -41,16 +41,17 @@ public:
 	iPoint destination = { -1, -1 };
 
 
+
+
 	//Pathfinding methods
 
 	bool GetPath();
 	virtual void ResetPathfindingVariables();
 
 
-	
+	void DrawPath();
 	void PathfindingUpdate();
 	void PathfindingPreupdate();
-	void DrawPath();
 	virtual void PathfindX();
 	virtual void PathfindY();
 	

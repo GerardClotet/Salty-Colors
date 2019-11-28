@@ -36,7 +36,11 @@ public:
 	// To request all tiles involved in the last generated path
 	const p2DynArray<iPoint>* GetLastPath() const;
 
+	bool HasGroundBelow(const iPoint& pos) const;
+
 	bool IsGround(const iPoint& pos) const;
+
+	bool IsPlatform(const iPoint& pos) const;
 
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;

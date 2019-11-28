@@ -27,7 +27,8 @@
 	</entityFactory>
 	<collision />
 	<pathfinding />
+	<particles_system />
 	<renderer>
-		<camera x="0" y="-351" />
+		<camera x="0" y="-197" />
 	</renderer>
 </game_state>
