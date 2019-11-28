@@ -34664,8 +34664,8 @@
   <object id="187" type="floor" x="1388" y="132" width="70" height="392"/>
  </objectgroup>
  <objectgroup id="6" name="triggers">
-  <object id="179" name="enemy" type="FlyingEnemy" x="248" y="596" width="50" height="58"/>
-  <object id="178" name="enemy" type="test_enemy" x="402" y="388" width="50" height="54"/>
+  <object id="179" name="enemy" type="FlyingEnemy" x="458" y="372" width="50" height="58"/>
+  <object id="178" name="enemy" type="test_enemy" x="60" y="564" width="50" height="54"/>
   <object id="83" name="spawn" type="start" x="1205" y="371" width="32" height="32"/>
   <object id="174" type="end" x="4496" y="684" width="36.6667" height="54"/>
  </objectgroup>

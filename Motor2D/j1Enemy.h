@@ -25,7 +25,7 @@ public:
 	bool jump = false;
 	bool chase = false;
 	int total_jumps = 0;
-
+	int guarropos = -1;
 	//SDL_Rect animation_Coll;
 
 	j1Enemy(iPoint position);
@@ -37,10 +37,20 @@ public:
 	virtual	bool CleanUp();
 	virtual	void Draw();
 
- void MovX();
- void MovY();
+	void MovX();
+	void MovY();
 	
+	virtual bool GetPath();
+	virtual void ResetPathfindingVariables();
 
+
+	virtual void DrawPath();
+	virtual void PathfindingUpdate();
+	virtual void PathfindingPreupdate();
+	virtual void PathfindX();
+	virtual void PathfindY();
+
+	bool CheckifHasReachedDesPos(int des, int current);
 
 
 public:

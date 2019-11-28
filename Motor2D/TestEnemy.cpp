@@ -320,9 +320,6 @@ void TestEnemy::PathfindX()
 		|| (current_path.At(previous_destination)->x >= current_path.At(current_destination)->x && current_path.At(current_destination)->x >= pivot.x);
 
 
-	/*if (abs(position.x - current_path.At(current_destination)->x) > 10.0f)
-			reached_X = false;*/
-
 	if (!reached_X)
 	{
 		
@@ -367,25 +364,11 @@ void TestEnemy::PathfindX()
 }
 
 
-bool TestEnemy::CheckifHasReachedDesPos(int des, int current)
-{
-	if (guarropos == -1)
-		return false;
-	if (guarropos < des && current > des) // if previous pos was lower than dest_pos && current pos i bigger than dest
-	{
-		return true;
-	}
-	if (guarropos > des && current <des) // if previous pos was higher than dest_pos && current pos i lower than dest
-	{
-		return true;
-	}
-	return false;
-}
+
 
 
 
 void TestEnemy::PathfindY()
-
 {
 	reached_Y = (current_path.At(previous_destination)->y <= current_path.At(current_destination)->y && position.y >= current_path.At(current_destination)->y)
 		|| (current_path.At(previous_destination)->y >= current_path.At(current_destination)->y && position.y <= current_path.At(current_destination)->y);

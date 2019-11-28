@@ -62,6 +62,11 @@
       <!--For SomeReason Doesnt blit enemy-->
       <sprite>flyingenemy.png</sprite>
 
+
+      <movement_speed value="270.0f"/>
+      <acceleration value="1.1f"/>
+
+
       <animations>
         <!--IDLE-->
         <frame id ="1" x="4" y="7" w ="31" h="26"/>

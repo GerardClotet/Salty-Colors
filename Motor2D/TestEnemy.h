@@ -52,12 +52,11 @@ public:
 	void DrawPath();
 	void PathfindingUpdate();
 	void PathfindingPreupdate();
-	virtual void PathfindX();
-	virtual void PathfindY();
+	void PathfindX();
+	void PathfindY();
 	
-	bool CheckifHasReachedDesPos(int des, int current);
 
-	int guarropos = -1;
+	
 private:
 	//Animation e_test_IDLE;
 	

@@ -84,9 +84,51 @@ void j1Enemy::MovY()
 
 }
 
+bool j1Enemy::GetPath()
+{
+	return true;
+}
+
+void j1Enemy::ResetPathfindingVariables()
+{
+}
+
+void j1Enemy::DrawPath()
+{
+}
+
+void j1Enemy::PathfindingUpdate()
+{
+}
+
+void j1Enemy::PathfindingPreupdate()
+{
+}
+
+void j1Enemy::PathfindX()
+{
+}
+
+void j1Enemy::PathfindY()
+{
+}
 
 
 
+bool j1Enemy::CheckifHasReachedDesPos(int des, int current)
+{
+	if (guarropos == -1)
+		return false;
+	if (guarropos < des && current > des) // if previous pos was lower than dest_pos && current pos i bigger than dest
+	{
+		return true;
+	}
+	if (guarropos > des && current < des) // if previous pos was higher than dest_pos && current pos i lower than dest
+	{
+		return true;
+	}
+	return false;
+}
 
 
 

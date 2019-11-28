@@ -39,6 +39,8 @@ bool j1Player::Start()
 
 bool j1Player::PreUpdate()
 {
+
+
 	switch (state)
 	{
 	case NO_STATE:
