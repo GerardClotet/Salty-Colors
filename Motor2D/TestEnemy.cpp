@@ -27,9 +27,6 @@ TestEnemy::~TestEnemy()
 
 bool TestEnemy::PreUpdate()
 {
-	iPoint t_pos;
-	t_pos.x = position.DistanceManhattan(App->entityFactory->player->position);
-	t_pos.y = position.DistanceManhattan(App->entityFactory->player->position);
 	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance)
 		chase = true;
 	else
