@@ -129,6 +129,20 @@ bool TestEnemy::AwakeAttributes(pugi::xml_node config)
 	//movement_speed = config.
 	sprite_route = PATH(config.child("entityFactory").child("enemy").child("folder").child_value(), config.child("entityFactory").child("enemy").child("sprite").child_value());
 
+	
+		movement_speed = config.child("entityFactory").child("enemy").child("movement_speed").attribute("value").as_float();
+
+		jump_speed = config.child("entityFactory").child("enemy").child("jump_speed").attribute("value").as_float();
+
+		gravity = config.child("entityFactory").child("enemy").child("gravity").attribute("value").as_float();
+
+		acceleration = config.child("entityFactory").child("enemy").child("acceleration").attribute("value").as_float();
+
+		fall_speed = config.child("entityFactory").child("enemy").child("fall_speed").attribute("value").as_float();
+
+		bounce_speed = config.child("entityFactory").child("enemy").child("bounce_speed").attribute("value").as_float();
+
+
 	int animationID;
 	for (auto node : config.child("entityFactory").child("enemy").child("animations").children("frame"))
 	{

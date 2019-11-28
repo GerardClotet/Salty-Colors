@@ -38,6 +38,13 @@
       <!--For SomeReason Doesnt blit enemy-->
       <sprite>enemy.png</sprite>
 
+      <movement_speed value="270.0f"/>
+      <jump_speed value="1700.0f"/>
+      <gravity value="216.0f"/>
+      <acceleration value="1.1f"/>
+      <fall_speed value="1700.0f"/>
+      <bounce_speed value ="40000"/>
+
       <animations>
         <!--IDLE-->
         <frame id ="1" x="28" y="23" w ="52" h="41"/>
