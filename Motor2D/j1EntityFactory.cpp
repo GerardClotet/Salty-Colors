@@ -61,6 +61,8 @@ bool j1EntityFactory::PreUpdate()
 bool j1EntityFactory::Update(float dt)
 {
 
+
+
 	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
 		draw_path = !draw_path;
 

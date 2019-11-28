@@ -121,7 +121,10 @@ Collider* j1Collision::AddCollider(const SDL_Rect& rect, const ColliderType& typ
 void j1Collision::DebugDraw()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
 		debug = !debug;
+		App->entityFactory->draw_path = !App->entityFactory->draw_path;
+	}
 
 	if (debug == false)
 		return;

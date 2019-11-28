@@ -27,6 +27,9 @@ TestEnemy::~TestEnemy()
 
 bool TestEnemy::PreUpdate()
 {
+	iPoint t_pos;
+	t_pos.x = position.DistanceManhattan(App->entityFactory->player->position);
+	t_pos.y = position.DistanceManhattan(App->entityFactory->player->position);
 	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance)
 		chase = true;
 	else
@@ -54,6 +57,7 @@ bool TestEnemy::PreUpdate()
 bool TestEnemy::Update(float dt)
 {
 
+	PathfindingUpdate();
 	currentAnimation = e_test_IDLE.GetCurrentFrame();
 
 	
@@ -243,11 +247,11 @@ void TestEnemy::Jump()
 bool TestEnemy::GetPath()
 {
 
-	iPoint new_destination = App->map->WorldToMap(App->entityFactory->player->pivot.x, App->entityFactory->player->pivot.y);
+	iPoint new_destination = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y);
 
 	if (new_destination != destination || current_path.Count() == 0)
 	{
-		iPoint origin = App->map->WorldToMap(pivot.x, pivot.y);
+		iPoint origin = App->map->WorldToMap(position.x, position.y);
 		destination = new_destination;
 
 		App->pathfinding->CreatePath(origin, destination, jump_height);
@@ -317,10 +321,10 @@ void TestEnemy::PathfindX()
 
 	if (!reached_X)
 	{
-		if (pivot.x < current_path.At(current_destination)->x)
+		if (position.x < current_path.At(current_destination)->x)
 			moving_right = true;
 
-		else if (pivot.x > current_path.At(current_destination)->x)
+		else if (position.x > current_path.At(current_destination)->x)
 			moving_left = true;
 	}
 	else
@@ -335,9 +339,9 @@ void TestEnemy::PathfindX()
 			}
 			else
 			{
-				if (pivot.x < current_path.At(next_destination)->x)
+				if (position.x < current_path.At(next_destination)->x)
 					moving_right = true;
-				else if (pivot.x > current_path.At(next_destination)->x)
+				else if (position.x > current_path.At(next_destination)->x)
 					moving_left = true;
 			}
 		}
@@ -348,12 +352,12 @@ void TestEnemy::PathfindX()
 void TestEnemy::PathfindY()
 
 {
-	reached_Y = (current_path.At(previous_destination)->y <= current_path.At(current_destination)->y && pivot.y >= current_path.At(current_destination)->y)
-		|| (current_path.At(previous_destination)->y >= current_path.At(current_destination)->y && pivot.y <= current_path.At(current_destination)->y);
+	reached_Y = (current_path.At(previous_destination)->y <= current_path.At(current_destination)->y && position.y >= current_path.At(current_destination)->y)
+		|| (current_path.At(previous_destination)->y >= current_path.At(current_destination)->y && position.y <= current_path.At(current_destination)->y);
 
 	if (!reached_Y)
 	{
-		if (pivot.y > current_path.At(current_destination)->y)
+		if (position.y > current_path.At(current_destination)->y)
 			jump = true;
 	}
 }

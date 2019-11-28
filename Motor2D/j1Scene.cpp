@@ -149,6 +149,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	 
 
 
 	int x, y;
