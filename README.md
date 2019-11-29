@@ -29,7 +29,7 @@ As a result the wall will force your direction to change in the oposite side.
 - F3 - Load current level (from the beginning)
 - F5 - Save current state 
 - F6 - Load previous state 
-- F9 - View colliders
+- F9 - View colliders and pathfinding
 - F10 - GodMode 
 
 ## Inovations
