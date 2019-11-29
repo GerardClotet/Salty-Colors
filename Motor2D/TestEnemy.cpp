@@ -309,9 +309,11 @@ void TestEnemy::PathfindingPreupdate()
 
 void TestEnemy::PathfindX()
 {
-	reached_X = (current_path.At(previous_destination)->x <= current_path.At(current_destination)->x && current_path.At(current_destination)->x <= pivot.x)
-		|| (current_path.At(previous_destination)->x >= current_path.At(current_destination)->x && current_path.At(current_destination)->x >= pivot.x);
+	reached_X = (current_path.At(previous_destination)->x <= current_path.At(current_destination)->x && current_path.At(current_destination)->x <= position.x)
+		|| (current_path.At(previous_destination)->x >= current_path.At(current_destination)->x && current_path.At(current_destination)->x >= position.x);
 
+	/*if (abs(position.x - current_path.At(current_destination)->x) > 10.0f)
+			reached_X = false;*/
 
 	if (!reached_X)
 	{

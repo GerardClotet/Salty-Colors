@@ -18,7 +18,7 @@ FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 	position = pos;
 	animation_Coll = { 0,0, 19, 30 };
 
-	collider = App->collision->AddCollider(animation_Coll, COLLIDER_FLYING, App->entityFactory, true);
+	collider = App->collision->AddCollider({0,0,32,32}, COLLIDER_FLYING, App->entityFactory, true);
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
 	
