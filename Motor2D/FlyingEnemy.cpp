@@ -90,10 +90,20 @@ void FlyingEnemy::SetPos(iPoint pos)
 
 bool FlyingEnemy::Load(pugi::xml_node &data)
 {
-	position.x = data.child("enemy").child("FlyingEnemy").attribute("x").as_int();
-	position.y = data.child("enemy").child("FlyingEnemy").attribute("y").as_int();
+	for (auto node : data.child("enemy"))
+	{
+		if (node.attribute("id").as_int() == id)
+		{
+			position.x = data.child("enemy").child("FlyingEnemy").attribute("x").as_int();
+			position.y = data.child("enemy").child("FlyingEnemy").attribute("y").as_int();
 
-	flipX = data.child("enemy").child("TestEnemy").child("flipX").attribute("value").as_bool();
+			flipX = data.child("enemy").child("FlyingEnemy").child("flipX").attribute("value").as_bool();
+
+			return true;
+		}
+	}
+	
+
 
 	return true;
 }
@@ -101,9 +111,9 @@ bool FlyingEnemy::Load(pugi::xml_node &data)
 bool FlyingEnemy::Save(pugi::xml_node &data) const
 {
 	pugi::xml_node e_data;
-
+	
 	e_data = data.append_child("enemy").append_child("FlyingEnemy");
-
+	e_data.append_attribute("id") = id;
 	e_data.append_attribute("x") = position.x;
 	e_data.append_attribute("y") = position.y;
 

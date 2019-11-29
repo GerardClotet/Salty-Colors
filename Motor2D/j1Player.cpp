@@ -95,7 +95,6 @@ bool j1Player::Update(float dt)
  
 	
 //	Draw();
-	if(state != DEAD)
 		Die();
 
 	return true;
@@ -209,13 +208,23 @@ void j1Player::GodUpdate()
 
 void j1Player::Die()
 {
-	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD)
+	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD  )
 	{
  		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
 		//App->entityFactory->DeleteAllEnemies();
+	}
+	else if(dead) {
+
+		dead = false;
+		state = DEAD;
+		Mix_PausedMusic();
+		App->scene->ReLoadLevel();
+		App->audio->SetVolume(0.0f);
+		//App->entityFactory->DeleteAllEnemies();
+		
 	}
 
 }

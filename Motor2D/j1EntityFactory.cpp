@@ -185,6 +185,7 @@ j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
 
 		
 		enemy = new TestEnemy(pos);
+		enemy->id = entities.size();
 		entities.push_back(enemy);
 		return enemy;
 		break;
@@ -192,6 +193,7 @@ j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
 
 		
 		enemy = new FlyingEnemy(pos);
+		enemy->id = entities.size();
 		entities.push_back(enemy);
 		return enemy;
 		break;

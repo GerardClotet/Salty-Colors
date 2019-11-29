@@ -17,6 +17,7 @@
 #include "j1SwapScene.h"
 #include "j1Pathfinding.h"
 #include "j1ParticleSystem.h"
+#include "Brofiler/Brofiler.h"
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {

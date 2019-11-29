@@ -65,10 +65,10 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 
-	float DistanceToRightCollider(Collider* coll) const;
-	float DistanceToLeftCollider(Collider* coll) const;
-	float DistanceToTopCollider(Collider* coll) const;
-	float DistanceToBottomCollider(Collider* coll, bool ignore_platforms = false) const;
+	float DistanceToRightCollider(Collider* coll, Collider*& colltype) const;
+	float DistanceToLeftCollider(Collider* coll, Collider* &colltype) const;
+	float DistanceToTopCollider(Collider* coll, Collider*& colltype) const;
+	float DistanceToBottomCollider(Collider* coll, Collider*& colltype, bool ignore_platforms = false ) const;
 	Collider* AddCollider(const SDL_Rect& rect, const ColliderType& type, j1Module* callback = nullptr, const bool& player = false);
 
 	void DebugDraw();

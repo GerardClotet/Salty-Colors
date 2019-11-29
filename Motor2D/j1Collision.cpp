@@ -171,7 +171,7 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 }
 
 
-float j1Collision::DistanceToRightCollider(Collider* coll) const
+float j1Collision::DistanceToRightCollider(Collider* coll, Collider* &colltype) const
 {
 	float distance = 999;
 
@@ -186,7 +186,11 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 					float new_distance = colliders[i]->rect.x - (coll->rect.x + coll->rect.w);
 					if (new_distance < distance)
 					{
-						distance = new_distance;						
+						distance = new_distance;	
+						if (distance == 0)
+						{
+							colltype = colliders[i];
+						}
 						
 					}
 				}
@@ -196,7 +200,7 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 	return distance;
 }
 
-float j1Collision::DistanceToLeftCollider(Collider* coll) const
+float j1Collision::DistanceToLeftCollider(Collider* coll, Collider* &colltype) const
 {
 	float distance = -999;
 
@@ -212,7 +216,10 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 					if (new_distance > distance)
 					{
 						distance = new_distance;
-						
+						if (distance == 0)
+						{
+							colltype = colliders[i];
+						}
 					}
 				}
 			}
@@ -221,7 +228,7 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 	return distance;
 }
 
-float j1Collision::DistanceToBottomCollider(Collider* coll, bool ignore_platform) const
+float j1Collision::DistanceToBottomCollider(Collider* coll, Collider*& colltype,bool ignore_platform ) const
 {
 	float distance = 999;
 
@@ -237,6 +244,10 @@ float j1Collision::DistanceToBottomCollider(Collider* coll, bool ignore_platform
 					if (new_distance < distance)
 					{
 						distance = new_distance;
+						if (distance == 0)
+						{
+							colltype = colliders[i];
+						}
 					}
 				}
 			}
@@ -245,7 +256,7 @@ float j1Collision::DistanceToBottomCollider(Collider* coll, bool ignore_platform
 	return distance;
 }
 
-float j1Collision::DistanceToTopCollider(Collider* coll) const
+float j1Collision::DistanceToTopCollider(Collider* coll, Collider* &colltype) const
 {
 	float distance = -999;
 
@@ -261,6 +272,10 @@ float j1Collision::DistanceToTopCollider(Collider* coll) const
 					if (new_distance > distance)
 					{
 						distance = new_distance;
+						if (distance == 0)
+						{
+							colltype = colliders[i];
+						}
 					}
 				}
 			}

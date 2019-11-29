@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="188">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="191">
  <properties>
   <property name="BackgroudMusic" value="OuterWorldBGM.ogg"/>
  </properties>
@@ -34661,9 +34661,10 @@
   <object id="173" type="floor" x="4547.33" y="2.667" width="57.3333" height="764"/>
  </objectgroup>
  <objectgroup id="6" name="triggers">
-  <object id="179" name="enemy" type="FlyingEnemy" x="458" y="372" width="50" height="58"/>
-  <object id="178" name="enemy" type="test_enemy" x="947.879" y="764" width="50" height="54"/>
-  <object id="83" name="spawn" type="start" x="1353.48" y="761.909" width="32" height="32"/>
+  <object id="179" name="enemy" type="FlyingEnemy" x="1520" y="1184" width="50" height="58"/>
+  <object id="178" name="enemy" type="test_enemy" x="3137.88" y="608" width="50" height="54"/>
+  <object id="188" name="enemy" type="test_enemy" x="1486" y="464" width="80" height="60"/>
+  <object id="83" name="spawn" type="start" x="75.48" y="759.909" width="32" height="32"/>
   <object id="174" type="end" x="4496" y="684" width="36.6667" height="54"/>
  </objectgroup>
 </map>

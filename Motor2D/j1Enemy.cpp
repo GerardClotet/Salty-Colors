@@ -14,6 +14,7 @@ j1Enemy::j1Enemy(iPoint pos) : j1Entity(pos) //DRUM aquesta classe ha d'estar bu
 {
 
 	entity_type = E_TYPE::ENEMY;
+
 }
 
 
@@ -54,8 +55,9 @@ void j1Enemy::MovX()
 {
 	if (state != DEAD)
 	{
-		if (velocity.x > 0) velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider)); //movement of the player is min between distance to collider or his velocity
-		else if (velocity.x < 0) velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider)); //movement of the player is max between distance to collider or his velocity
+		Collider* type;
+		if (velocity.x > 0) velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider,type)); //movement of the player is min between distance to collider or his velocity
+		else if (velocity.x < 0) velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider, type)); //movement of the player is max between distance to collider or his velocity
 	}
 	position.x += velocity.x;
 	collider->rect.x = position.x;
@@ -66,17 +68,22 @@ void j1Enemy::MovY()
 {
 	if (state != DEAD)
 	{
-		if (velocity.y < 0)
+		Collider* type;
+		float distance = App->collision->DistanceToTopCollider(collider, type);
+
+		if (distance == 0)
 		{
-			velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider)); //movement of the player is max between distance to collider or his velocity
-			if (velocity.y == 0) target_speed.y = 0.0F;
+			if (collider->type == COLLIDER_PLAYER)
+			{
+				CleanUp();
+			}
 		}
-		else
-		{
-			float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
-			velocity.y = MIN(velocity.y, distance); //movement of the player is min between distance to collider or his velocity
-			is_grounded = (distance == 0) ? true : false;
-		}
+	
+		
+			float distance2 = App->collision->DistanceToBottomCollider(collider, type,ignore_platforms);
+			velocity.y = MIN(velocity.y, distance2); //movement of the player is min between distance to collider or his velocity
+			is_grounded = (distance2 == 0) ? true : false;
+		
 	}
 	position.y += velocity.y;
 	collider->rect.y = position.y + spriteIncrease;

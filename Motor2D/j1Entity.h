@@ -72,6 +72,8 @@ public:
 	SDL_Texture* entityTex;
 	SDL_Rect currentAnimation;
 
+	
+
 	float movement_speed;
 	float jump_speed;
 	float gravity;
@@ -95,5 +97,8 @@ public:
 	std::string sprite_route;
 
 	SDL_Rect animation_Coll;
+
+protected:
+	bool dead = false;
 };
 #endif

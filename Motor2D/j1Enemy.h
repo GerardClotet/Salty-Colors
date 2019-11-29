@@ -68,7 +68,7 @@ public:
 	bool reached_Y = false;
 	bool current_is_grounded = false;
 	iPoint destination = { -1, -1 };
-
+	int id;
 	bool moving_right = false;
 	bool moving_left = false;
 	bool moving_down = false;

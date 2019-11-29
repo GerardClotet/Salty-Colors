@@ -70,37 +70,53 @@ void j1Entity::MovX()
 {
 	if (state != GOD)
 	{
+		Collider* type;
 		float distance;
-		if (velocity.x > 0)
+		bool check = false;
+
+		if (velocity.x >= 0)
 		{
-			distance = App->collision->DistanceToRightCollider(collider);
+			distance = App->collision->DistanceToRightCollider(collider,type);
 
 			if (distance == 0)
 			{
 				App->entityFactory->player->ready_toBounce_right = true;
 				App->entityFactory->player->flipX = true;
 				App->entityFactory->player->in_contact = true;
-				LOG("aah");
+				if (type->type == COLLIDER_ENEMY && collider->type == COLLIDER_PLAYER)
+				{
+					dead = true;
+					App->entityFactory->player->Die();
+				}
 			}
 			else App->entityFactory->player->ready_toBounce_right = false;
 	
 
 			velocity.x = MIN(velocity.x, distance);
+			check = true;
 
 		}
-		else if (velocity.x < 0)
+		else if (velocity.x <= 0)
 		{
-			distance = App->collision->DistanceToLeftCollider(collider);
+			
+			distance = App->collision->DistanceToLeftCollider(collider, type);
 
 			if (distance == 0)
 			{
 				App->entityFactory->player->ready_toBounce_left = true;
 				App->entityFactory->player->flipX = false;
 				App->entityFactory->player->in_contact = true;
+				if (type->type == COLLIDER_ENEMY && collider->type == COLLIDER_PLAYER)
+				{
+					dead = true;
+				App->entityFactory->player->Die();
+				}
+
 
 			}
 			else App->entityFactory->player->ready_toBounce_left = false;
-			velocity.x = MAX(velocity.x,distance);
+			if (check) velocity.x = MAX(velocity.x, distance); check = false;
+			
 		}
 	}
 
@@ -115,19 +131,31 @@ void j1Entity::MovY()
 {
 	if (state != GOD)
 	{
+		Collider* type;
 		float distance;
 		if (velocity.y < 0)
 		{
-			distance = App->collision->DistanceToTopCollider(collider);
+			distance = App->collision->DistanceToTopCollider(collider,type);
 			
 			velocity.y = MAX(velocity.y, distance);
 			if (velocity.y == 0) target_speed.y = 0.0F;
+			
 		}
 		else
 		{
-			 distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
+			 distance = App->collision->DistanceToBottomCollider(collider, type,ignore_platforms);
 			velocity.y = MIN(velocity.y, distance);
 			is_grounded = (distance == 0) ? true : false;
+			if (distance == 0)
+			{
+				if (type->type == COLLIDER_PLAYER && collider->type == COLLIDER_ENEMY)
+				{
+					dead = true;
+					App->entityFactory->player->Die();
+				}
+
+
+			}
 
 		}
 

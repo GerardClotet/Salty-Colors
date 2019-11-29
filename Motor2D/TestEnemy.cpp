@@ -3,6 +3,7 @@
 #include "j1EntityFactory.h"
 #include "j1PathFinding.h"
 #include "j1Map.h"
+#include "Brofiler/Brofiler.h"
 #include "p2Log.h"
 
 
@@ -56,6 +57,7 @@ bool TestEnemy::PreUpdate()
 
 bool TestEnemy::Update(float dt)
 {
+	BROFILER_CATEGORY("Update_TestEnemy", Profiler::Color::LightSalmon);
 
 	PathfindingUpdate();
 	currentAnimation = e_test_IDLE.GetCurrentFrame();
@@ -97,8 +99,8 @@ bool TestEnemy::CleanUp()
 		collider = nullptr;
 	}
 
-	App->entityFactory->DeleteEntity(this);
-	delete this;
+	//App->entityFactory->DeleteEntity(this);
+	
 
 
 	return true;
@@ -106,11 +108,17 @@ bool TestEnemy::CleanUp()
 
 bool TestEnemy::Load(pugi::xml_node&data)
 {
-	position.x = data.child("enemy").child("TestEnemy").attribute("x").as_int();
-	position.y = data.child("enemy").child("TestEnemy").attribute("y").as_int();
+	for (auto node : data.child("enemy"))
+	{
+		if (node.attribute("id").as_int() == id)
+		{
+			position.x = data.child("enemy").child("TestEnemy").attribute("x").as_int();
+			position.y = data.child("enemy").child("TestEnemy").attribute("y").as_int();
 
-	flipX = data.child("enemy").child("TestEnemy").child("flipX").attribute("value").as_bool();
-
+			flipX = data.child("enemy").child("TestEnemy").child("flipX").attribute("value").as_bool();
+			return true;
+		}
+	}
 	return true;
 }
 
@@ -119,6 +127,7 @@ bool TestEnemy::Save(pugi::xml_node&data) const
 	pugi::xml_node e_data;
 
 	e_data = data.append_child("enemy").append_child("TestEnemy");
+	e_data.append_attribute("id") = id;
 
 	e_data.append_attribute("x") = position.x;
 	e_data.append_attribute("y") = position.y;

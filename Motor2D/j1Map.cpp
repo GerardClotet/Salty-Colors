@@ -190,6 +190,7 @@ bool j1Map::SwitchMaps(std::string newMap)
 {
 	App->entityFactory->DeleteAllEnemies();
 	CleanUp();
+	
 	App->scene->SwapMap();
 	Load(newMap.data());
 	App->scene->actualMap = newMap;
