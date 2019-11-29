@@ -24,18 +24,11 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
-	ResetBFS();
 
 	return ret;
 }
 
-void j1Map::ResetBFS()
-{
-	/*frontier.Clear();
-	visited.clear();
-	frontier.Push(iPoint(19, 4));
-	visited.push_back(*iPoint(19, 4));*/
-}
+
 
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
@@ -81,57 +74,10 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	return true;
 }
 
-void j1Map::PropagateBFS()
-{
-	// TODO 1: If frontier queue contains elements
-	// pop the last one and calculate its 4 neighbors
-
-	// TODO 2: For each neighbor, if not visited, add it
-	// to the frontier queue and visited list
-}
-
-void j1Map::DrawBFS()
-{
-	//iPoint point;
-
-	//// Draw visited
-	//std::list<iPoint*>::iterator* item = visited.begin();
-
-	//while(item)
-	//{
-	//	point = item->data;
-	//	TileSet* tileset = GetTilesetFromTileId(26);
-
-	//	SDL_Rect r = tileset->GetTileRect(26);
-	//	iPoint pos = MapToWorld(point.x, point.y);
-
-	//	App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-
-	//	item = item->next;
-	//}
-
-	//// Draw frontier
-	//for (uint i = 0; i < frontier.Count(); ++i)
-	//{
-	//	point = *(frontier.Peek(i));
-	//	TileSet* tileset = GetTilesetFromTileId(25);
-
-	//	SDL_Rect r = tileset->GetTileRect(25);
-	//	iPoint pos = MapToWorld(point.x, point.y);
-
-	//	App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-	//}
-
-}
-
-bool j1Map::IsWalkable(int x, int y) const
-{
-	// TODO 3: return true only if x and y are within map limits
-	// and the tile is walkable (tile id 0 in the navigation layer)
 
 
-	return true;
-}
+
+
 
 void j1Map::Draw()
 {
@@ -187,8 +133,7 @@ void j1Map::Draw()
 			}
 		}
 	}
-//	LOG("tilesdrawing %i", tilesdrawing);
-	DrawBFS();
+	
 }
 
 int Properties::Get(const char* value, int default_value) const
@@ -445,10 +390,7 @@ bool j1Map::Load(const char* file_name)
 		else if (type == "triggers")
 			LoadUtilsLayer(node);
 
-		
-		
-
-		LOG("iteracio");
+		LOG("iterated objectgroup");
 	}
 
 	//Load Image Layer
@@ -662,17 +604,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
-bool j1Map::LoadEnemies(pugi::xml_node& enemies)
-{
-	for (pugi::xml_node enemy = enemies.child("object"); enemy; enemy = enemy.next_sibling("object"))
-	{
-		LOG("POLLA");
-		//iPoint position = { enemy.attribute("x").as_float(), enemy.attribute("y").as_float() };
-		//App->entityFactory->CreateEnemy(position);
-	}
-
-	return true;
-}
 
 // Load a group of properties from a node and fill a list with it
 bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)

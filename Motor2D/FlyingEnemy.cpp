@@ -34,11 +34,14 @@ FlyingEnemy::~FlyingEnemy()
 bool FlyingEnemy::PreUpdate()
 {
 	//Check start chase
-	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance)
+	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance && App->entityFactory->player->state != GOD)
 		chase = true;
 	else
+	{
+		current_path.Clear();
 		chase = false;
-
+		ResetPathfindingVariables();
+	}
 	PathfindingPreupdate();
 
 	switch (state)
@@ -269,12 +272,12 @@ void FlyingEnemy::PathfindX()
 					//int guarropos2 = 
 					if (position.x < current_path.At(next_destination)->x)
 					{
-						guarropos = position.x; //previ
+						previous_pos = position.x; //previ
 						moving_right = true;
 					}
 					else if (position.x > current_path.At(next_destination)->x)
 					{
-						guarropos = position.x; //previ
+						previous_pos = position.x; //previ
 						moving_left = true;
 					}
 				}

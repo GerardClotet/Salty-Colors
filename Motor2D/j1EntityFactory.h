@@ -25,17 +25,14 @@ public:
 	bool CleanUp();
 
 	j1Player* CreatePlayer(iPoint pos);
-//	j1Enemy* CreateEnemy(iPoint pos, ENTITY_TYPE type /*!!!! NEED TO CHANGE THIS ENUM FOR 1 exclusivly for enemies*/);
 	j1Enemy* CreateEnemy(iPoint pos, ENEMY_TYPE type);
 	bool GetPlayerState()const;
-	//bool GetEnemyState();
 
 	bool draw_path = false;
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
 	void DeleteAllEnemies();
-	//CreateEntities();
 public:
 	
 	std::list<j1Entity*>	entities;

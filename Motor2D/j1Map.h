@@ -136,19 +136,16 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
-	// BFS
-	void PropagateBFS();
-	void DrawBFS();
-	bool IsWalkable(int x, int y) const;
-	void ResetBFS();
+	// Pathfinding	
 	bool CreateWalkabilityMap(int & width, int& height, uchar** buffer) const;
+
+
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	bool LoadEnemies(pugi::xml_node& enemies);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadCollidersLayer(pugi::xml_node& node);
 	bool LoadUtilsLayer(pugi::xml_node& node);

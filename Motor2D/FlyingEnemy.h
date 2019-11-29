@@ -8,18 +8,7 @@
 class FlyingEnemy : public j1Enemy
 {
 
-public:
-	bool moving_down = false;
-	float chase_distance = 1000.0F;
-	int current_destination = 0;
-	int previous_destination = 0;
-	int next_destination = -1;
-	int jump_height = 2;
-	bool reached_X = false;
-	bool reached_Y = false;
-	bool current_is_grounded = false;
-	iPoint destination = { -1, -1 };
-	Animation IDLE_Flying;
+
 
 public:
 
@@ -40,14 +29,17 @@ public:
 	void MovingUpdate();
 
 
-	virtual bool GetPath();
-	virtual void ResetPathfindingVariables();
-	virtual void DrawPath();
-	virtual void PathfindingUpdate();
-	virtual void PathfindingPreupdate();
-	virtual void PathfindX();
-	virtual void PathfindY();;
+	 bool GetPath();
+	 void ResetPathfindingVariables();
+	 void DrawPath();
+	 void PathfindingUpdate();
+	 void PathfindingPreupdate();
+	 void PathfindX();
+	 void PathfindY();;
 
+
+public:
+	Animation IDLE_Flying;
 
 
 private:

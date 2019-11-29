@@ -52,7 +52,7 @@ void j1Enemy::Draw()
 
 void j1Enemy::MovX()
 {
-	if (state != GOD)
+	if (state != DEAD)
 	{
 		if (velocity.x > 0) velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider)); //movement of the player is min between distance to collider or his velocity
 		else if (velocity.x < 0) velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider)); //movement of the player is max between distance to collider or his velocity
@@ -64,7 +64,7 @@ void j1Enemy::MovX()
 
 void j1Enemy::MovY()
 {
-	if (state != GOD)
+	if (state != DEAD)
 	{
 		if (velocity.y < 0)
 		{
@@ -117,13 +117,13 @@ void j1Enemy::PathfindY()
 
 bool j1Enemy::CheckifHasReachedDesPos(int des, int current)
 {
-	if (guarropos == -1)
+	if (previous_pos == -1)
 		return false;
-	if (guarropos < des && current > des) // if previous pos was lower than dest_pos && current pos i bigger than dest
+	if (previous_pos < des && current > des) // if previous pos was lower than dest_pos && current pos i bigger than dest
 	{
 		return true;
 	}
-	if (guarropos > des && current < des) // if previous pos was higher than dest_pos && current pos i lower than dest
+	if (previous_pos > des && current < des) // if previous pos was higher than dest_pos && current pos i lower than dest
 	{
 		return true;
 	}

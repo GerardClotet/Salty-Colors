@@ -27,11 +27,14 @@ TestEnemy::~TestEnemy()
 
 bool TestEnemy::PreUpdate()
 {
-	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance)
+	if (position.DistanceManhattan(App->entityFactory->player->position) < chase_distance && App->entityFactory->player->state != GOD)
 		chase = true;
 	else
+	{
 		chase = false;
-
+		current_path.Clear();
+		ResetPathfindingVariables();
+	}
 	PathfindingPreupdate();
 
 	switch (state) {
@@ -73,16 +76,9 @@ bool TestEnemy::Update(float dt)
 	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
 
 
-	//Draw();
 	return true;
 }
 
-//void TestEnemy::Draw()
-//{
-//	if(entityTex != nullptr)
-//		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false);
-//	//For some reason the texture isnt rendering
-//}
 
 void TestEnemy::SetPos(iPoint pos)
 {
@@ -346,12 +342,12 @@ void TestEnemy::PathfindX()
 					//int guarropos2 = 
 					if (position.x < current_path.At(next_destination)->x)
 					{
-						guarropos = position.x; //previ
+						previous_pos = position.x; //previ
 							moving_right = true;
 					}
 					else if (position.x > current_path.At(next_destination)->x)
 					{
-						guarropos = position.x; //previ
+						previous_pos = position.x; //previ
 						moving_left = true;
 					}
 				}

@@ -70,19 +70,42 @@ void j1Entity::MovX()
 {
 	if (state != GOD)
 	{
+		float distance;
 		if (velocity.x > 0)
 		{
-			velocity.x = MIN(velocity.x, App->collision->DistanceToRightCollider(collider));
+			distance = App->collision->DistanceToRightCollider(collider);
+
+			if (distance == 0)
+			{
+				App->entityFactory->player->ready_toBounce_right = true;
+				App->entityFactory->player->flipX = true;
+				App->entityFactory->player->in_contact = true;
+				LOG("aah");
+			}
+			else App->entityFactory->player->ready_toBounce_right = false;
+	
+
+			velocity.x = MIN(velocity.x, distance);
 
 		}
 		else if (velocity.x < 0)
 		{
-			velocity.x = MAX(velocity.x, App->collision->DistanceToLeftCollider(collider));
+			distance = App->collision->DistanceToLeftCollider(collider);
+
+			if (distance == 0)
+			{
+				App->entityFactory->player->ready_toBounce_left = true;
+				App->entityFactory->player->flipX = false;
+				App->entityFactory->player->in_contact = true;
+
+			}
+			else App->entityFactory->player->ready_toBounce_left = false;
+			velocity.x = MAX(velocity.x,distance);
 		}
 	}
 
 
-	
+	/**/
 
 	position.x += velocity.x;
 	collider->rect.x = position.x;
@@ -92,14 +115,17 @@ void j1Entity::MovY()
 {
 	if (state != GOD)
 	{
+		float distance;
 		if (velocity.y < 0)
 		{
-			velocity.y = MAX(velocity.y, App->collision->DistanceToTopCollider(collider));
+			distance = App->collision->DistanceToTopCollider(collider);
+			
+			velocity.y = MAX(velocity.y, distance);
 			if (velocity.y == 0) target_speed.y = 0.0F;
 		}
 		else
 		{
-			float distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
+			 distance = App->collision->DistanceToBottomCollider(collider, ignore_platforms);
 			velocity.y = MIN(velocity.y, distance);
 			is_grounded = (distance == 0) ? true : false;
 

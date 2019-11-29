@@ -20,12 +20,8 @@ class j1Enemy : public j1Entity
 {
 public:
 
-	bool moving_right = false;
-	bool moving_left = false;
-	bool jump = false;
-	bool chase = false;
-	int total_jumps = 0;
-	int guarropos = -1;
+
+
 	//SDL_Rect animation_Coll;
 
 	j1Enemy(iPoint position);
@@ -61,6 +57,25 @@ public:
 	iPoint position;
 
 	Animation e_test_IDLE;
+
+
+	float chase_distance = 1000.0F;
+	int current_destination = 0;
+	int previous_destination = 0;
+	int next_destination = -1;
+	int jump_height = 2;
+	bool reached_X = false;
+	bool reached_Y = false;
+	bool current_is_grounded = false;
+	iPoint destination = { -1, -1 };
+
+	bool moving_right = false;
+	bool moving_left = false;
+	bool moving_down = false;
+	bool jump = false;
+	bool chase = false;
+	int total_jumps = 0;
+	int previous_pos = -1;
 
 };
 

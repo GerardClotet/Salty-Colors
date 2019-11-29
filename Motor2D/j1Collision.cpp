@@ -17,7 +17,7 @@ j1Collision::~j1Collision()
 
 bool j1Collision::Awake(pugi::xml_node& config)
 {
-	max_colliders = 1000;
+	max_colliders = 200;
 	colliders = new Collider * [max_colliders];
 	for (uint i = 0; i < max_colliders; ++i)
 		colliders[i] = nullptr;
@@ -186,16 +186,8 @@ float j1Collision::DistanceToRightCollider(Collider* coll) const
 					float new_distance = colliders[i]->rect.x - (coll->rect.x + coll->rect.w);
 					if (new_distance < distance)
 					{
-						distance = new_distance;
-						if (distance == 0)
-						{
-							App->entityFactory->player->ready_toBounce_right = true;
-							App->entityFactory->player->flipX = true;
-							App->entityFactory->player->in_contact = true;
-
-						}
-						else App->entityFactory->player->ready_toBounce_right = false;
-
+						distance = new_distance;						
+						
 					}
 				}
 			}
@@ -220,14 +212,7 @@ float j1Collision::DistanceToLeftCollider(Collider* coll) const
 					if (new_distance > distance)
 					{
 						distance = new_distance;
-						if (distance == 0)
-						{
-							App->entityFactory->player->ready_toBounce_left = true;
-							App->entityFactory->player->flipX = false;
-							App->entityFactory->player->in_contact = true;
-							
-						}
-						else App->entityFactory->player->ready_toBounce_left = false;
+						
 					}
 				}
 			}
