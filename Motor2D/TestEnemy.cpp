@@ -75,6 +75,8 @@ bool TestEnemy::Update(float dt)
 	velocity.x = (target_speed.x * acceleration + velocity.x * (1 - acceleration)) * dt;
 	velocity.y = (target_speed.y * acceleration + velocity.y * (1 - acceleration)) * dt;
 
+	
+
 
 	return true;
 }
@@ -94,6 +96,11 @@ bool TestEnemy::CleanUp()
 		collider->to_delete = true;
 		collider = nullptr;
 	}
+
+	App->entityFactory->DeleteEntity(this);
+	delete this;
+
+
 	return true;
 }
 
@@ -155,6 +162,7 @@ bool TestEnemy::AwakeAttributes(pugi::xml_node config)
 
 	return true;
 }
+
 void TestEnemy::IdleUpdate()
 {
 	target_speed.x = 0.0F;
@@ -373,6 +381,14 @@ void TestEnemy::PathfindY()
 		if (position.y > current_path.At(current_destination)->y)
 			jump = true;
 	}
+}
+
+bool TestEnemy::Die()
+{
+	state = DEAD;
+	CleanUp();
+	
+	return true;
 }
 
 

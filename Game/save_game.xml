@@ -11,24 +11,24 @@
 	</swap_scene>
 	<entityFactory>
 		<enemy>
-			<TestEnemy x="1392" y="790">
+			<TestEnemy x="1037" y="790">
 				<flipX value="false" />
 			</TestEnemy>
 		</enemy>
-		<Player x="1253" y="790">
+		<Player x="1353" y="790">
 			<velocity x="0" />
 			<velocity y="0" />
 			<target_speed x="0" />
 			<target_speed y="0" />
 			<state value="0" />
 			<is_grounded value="true" />
-			<flipX value="true" />
+			<flipX value="false" />
 		</Player>
 	</entityFactory>
 	<collision />
 	<pathfinding />
 	<particles_system />
 	<renderer>
-		<camera x="-759" y="-381" />
+		<camera x="-595" y="-282" />
 	</renderer>
 </game_state>

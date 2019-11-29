@@ -22,6 +22,7 @@ public:
 	bool Save(pugi::xml_node&)const;
 	bool AwakeAttributes(pugi::xml_node config);
 
+	
 	void IdleUpdate();
 	void MovingUpdate();
 	void JumpingUpdate();
@@ -57,6 +58,8 @@ public:
 	void PathfindingPreupdate();
 	void PathfindX();
 	void PathfindY();
+
+	bool Die();
 	
 
 	

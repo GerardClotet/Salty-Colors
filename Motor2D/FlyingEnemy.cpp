@@ -88,13 +88,27 @@ void FlyingEnemy::SetPos(iPoint pos)
 {
 }
 
-bool FlyingEnemy::Load(pugi::xml_node&)
+bool FlyingEnemy::Load(pugi::xml_node &data)
 {
+	position.x = data.child("enemy").child("FlyingEnemy").attribute("x").as_int();
+	position.y = data.child("enemy").child("FlyingEnemy").attribute("y").as_int();
+
+	flipX = data.child("enemy").child("TestEnemy").child("flipX").attribute("value").as_bool();
+
 	return true;
 }
 
-bool FlyingEnemy::Save(pugi::xml_node&) const
+bool FlyingEnemy::Save(pugi::xml_node &data) const
 {
+	pugi::xml_node e_data;
+
+	e_data = data.append_child("enemy").append_child("FlyingEnemy");
+
+	e_data.append_attribute("x") = position.x;
+	e_data.append_attribute("y") = position.y;
+
+	e_data.append_child("flipX").append_attribute("value") = flipX;
+
 	return true;
 }
 

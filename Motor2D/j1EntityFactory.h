@@ -33,6 +33,7 @@ public:
 
 	bool Load(pugi::xml_node&);
 	void DeleteAllEnemies();
+	void DeleteEntity(j1Entity* entity);
 public:
 	
 	std::list<j1Entity*>	entities;

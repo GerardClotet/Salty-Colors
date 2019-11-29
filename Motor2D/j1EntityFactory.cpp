@@ -256,3 +256,21 @@ void j1EntityFactory::DeleteAllEnemies()
 		++it;
 	}
 }
+
+void j1EntityFactory::DeleteEntity(j1Entity* entity)
+{
+	std::list<j1Entity*>::iterator it = entities.begin();
+
+	while (it != entities.end())
+	{
+		if ((*it) == entity)
+		{
+			entities.remove(*it);
+			return;
+			
+		}
+		++it;
+	}
+
+
+}
