@@ -9,7 +9,11 @@
 #define TOP_OFFSET 100
 #define SIDE_OFFSET 600
 #define TRAVEL_SPEED 0.04
+
+
 struct SDL_Texture;
+struct j1UIElement;
+enum GUI_Event;
 
 class j1Scene : public j1Module
 {
@@ -46,7 +50,7 @@ public:
 
 	void ReLoadLevel();
 	bool DoViewportResize();
-
+	bool GUIEvent(j1UIElement* element, GUI_Event gui_event);
 
 	SDL_Rect RezieView(SDL_Rect viewport,bool camera);
 	j1Timer resizeTimer;

@@ -12,6 +12,8 @@
 #include "j1PathFinding.h"
 #include "j1EntityFactory.h"
 #include "j1Player.h"
+#include "j1Gui.h"
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -334,6 +336,25 @@ void j1Scene::ReLoadLevel()
 bool j1Scene::DoViewportResize()
 {
 	return viewportResize = true;
+}
+
+bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
+{
+	switch (gui_event)
+	{
+	case MOUSE_OVER:
+	{
+
+	}
+	break;
+	case MOUSE_EXIT:
+	{
+
+	}
+	break;
+	}
+
+	return true;
 }
 
 SDL_Rect j1Scene::RezieView(SDL_Rect vp,bool cam)

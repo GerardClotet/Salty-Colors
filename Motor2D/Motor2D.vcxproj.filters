@@ -82,6 +82,8 @@
     <ClCompile Include="particle.cpp">
       <Filter>Desenvolupament  ========\Entities\particles</Filter>
     </ClCompile>
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -189,6 +191,8 @@
     <ClInclude Include="particle.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

@@ -19,6 +19,8 @@ class j1Collision;
 class j1MapChange;
 class j1PathFinding;
 class j1ParticleSystem;
+class j1Gui;
+class j1Fonts;
 
 class j1App
 {
@@ -100,6 +102,9 @@ public:
 	j1PathFinding*		pathfinding;
 	j1MapChange*		swapScene;
 	j1ParticleSystem*	particles;
+	j1Gui*				gui;
+	j1Fonts*			fonts;
+
 
 	bool				vsync = false;
 	bool				pause = false;

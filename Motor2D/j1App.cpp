@@ -17,6 +17,9 @@
 #include "j1SwapScene.h"
 #include "j1Pathfinding.h"
 #include "j1ParticleSystem.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
+
 #include "Brofiler/Brofiler.h"
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -38,6 +41,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	swapScene = new j1MapChange();
 	pathfinding = new j1PathFinding();
 	particles = new j1ParticleSystem();
+	gui = new j1Gui();
+	fonts = new j1Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -52,6 +57,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 	AddModule(pathfinding);
 	AddModule(particles);
+	AddModule(gui);
+	AddModule(fonts);
 	// render last to swap buffer
 	AddModule(render);
 
