@@ -39,7 +39,10 @@ bool Collectable::Start()
 bool Collectable::PreUpdate()
 {
 	if (collider->to_delete)
+	{
 		this->to_delete = true;
+		App->entityFactory->player->SetCoinID(id); 
+	}
 
 	currentAnimation = spin.GetCurrentFrame();
 

@@ -26,13 +26,18 @@ public:
 	
 	bool GetPlayerState()const;
 
-	void CreateEntity(iPoint pos, E_TYPE type);
+	j1Entity* CreateEntity(iPoint pos, E_TYPE type);
 	bool draw_path = false;
 	bool Save(pugi::xml_node&)const;
 
 	bool Load(pugi::xml_node&);
 	void DeleteAllEnemies();
 	void DeleteEntity(j1Entity* entity);
+
+	void CheckifCoinsWereTaken();
+
+	bool IsTaken(int id);
+
 public:
 	
 	std::list<j1Entity*>	entities;

@@ -481,6 +481,8 @@ void j1Player::CheckWalkSound()
 
 bool j1Player::Load(pugi::xml_node&data)
 {
+
+	coins_ids.clear();
 	position.x = data.child("Player").attribute("x").as_int();
 	position.y = data.child("Player").attribute("y").as_int();
 
@@ -494,6 +496,12 @@ bool j1Player::Load(pugi::xml_node&data)
 	state = (PlayerState)data.child("Player").child("state").attribute("value").as_int();
 	is_grounded = data.child("Player").child("is_grounded").attribute("value").as_bool();
 	flipX = data.child("Player").child("flipX").attribute("value").as_bool();
+
+	for (auto node : data.child("Player").children("coin_id"))
+	{
+
+		coins_ids.push_back(node.attribute("value").as_int());
+	}
 
 	return true;
 }
@@ -520,7 +528,29 @@ bool j1Player::Save(pugi::xml_node&data) const
 	Ppos.append_child("is_grounded").append_attribute("value") = is_grounded;
 	Ppos.append_child("flipX").append_attribute("value") = flipX;
 
+
+	std::vector<int>::const_iterator it = coins_ids.begin();
+
+	while (it < coins_ids.end())
+	{
+
+		Ppos.append_child("coin_id").append_attribute("value") = (*it);
+
+		++it;
+	}
+
 	return true;
+}
+
+void j1Player::SetCoinID(int id)
+{
+
+	coins_ids.push_back(id);
+}
+
+std::vector<int> j1Player::GetCoinVec()
+{
+	return coins_ids;
 }
 
 

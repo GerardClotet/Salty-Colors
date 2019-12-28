@@ -181,6 +181,21 @@ void j1Entity::SetPos(iPoint pos)
 	
 }
 
+void j1Entity::Setid(int coin_counter)
+{
+
+	if (this->entity_type == E_TYPE::COLLECTABLE)
+		id = coin_counter;
+}
+
+int j1Entity::GetId()
+{
+	if (this->entity_type == E_TYPE::COLLECTABLE)
+		return id;
+
+	return -1;
+}
+
 
 
 

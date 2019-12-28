@@ -64,6 +64,9 @@ public:
   virtual void SetPos(iPoint pos);
 
 
+  void Setid(int coin_counter);
+
+  int GetId();
 public:
 	E_TYPE entity_type = E_TYPE::NONE;
 	Collider* collider;
@@ -100,7 +103,10 @@ public:
 
 	SDL_Rect animation_Coll;
 
+
 protected:
 	bool dead = false;
+	int id;	 //reserved for collectables
+
 };
 #endif

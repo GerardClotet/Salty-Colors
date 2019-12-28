@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="194">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="196">
  <properties>
   <property name="BackgroudMusic" value="OuterWorldBGM.ogg"/>
  </properties>
@@ -34623,6 +34623,8 @@
  </layer>
  <objectgroup id="11" name="collectables">
   <object id="193" name="collectable" type="coin" x="163.636" y="512.121" width="45.4545" height="51.5152"/>
+  <object id="194" name="collectable" type="coin" x="509.091" y="736.364" width="45.4545" height="51.5152"/>
+  <object id="195" name="collectable" type="coin" x="342.424" y="618.182" width="45.4545" height="51.5152"/>
  </objectgroup>
  <objectgroup id="5" name="colliders">
   <object id="119" type="floor" x="0" y="832" width="250" height="93"/>

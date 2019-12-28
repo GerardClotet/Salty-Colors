@@ -11,28 +11,30 @@
 	</swap_scene>
 	<entityFactory>
 		<enemy>
-			<FlyingEnemy id="1" x="1520" y="1184">
+			<FlyingEnemy id="3" x="1520" y="1184">
 				<flipX value="false" />
 			</FlyingEnemy>
 		</enemy>
 		<enemy>
-			<TestEnemy id="2" x="3137" y="726">
+			<TestEnemy id="4" x="3137" y="726">
 				<flipX value="false" />
 			</TestEnemy>
 		</enemy>
 		<enemy>
-			<TestEnemy id="3" x="1486" y="502">
+			<TestEnemy id="5" x="1486" y="502">
 				<flipX value="false" />
 			</TestEnemy>
 		</enemy>
-		<Player x="167" y="517">
+		<Player x="335" y="726">
 			<velocity x="0" />
 			<velocity y="0" />
 			<target_speed x="0" />
 			<target_speed y="0" />
-			<state value="6" />
+			<state value="0" />
 			<is_grounded value="true" />
 			<flipX value="true" />
+			<coin_id value="0" />
+			<coin_id value="2" />
 		</Player>
 	</entityFactory>
 	<collision />
@@ -41,6 +43,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-109" />
+		<camera x="0" y="-295" />
 	</renderer>
 </game_state>

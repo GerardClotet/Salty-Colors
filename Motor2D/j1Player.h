@@ -2,7 +2,7 @@
 #define __J1PLAYER_H__
 
 #include "j1Entity.h"
-
+#include <vector>
 #define MAX_DASHES 1
 #define DASH_DISTANCE 150
 #define STEP_TIME 250.0F
@@ -39,6 +39,9 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+
+	void SetCoinID(int id);
+	std::vector<int> GetCoinVec();
 public:
 
 	
@@ -65,6 +68,9 @@ private:
 	Animation player_DASH;
 	Animation player_WALL;
 	Animation player_BOUNCE;
+
+
+	std::vector<int> coins_ids;
 };
 
 #endif

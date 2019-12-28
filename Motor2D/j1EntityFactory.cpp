@@ -167,7 +167,7 @@ bool j1EntityFactory::GetPlayerState()const
 	return playerActive;
 }
 
-void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
+j1Entity* j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 {
 
 	j1Entity* entity = nullptr;
@@ -190,6 +190,7 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 			player->ResetPlayer();
 			player->SetPos(pos);
 		
+			return player;
 		}
 		break;
 	case E_TYPE::WALK_E:
@@ -202,6 +203,7 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 
 		LOG("walk enemy created");
 
+		return en;
 		break; }
 	case E_TYPE::FLY_E:
 	{
@@ -212,6 +214,8 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		if(en != nullptr)
 			entities.push_back(en);
 		LOG("flying enemy created");
+
+		return en;
 		break;}
 
 
@@ -222,12 +226,15 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		if(entity != nullptr)
 			entities.push_back(entity);
 		LOG("collectble created");
+
+		return entity;
 		break;
 	}
 	default:
 		break;
 	}
 
+	return entity;
 }
 
 bool j1EntityFactory::Save(pugi::xml_node& data) const
@@ -255,6 +262,8 @@ bool j1EntityFactory::Load(pugi::xml_node& data)
 		(*item)->Load(data);
 
 	}
+	CheckifCoinsWereTaken();
+	
 
  	return true;
 }
@@ -295,4 +304,47 @@ void j1EntityFactory::DeleteEntity(j1Entity* entity)
 	}
 
 
+}
+
+void j1EntityFactory::CheckifCoinsWereTaken()
+{
+
+	std::vector<int> temp_vec = player->GetCoinVec();
+
+
+	std::list<j1Entity*>::iterator it = entities.begin();
+
+	while (it != entities.end())
+	{
+
+		
+		if (IsTaken((*it)->GetId()))
+		{
+			(*it)->collider->to_delete = true;
+			(*it)->to_delete = true;
+		}
+
+		++it;
+	}
+
+
+}
+
+bool j1EntityFactory::IsTaken(int id)
+{
+	std::vector<int> temp_vec = player->GetCoinVec();
+
+
+	std::vector<int>::const_iterator it = temp_vec.begin();
+
+	while (it < temp_vec.end())
+	{
+
+		if (id == (*it))
+			return true;
+		++it;
+	}
+
+
+	return false;
 }
