@@ -42,6 +42,8 @@ bool Collectable::Start()
 
 bool Collectable::PreUpdate()
 {
+	if (collider->to_delete)
+		this->to_delete = true;
 
 	currentAnimation = spin.GetCurrentFrame();
 

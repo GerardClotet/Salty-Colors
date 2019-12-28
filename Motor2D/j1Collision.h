@@ -77,6 +77,7 @@ public:
 
 	bool Triggercolliding = false;
 
+	void DeleteCollider(Collider* coll);
 private:
 
 	Collider** colliders = nullptr;

@@ -70,14 +70,21 @@ bool j1Collision::PreUpdate()
 				}
 			}
 
-			if (colliders[i] != nullptr && colliders[i]->type == 6)
+			else if (colliders[i] != nullptr && colliders[i]->type == COLLIDER_COLLECTABLE)
 			{
 				if (player_collider->CheckCollision(colliders[i]->rect))
 				{
 					if (player_collider->callback && App->entityFactory->player->state)
 					{
 
+						App->entityFactory->player->coins += 1;
 						LOG("peojfre");
+						
+						if (colliders[i]->callback)
+							colliders[i]->callback->OnCollision(colliders[i], player_collider);
+
+						
+						colliders[i]->to_delete = true;
 					}
 				}
 			}
@@ -177,6 +184,20 @@ void j1Collision::DebugDraw()
 
 		default:
 			break;
+		}
+	}
+}
+
+void j1Collision::DeleteCollider(Collider* coll)
+{
+
+	for (uint i = 0; i < max_colliders; ++i)
+	{
+		if (colliders[i] == coll)
+		{
+			delete colliders[i];
+			colliders[i] == nullptr;
+			return;
 		}
 	}
 }

@@ -49,6 +49,7 @@ public:
 	bool ready_toBounce_left = false;
 	bool ready_toBounce_right = false;
 
+	int coins = 0;
 private:
 	bool startDash = false;
 	int dashes = 1;
