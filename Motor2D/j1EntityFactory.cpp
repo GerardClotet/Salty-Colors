@@ -64,12 +64,12 @@ bool j1EntityFactory::Update(float dt)
 {
 
 
-
 	if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN)
 		draw_path = !draw_path;
 
 	bool ret = true;
 	std::list<j1Entity*>::iterator item = entities.begin();
+	LOG("num entities %i", entities.size());
 	for (; item != entities.end();)
 	{
 		if ((*item) != nullptr)
@@ -170,6 +170,8 @@ bool j1EntityFactory::GetPlayerState()const
 void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 {
 
+	j1Entity* entity = nullptr;
+
 	switch (type)
 	{
 	case E_TYPE::NONE:
@@ -179,7 +181,7 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		if (player == nullptr)
 		{
 			player = new j1Player(pos);
-			if (player)
+			if (player != nullptr)
 				entities.push_back(player);
 		}
 		else
@@ -192,26 +194,33 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		break;
 	case E_TYPE::WALK_E:
 	{
-		j1Enemy* en = new TestEnemy(pos);
+		j1Enemy* en = nullptr;
+		en = new TestEnemy(pos);
 		en->id = entities.size();
-		entities.push_back(en);
+		if (en != nullptr)
+			entities.push_back(en);
+
 		LOG("walk enemy created");
 
 		break; }
 	case E_TYPE::FLY_E:
 	{
-		j1Enemy* en = new FlyingEnemy(pos);
+		j1Enemy* en = nullptr;
+		en = new FlyingEnemy(pos);
 		en->id = entities.size();
-		entities.push_back(en);
+
+		if(en != nullptr)
+			entities.push_back(en);
 		LOG("flying enemy created");
 		break;}
 
 
 	case E_TYPE::COLLECTABLE:
 	{
-		j1Entity* ent = new Collectable(pos);
+		entity = new Collectable(pos);
 
-		entities.push_back(ent);
+		if(entity != nullptr)
+			entities.push_back(entity);
 		LOG("collectble created");
 		break;
 	}

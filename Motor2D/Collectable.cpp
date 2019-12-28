@@ -13,17 +13,13 @@
 Collectable::Collectable(iPoint pos) : j1Entity(pos)
 {
 	AwakeAttributes(App->config);
-	if (App->gui->GetAtlas() == nullptr)
-	{
+	
 		entityTex = App->tex->Load(sprite_route.data());
-		App->gui->SetAtlas(entityTex);
-	}
 
-	else entityTex = App->gui->GetAtlas();
 
 	position = pos;
 
-	animation_Coll = { 0,0,14,14 };
+	animation_Coll = { 0,0,28,28 };
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_COLLECTABLE, App->entityFactory, true);
 
 	collider->rect.x = position.x;
@@ -53,7 +49,7 @@ bool Collectable::PreUpdate()
 void Collectable::Draw()
 {
 	if(entityTex != nullptr)
-		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false, 1.0f);
+		App->render->Blit(entityTex, position.x, position.y, &currentAnimation, 1.0f, flipX, false, 2.0f);
 }
 
 bool Collectable::CleanUp()

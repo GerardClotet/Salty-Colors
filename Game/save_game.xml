@@ -10,18 +10,9 @@
 		<scene name="Level1.tmx" />
 	</swap_scene>
 	<entityFactory>
-		<Player x="1292" y="790">
-			<velocity x="-14.8006649" />
-			<velocity y="0" />
-			<target_speed x="-405" />
-			<target_speed y="0" />
-			<state value="1" />
-			<is_grounded value="true" />
-			<flipX value="true" />
-		</Player>
 		<enemy>
-			<FlyingEnemy id="1" x="1523" y="978">
-				<flipX value="true" />
+			<FlyingEnemy id="1" x="1520" y="1184">
+				<flipX value="false" />
 			</FlyingEnemy>
 		</enemy>
 		<enemy>
@@ -30,15 +21,26 @@
 			</TestEnemy>
 		</enemy>
 		<enemy>
-			<TestEnemy id="3" x="1199" y="663">
+			<TestEnemy id="3" x="1486" y="502">
 				<flipX value="false" />
 			</TestEnemy>
 		</enemy>
+		<Player x="167" y="517">
+			<velocity x="0" />
+			<velocity y="0" />
+			<target_speed x="0" />
+			<target_speed y="0" />
+			<state value="6" />
+			<is_grounded value="true" />
+			<flipX value="true" />
+		</Player>
 	</entityFactory>
 	<collision />
 	<pathfinding />
 	<particles_system />
+	<gui />
+	<:anonymous />
 	<renderer>
-		<camera x="-720" y="-361" />
+		<camera x="0" y="-109" />
 	</renderer>
 </game_state>
