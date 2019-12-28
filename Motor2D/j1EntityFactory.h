@@ -24,10 +24,10 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	j1Player* CreatePlayer(iPoint pos);
-	j1Enemy* CreateEnemy(iPoint pos, ENEMY_TYPE type);
+	
 	bool GetPlayerState()const;
 
+	void CreateEntity(iPoint pos, E_TYPE type);
 	bool draw_path = false;
 	bool Save(pugi::xml_node&)const;
 
@@ -39,7 +39,6 @@ public:
 	std::list<j1Entity*>	entities;
 
 	j1Player*	player = nullptr;
-	j1Enemy*	enemy = nullptr;
 
 
 	int maxframes = 4;

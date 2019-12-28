@@ -671,11 +671,9 @@ bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
 
 		if (strcmp("start", (*it).attribute("type").as_string()) == 0)
 		{
-			if (App->entityFactory->GetPlayerState() == true)
-				App->entityFactory->player->SetPos({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() });
+			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::PLAYER);
 
-			else if (App->entityFactory->GetPlayerState() == false)
-				App->entityFactory->CreatePlayer({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() });
+	
 		}
 
 		else if (strcmp("end", (*it).attribute("type").as_string())==0)
@@ -684,12 +682,14 @@ bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
 
 		
 		else if (strcmp("test_enemy", (*it).attribute("type").as_string()) == 0)
-			App->entityFactory->CreateEnemy({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, ENEMY_TYPE::ENEMY_TEST);
+			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::WALK_E);
+
 
 		
 
 		else if (strcmp("FlyingEnemy" , (*it).attribute("type").as_string())==0)
-			App->entityFactory->CreateEnemy({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, ENEMY_TYPE::ENEMY_FLYING);
+			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::FLY_E);
+
 
 
 		++it;

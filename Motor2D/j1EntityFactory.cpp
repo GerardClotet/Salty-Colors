@@ -156,58 +156,60 @@ bool j1EntityFactory::CleanUp()
 
 
 //It will be substitued with a general function to create Entities
-j1Player* j1EntityFactory::CreatePlayer(iPoint pos)
-{
-	player = new j1Player(pos);
-
-	if (player != nullptr)
-	{
-		entities.push_back(player);
-		playerActive = true;
-		return player;
-	}
-	else LOG("Failed to create player");
-	return nullptr;
-}
 
 
 
 
 
 
-j1Enemy* j1EntityFactory::CreateEnemy(iPoint pos, ENEMY_TYPE type)
-{
-	j1Enemy* enemy = nullptr;// = new j1Enemy(pos);
-	switch (type)
-	{
-	case ENEMY_TYPE::ENEMY_TEST:
 
 
-		
-		enemy = new TestEnemy(pos);
-		enemy->id = entities.size();
-		entities.push_back(enemy);
-		return enemy;
-		break;
-	case ENEMY_TYPE::ENEMY_FLYING:
-
-		
-		enemy = new FlyingEnemy(pos);
-		enemy->id = entities.size();
-		entities.push_back(enemy);
-		return enemy;
-		break;
-	default:
-		break;
-	}
-
-	LOG("Failed To Create enemy type %i", type);
-	return enemy;
-}
 
 bool j1EntityFactory::GetPlayerState()const
 {
 	return playerActive;
+}
+
+void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
+{
+
+	switch (type)
+	{
+	case E_TYPE::NONE:
+		break;
+	case E_TYPE::PLAYER:
+
+		if (player == nullptr)
+		{
+			player = new j1Player(pos);
+			if (player)
+				entities.push_back(player);
+		}
+		else
+		{
+			LOG("Player Already Create, changing his position");
+			player->ResetPlayer();
+			player->SetPos(pos);
+		
+		}
+		break;
+	case E_TYPE::WALK_E:
+	{
+		j1Enemy* en = new TestEnemy(pos);
+		en->id = entities.size();
+		entities.push_back(en);
+
+		break; }
+	case E_TYPE::FLY_E:
+	{
+		j1Enemy* en = new FlyingEnemy(pos);
+		en->id = entities.size();
+		entities.push_back(en);
+		break;}
+	default:
+		break;
+	}
+
 }
 
 bool j1EntityFactory::Save(pugi::xml_node& data) const
