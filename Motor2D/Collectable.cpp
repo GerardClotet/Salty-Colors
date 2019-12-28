@@ -57,6 +57,10 @@ void Collectable::Draw()
 
 bool Collectable::CleanUp()
 {
+
+	collider->to_delete = true;
+
+	this->to_delete = true;
 	return true;
 }
 

@@ -189,6 +189,7 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 bool j1Map::SwitchMaps(std::string newMap)
 {
 	App->entityFactory->DeleteAllEnemies();
+	App->entityFactory->DeleteAllCollectables();
 	CleanUp();
 	
 	App->scene->SwapMap();

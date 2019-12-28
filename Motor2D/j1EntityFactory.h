@@ -33,7 +33,7 @@ public:
 	bool Load(pugi::xml_node&);
 	void DeleteAllEnemies();
 	void DeleteEntity(j1Entity* entity);
-
+	void DeleteAllCollectables();
 	void CheckifCoinsWereTaken();
 
 	bool IsTaken(int id);

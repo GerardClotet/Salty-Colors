@@ -306,6 +306,27 @@ void j1EntityFactory::DeleteEntity(j1Entity* entity)
 
 }
 
+void j1EntityFactory::DeleteAllCollectables()
+{
+
+	std::list<j1Entity*>::iterator it = entities.begin();
+
+	while (it != entities.end())
+	{
+		if ((*it)->entity_type == E_TYPE::COLLECTABLE)
+		{
+			(*it)->CleanUp();
+
+			RELEASE(*it);
+			delete (*it);
+			*it = nullptr;
+			entities.erase(it);
+		}
+
+		++it;
+	}
+}
+
 void j1EntityFactory::CheckifCoinsWereTaken()
 {
 
