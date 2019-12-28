@@ -69,6 +69,18 @@ bool j1Collision::PreUpdate()
 						colliders[i]->callback->OnCollision(colliders[i], player_collider);
 				}
 			}
+
+			if (colliders[i] != nullptr && colliders[i]->type == 6)
+			{
+				if (player_collider->CheckCollision(colliders[i]->rect))
+				{
+					if (player_collider->callback && App->entityFactory->player->state)
+					{
+
+						LOG("peojfre");
+					}
+				}
+			}
 		}
 	}
 	return true;
@@ -182,7 +194,7 @@ float j1Collision::DistanceToRightCollider(Collider* coll, Collider* &colltype) 
 
 	for (uint i = 0; i < max_colliders; i++)
 	{
-		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM) //check for valid collider
+		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM && colliders[i]->type != COLLIDER_COLLECTABLE) //check for valid collider
 		{
 			if (colliders[i]->rect.x > coll->rect.x) //check for right side of received collider
 			{
@@ -211,7 +223,7 @@ float j1Collision::DistanceToLeftCollider(Collider* coll, Collider* &colltype) c
 
 	for (uint i = 0; i < max_colliders; i++)
 	{
-		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM)
+		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM && colliders[i]->type != COLLIDER_COLLECTABLE)
 		{
 			if (colliders[i]->rect.x < coll->rect.x)
 			{
@@ -267,7 +279,7 @@ float j1Collision::DistanceToTopCollider(Collider* coll, Collider* &colltype) co
 
 	for (uint i = 0; i < max_colliders; i++)
 	{
-		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM)
+		if (colliders[i] != nullptr && colliders[i] != coll && colliders[i]->type != COLLIDER_TRIGGER && colliders[i]->type != COLLIDER_PLATFORM && colliders[i]->type != COLLIDER_COLLECTABLE)
 		{
 			if (colliders[i]->rect.y <= coll->rect.y)
 			{

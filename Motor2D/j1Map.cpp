@@ -385,14 +385,16 @@ bool j1Map::Load(const char* file_name)
 		
 		std::string type = node.attribute("name").as_string();
 
-		if (type == "colliders")
+		if (type == "collectables")
+			LoadCollectableLayer(node);
+
+		else if (type == "colliders")
 			LoadCollidersLayer(node);
 
 		else if (type == "triggers")
 			LoadUtilsLayer(node);
 
-		else if (type == "collectables")
-			LoadCollectableLayer(node);
+		
 
 		LOG("iterated objectgroup");
 	}
@@ -692,8 +694,6 @@ bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
 
 		else if (strcmp("FlyingEnemy" , (*it).attribute("type").as_string())==0)
 			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::FLY_E);
-
-
 
 		++it;
 	}

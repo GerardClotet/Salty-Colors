@@ -115,7 +115,10 @@ void j1Entity::MovX()
 
 			}
 			else App->entityFactory->player->ready_toBounce_left = false;
-			if (check) velocity.x = MAX(velocity.x, distance); check = false;
+			//if (check)
+			velocity.x = MAX(velocity.x, distance); 
+			
+			check = false;
 			
 		}
 	}
