@@ -158,6 +158,11 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_FLYING:
 			App->render->DrawQuad(colliders[i]->rect, 130, 214, 237, alpha, true);
+			break;
+		case COLLIDER_COLLECTABLE:
+			App->render->DrawQuad(colliders[i]->rect, 214, 50, 255, alpha, true);
+			break;
+
 		default:
 			break;
 		}

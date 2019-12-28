@@ -4,7 +4,9 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Input.h"
-
+#include "TestEnemy.h"
+#include "FlyingEnemy.h"
+#include "Collectable.h"
 #include <algorithm>
 
 j1EntityFactory::j1EntityFactory()
@@ -82,12 +84,7 @@ bool j1EntityFactory::Update(float dt)
 			}
 			else
 			{
-				//if ((*item)->type == ENTITY_TYPE::ENT_PLAYER)
-				//{
-				//	//player = nullptr;
-				//	LOG("");
-				//}
-
+		
 				(*item)->CleanUp();
 				delete(*item);
 				(*item) = nullptr;
@@ -198,6 +195,7 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		j1Enemy* en = new TestEnemy(pos);
 		en->id = entities.size();
 		entities.push_back(en);
+		LOG("walk enemy created");
 
 		break; }
 	case E_TYPE::FLY_E:
@@ -205,7 +203,18 @@ void j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 		j1Enemy* en = new FlyingEnemy(pos);
 		en->id = entities.size();
 		entities.push_back(en);
+		LOG("flying enemy created");
 		break;}
+
+
+	case E_TYPE::COLLECTABLE:
+	{
+		j1Entity* ent = new Collectable(pos);
+
+		entities.push_back(ent);
+		LOG("collectble created");
+		break;
+	}
 	default:
 		break;
 	}

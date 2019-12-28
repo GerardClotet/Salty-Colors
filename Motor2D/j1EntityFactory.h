@@ -5,8 +5,7 @@
 #include "j1Entity.h"
 #include "j1Player.h"
 #include "j1Enemy.h"
-#include "TestEnemy.h"
-#include "FlyingEnemy.h"
+
 #include <vector>
 #include <list>
 

@@ -18,7 +18,8 @@ enum class E_TYPE{
 	PLAYER,
 	ENEMY,
 	WALK_E,
-	FLY_E
+	FLY_E,
+	COLLECTABLE
 };
 enum  PlayerState {
 	NO_STATE = -1,

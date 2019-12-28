@@ -28,14 +28,17 @@
     <fade_time value="2"/>
   </scene>
 
+  <gui>
+    <atlas file ="textures/ui/atlas.png"></atlas>
+  </gui>
+  
   <entityFactory>
-    <!--<folder>textures/player</folder>
-    <sprite>adventurer-v1.5-Sheet.png</sprite>-->
+   
 
     <enemy>
 
       <folder>textures/enemies</folder>
-      <!--For SomeReason Doesnt blit enemy-->
+   
       <sprite>enemy.png</sprite>
 
       <movement_speed value="270.0f"/>
@@ -59,7 +62,6 @@
     <FlyingEnemy>
 
       <folder>textures/enemies</folder>
-      <!--For SomeReason Doesnt blit enemy-->
       <sprite>flyingenemy.png</sprite>
 
 
@@ -82,6 +84,23 @@
       </animations>
 
     </FlyingEnemy>
+
+    <collectable>
+
+      <folder>textures/ui</folder>
+      <sprite>atlas.png</sprite>
+
+      <animations>
+        <frame x="0" y="664" w ="14" h="14"/>
+        <frame x="16" y="664" w ="11" h="14"/>
+        <frame x="30" y="664" w ="5" h="14"/>
+        <frame x="38" y="664" w ="11" h="14"/>
+        <frame x="51" y="664" w ="14" h="14"/>
+        <frame x="67" y="664" w ="14" h="14"/>
+        <frame x="81" y="664" w ="5" h="14"/>
+        <frame x="89" y="664" w ="11" h="14"/>
+      </animations>
+    </collectable>
     <player>
       
       <folder>textures/player</folder>

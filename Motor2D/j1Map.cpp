@@ -385,11 +385,14 @@ bool j1Map::Load(const char* file_name)
 		
 		std::string type = node.attribute("name").as_string();
 
-		if(type == "colliders")
+		if (type == "colliders")
 			LoadCollidersLayer(node);
 
 		else if (type == "triggers")
 			LoadUtilsLayer(node);
+
+		else if (type == "collectables")
+			LoadCollectableLayer(node);
 
 		LOG("iterated objectgroup");
 	}
@@ -696,6 +699,21 @@ bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
 	}
 
 	return true;
+}
+
+bool j1Map::LoadCollectableLayer(pugi::xml_node& node)
+{
+	pugi::xml_node_iterator it = node.begin();
+	while (it != node.end())
+	{
+
+		if (strcmp("coin", (*it).attribute("type").as_string()) == 0)
+			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::COLLECTABLE);
+
+		++it;
+	}
+
+	return false;
 }
 
 

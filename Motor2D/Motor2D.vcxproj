@@ -108,6 +108,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="ColorManager.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="grounded_particle.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="TestEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collectable.h" />
     <ClInclude Include="ColorManager.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="grounded_particle.h" />

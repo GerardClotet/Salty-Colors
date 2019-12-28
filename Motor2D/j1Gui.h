@@ -115,10 +115,12 @@ public:
 
 
 	SDL_Texture* GetAtlas() const;
+	void SetAtlas(SDL_Texture* tex);
 
 private:
 	p2List<j1UIElement*> elements;
 	SDL_Texture* atlas;
+
 	p2SString atlas_file_name;
 };
 

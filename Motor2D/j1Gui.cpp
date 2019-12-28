@@ -11,6 +11,8 @@
 j1Gui::j1Gui() : j1Module()
 {
 	LOG("GUI module started");
+
+	name.assign("gui");
 }
 
 // Destructor
@@ -23,7 +25,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
-	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	atlas_file_name = conf.child("atlas").attribute("file").as_string();
 
 	return ret;
 }
@@ -31,6 +33,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
+	if(atlas == nullptr)
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
 	return true;
@@ -163,6 +166,11 @@ j1UIButton* j1Gui::CreateButton(iPoint pos, j1UIElement* parent)
 SDL_Texture* j1Gui::GetAtlas() const
 {
 	return atlas;
+}
+
+void j1Gui::SetAtlas(SDL_Texture* tex)
+{
+	atlas = tex;
 }
 
 // class Gui ---------------------------------------------------
