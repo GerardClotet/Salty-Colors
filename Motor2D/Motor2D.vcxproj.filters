@@ -82,10 +82,14 @@
     <ClCompile Include="particle.cpp">
       <Filter>Desenvolupament  ========\Entities\particles</Filter>
     </ClCompile>
-    <ClCompile Include="j1Fonts.cpp" />
-    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="Collectable.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,10 +198,14 @@
     <ClInclude Include="particle.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="j1Fonts.h" />
-    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="Collectable.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

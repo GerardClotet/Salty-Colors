@@ -54,6 +54,23 @@ bool j1Scene::Start()
 	uchar* data = NULL;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
+
+	
+		main_menu_panel = App->gui->CreateImage({ 2,2 }, { 957,0,873,960 });
+		main_menu_panel->scale_Y = 1.17F;
+		main_menu_button_play = App->gui->CreateButton({ 100, 75 }, main_menu_panel);
+		main_menu_button_continue = App->gui->CreateButton({ 100, 175 }, main_menu_panel);
+		main_menu_button_settings = App->gui->CreateButton({ 100, 275 }, main_menu_panel);
+		main_menu_button_credits = App->gui->CreateButton({ 100, 375 }, main_menu_panel);
+		main_menu_button_exit = App->gui->CreateButton({ 100, 475 }, main_menu_panel);
+
+		main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 }, main_menu_button_play);
+		main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, main_menu_button_continue);
+		main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, main_menu_button_settings);
+		main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
+		main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
+	
+	
 	
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
@@ -68,10 +85,6 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
-
-
-	
 
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
@@ -97,6 +110,7 @@ bool j1Scene::PreUpdate()
 
 	PartyMaker();
 	App->render->SetBackgroundColor({ red,green,blue });
+
 
 
 	return true;
@@ -188,6 +202,18 @@ bool j1Scene::PostUpdate()
 	{
 		CameraFollowingUpdate();
 
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		LOG("POLLA COMA UNA CASA");
+
+		if (menu_Active == false)
+		{
+			menu_Active = true;
+		}
+		else menu_Active = false;
+	
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

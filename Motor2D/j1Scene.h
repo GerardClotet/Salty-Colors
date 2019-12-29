@@ -68,10 +68,23 @@ public:
 
 	/*---SFX---*/
 
+	j1UIElement* main_menu_panel;
+	j1UIElement* main_menu_button_play;
+	j1UIElement* main_menu_button_continue;
+	j1UIElement* main_menu_button_settings;
+	j1UIElement* main_menu_button_credits;
+	j1UIElement* main_menu_button_exit;
+
+	j1UIElement* main_menu_button_play_text;
+	j1UIElement* main_menu_button_continue_text;
+	j1UIElement* main_menu_button_settings_text;
+	j1UIElement* main_menu_button_credits_text;
+	j1UIElement* main_menu_button_exit_text;
 
 	iPoint origin;
 	iPoint destination;
 	bool initpath = false;
+	bool menu_Active = false;
 
 	p2DynArray<iPoint> current_path;
 
@@ -90,6 +103,7 @@ private:
 	bool incB = true;
 	bool stopX = false;
 	bool stopY = false;
+	
 	int counter = 0;
 
 	Uint8 red=0;

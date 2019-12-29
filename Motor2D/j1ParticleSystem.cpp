@@ -45,10 +45,10 @@ bool j1ParticleSystem::Start()
 
 bool j1ParticleSystem::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		App->particles->AddParticle(App->particles->test, App->entityFactory->player->position.x, App->entityFactory->player->position.y, { 1,1 });
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	//{
+	//	App->particles->AddParticle(App->particles->test, App->entityFactory->player->position.x, App->entityFactory->player->position.y, { 1,1 });
+	//}
 
 
 	return true;
