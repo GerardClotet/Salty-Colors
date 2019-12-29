@@ -702,10 +702,10 @@ void j1Map::LoadUtilsLayer(pugi::xml_node& node)
 		++it;
 	}
 
-	if (App->entityFactory->player != nullptr /*&& App->entityFactory->player->mantain_collectables*/)
+	if (App->entityFactory->player != nullptr )
 	{
 		App->entityFactory->CheckifCoinsWereTaken();
-		App->entityFactory->player->mantain_collectables = false;
+		
 	}
 
 }

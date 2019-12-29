@@ -294,6 +294,11 @@ void j1UIElement::SetScale(float scaleX, float scaleY)
 	scale_Y = scaleY;
 }
 
+void j1UIElement::SetGlobalScale(float scale)
+{
+	global_scale = scale;
+}
+
 void j1UIElement::DadEnabled()
 {
 	if (parent != nullptr)
@@ -332,7 +337,7 @@ bool j1UIImage::UIBlit()
 	if (image)
 	{
 		iPoint screen_pos = GetScreenPos();
-		App->render->Blit(App->gui->GetAtlas(), screen_pos.x, screen_pos.y, &rect_sprite, 0.0, false, false, 1.0F, INT_MAX, INT_MAX, scale_X, scale_Y);
+		App->render->Blit(App->gui->GetAtlas(), screen_pos.x, screen_pos.y, &rect_sprite, 0.0, false, false, global_scale, INT_MAX, INT_MAX, scale_X, scale_Y);
 	}
 	
 	return true;

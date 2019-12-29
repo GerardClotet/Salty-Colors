@@ -48,6 +48,7 @@ public:
 	int GetCurrentLives()const;
 
 	std::string GetCoinsToString()const;
+	std::string GetLivesToString()const;
 public:
 	
 	std::list<j1Entity*>	entities;

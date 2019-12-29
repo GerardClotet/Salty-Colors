@@ -37,6 +37,7 @@ public:
 	float scale_X = 1.0F;
 	float scale_Y = 1.0F;
 
+	float global_scale = 1.0f;
 
 	j1UIElement(j1UIElement* parent = nullptr);
 	~j1UIElement();
@@ -52,6 +53,7 @@ public:
 	void GetScale(float& scaleX, float& scaleY);
 	void SetScale(float scaleX, float scaleY);
 
+	void SetGlobalScale(float scale);
 	void DadEnabled();
 	void SetEnabled(bool enabled);
 	bool GetEnabled()const;

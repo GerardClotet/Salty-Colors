@@ -8,7 +8,7 @@
 #include "FlyingEnemy.h"
 #include "Collectable.h"
 #include <algorithm>
-
+#include "j1Scene.h"
 j1EntityFactory::j1EntityFactory()
 {
 	name.assign("entityFactory");
@@ -341,6 +341,7 @@ void j1EntityFactory::CheckifCoinsWereTaken()
 
 		coins = 0;
 		reward_counter = 0;
+
 		return;
 	}
 
@@ -419,4 +420,9 @@ int j1EntityFactory::GetCurrentLives() const
 std::string j1EntityFactory::GetCoinsToString() const
 {
 	return std::to_string(coins);
+}
+
+std::string j1EntityFactory::GetLivesToString() const
+{
+	return std::to_string(lives);
 }

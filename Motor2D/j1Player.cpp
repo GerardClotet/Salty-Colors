@@ -219,8 +219,6 @@ void j1Player::Die()
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
-		//App->entityFactory->DeleteAllEnemies();
-		mantain_collectables = true;
 
 	}
 	else if(dead) {
@@ -233,8 +231,6 @@ void j1Player::Die()
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
-		//App->entityFactory->DeleteAllEnemies();
-		mantain_collectables = true;
 
 	}
 

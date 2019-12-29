@@ -55,7 +55,6 @@ public:
 	bool ready_toBounce_right = false;
 
 	
-	bool mantain_collectables = false;
 
 private:
 	bool startDash = false;
