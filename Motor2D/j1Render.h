@@ -36,7 +36,7 @@ public:
 	// Blit
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
-	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, bool flipX = false, bool flipY = false, float spriteScale =1.f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
+	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, bool flipX = false, bool flipY = false, float spriteScale = 1.f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX, float scaleX = 1.0F, float scaleY = 1.0F) const;
 	bool BlitMap(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speedX = 1.0f,float speedY =1.0f, bool flipX = false, bool flipY = false, float spriteScale = 1.f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
 
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
