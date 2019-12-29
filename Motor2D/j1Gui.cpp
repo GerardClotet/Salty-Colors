@@ -87,6 +87,10 @@ bool j1Gui::PreUpdate()
 	for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
 	{
 		j1UIElement* current_element = item->data;
+
+		if (item->data->GetEnabled() == false)
+			continue;
+
 		if (selected_element && selected_element == current_element)
 		{
 			if (!current_element->hovered)

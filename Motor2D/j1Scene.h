@@ -100,6 +100,7 @@ public:
 
 	//*/SettingsMenu/*//
 
+	j1UIElement* settings_parent_panel;
 	j1UIElement* settings_menu_panel;
 	j1UIElement* settings_menu_button_main_menu;
 	j1UIElement* settings_menu_button_main_menu_text;
