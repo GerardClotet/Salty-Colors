@@ -75,7 +75,6 @@ bool j1EntityFactory::Update(float dt)
 
 	bool ret = true;
 	std::list<j1Entity*>::iterator item = entities.begin();
-	LOG("num entities %i", entities.size());
 	for (; item != entities.end();)
 	{
 		if ((*item) != nullptr)

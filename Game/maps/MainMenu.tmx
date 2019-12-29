@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="4">
- <tileset firstgid="1" source="435978.tsx"/>
- <imagelayer id="5" name="background" offsetx="-4" offsety="-440">
-  <image source="435978.png" width="1920" height="1080"/>
- </imagelayer>
-</map>

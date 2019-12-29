@@ -25,7 +25,6 @@
   <scene>
     <map_name name="Level1.tmx"></map_name>
     <map_name name="Level2.tmx"></map_name>
-    <map_name name ="MainMenu.tmx"></map_name>
     <fade_time value="2"/>
   </scene>
 

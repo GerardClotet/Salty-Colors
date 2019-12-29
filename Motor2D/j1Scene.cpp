@@ -108,6 +108,9 @@ bool j1Scene::Start()
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
+
+	//Gold_icon = App->gui->CreateImage
+
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
@@ -122,7 +125,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
@@ -200,18 +203,21 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (App->swapScene->GetCurrentStep() == fade_step::none)
+		{
+			App->entityFactory->ClearCoinVec();
 			Loadlvl(0); //reset to first level (player, cam..)
+		}
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		if (App->swapScene->GetCurrentStep() == fade_step::none)
+		{
+			App->entityFactory->ClearCoinVec();
 			Loadlvl(1); // reset current level (player, cam..)
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		Loadlvl(2);
-	}
+
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		ReLoadLevel();// reset current level (player, cam..)
@@ -288,13 +294,7 @@ bool j1Scene::Loadlvl(int lvl)
 					App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 					maptoReset = 0;
 				}
-				else if (i == 2)
-				{
-			
-					App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
-						maptoReset = 2;
-						App->entityFactory->CleanUp();
-				}
+		
 
 				
 

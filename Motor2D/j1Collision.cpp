@@ -55,6 +55,7 @@ bool j1Collision::PreUpdate()
 						
 						if (!Triggercolliding)
 						{
+							App->entityFactory->ClearCoinVec();
 							App->scene->TriggerColl();
 							App->audio->PlayFx(App->scene->endLvlSFX, NO_REPEAT);
 					

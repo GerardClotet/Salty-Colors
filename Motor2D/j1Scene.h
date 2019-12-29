@@ -116,6 +116,12 @@ public:
 
 	//-------------------------------------------//
 
+	/*In Game UI*/
+	j1UIElement* Lives;
+
+	j1UIElement* Gold_icon;
+
+	j1UIElement* Gold_Label;
 
 	iPoint origin;
 	iPoint destination;
