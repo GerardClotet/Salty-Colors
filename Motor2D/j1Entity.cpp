@@ -64,7 +64,7 @@ iPoint j1Entity::GetPosition()
 
 void j1Entity::MovX()
 {
-	if (state != GOD)
+	if (state != GOD && collider != nullptr)
 	{
 		Collider* type;
 		float distance;
@@ -123,17 +123,21 @@ void j1Entity::MovX()
 	/**/
 
 	position.x += velocity.x;
-	collider->rect.x = position.x;
+	if(collider != nullptr)
+		collider->rect.x = position.x;
 }
 
 void j1Entity::MovY()
 {
-	if (state != GOD)
+	if (state != GOD && collider != nullptr)
 	{
 		Collider* type;
 		float distance;
+
+
 		if (velocity.y < 0)
 		{
+			
 			distance = App->collision->DistanceToTopCollider(collider,type);
 			
 			velocity.y = MAX(velocity.y, distance);
@@ -163,7 +167,8 @@ void j1Entity::MovY()
 
 
 	position.y += velocity.y;
-	collider->rect.y = position.y; 
+	if (collider != nullptr)
+		collider->rect.y = position.y; 
 
 }
 

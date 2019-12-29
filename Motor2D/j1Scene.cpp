@@ -195,7 +195,7 @@ bool j1Scene::SwapMap()
 bool j1Scene::Loadlvl(int lvl)
 {
 
-	
+	App->entityFactory->CleanUp();
 	std::list<std::string>::iterator item = App->scene->map_names.begin();
 	int i = 0;
 		for (; item != App->scene->map_names.end(); ++item)
