@@ -2,6 +2,13 @@
 
 ### This game is for educational purposes for Development subject
 
+## Introduction
+
+This game is made for educationa purposes for Game Development subject at UPC - CITM
+it is made with SDL2.
+
+In this 2D game you are going to pass through challengin map design and powerfull enemies that will kill you or block
+your way with intention of making you fall and die.
 
 ***
 ## Instalation 
@@ -52,9 +59,11 @@ As a result the wall will force your direction to change in the oposite side.
 
 ## Authors
 Alexandru Mihai Cercel
-
+![Alexandru Mihai Cercel](https://github.com/GerardClotet/Dev-Game/blob/master/teamphotos/drum.jpg)
 [Github account](https://github.com/AlexandruC5)
 
+
+![Gerard Clotet Rodriguez](https://github.com/GerardClotet/Dev-Game/blob/master/teamphotos/gerard.jpg)
 Gerard Clotet Rodríguez
 
 [Github account](https://github.com/GerardClotet)
