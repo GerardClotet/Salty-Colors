@@ -43,8 +43,7 @@ public:
 
 
 
-	void IncreaseLifesBy(int inc);
-	int GetCurrentLives()const;
+	
 public:
 
 	

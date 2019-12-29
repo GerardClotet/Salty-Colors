@@ -56,22 +56,26 @@ bool j1Scene::Start()
 		App->pathfinding->SetMap(w, h, data);
 
 	
-		main_menu_panel = App->gui->CreateImage({ 2,2 }, { 957,0,873,960 });
-		main_menu_panel->scale_Y = 1.17F;
-		main_menu_button_play = App->gui->CreateButton({ 100, 75 }, main_menu_panel);
-		main_menu_button_continue = App->gui->CreateButton({ 100, 175 }, main_menu_panel);
-		main_menu_button_settings = App->gui->CreateButton({ 100, 275 }, main_menu_panel);
-		main_menu_button_credits = App->gui->CreateButton({ 100, 375 }, main_menu_panel);
-		main_menu_button_exit = App->gui->CreateButton({ 100, 475 }, main_menu_panel);
+	main_menu_panel = App->gui->CreateImage({ 2,2 }, { 957,0,873,960 });
+	main_menu_panel->scale_Y = 1.17F;
+	main_menu_button_play = App->gui->CreateButton({ 100, 75 }, main_menu_panel);
+	main_menu_button_continue = App->gui->CreateButton({ 100, 175 }, main_menu_panel);
+	main_menu_button_settings = App->gui->CreateButton({ 100, 275 }, main_menu_panel);
+	main_menu_button_credits = App->gui->CreateButton({ 100, 375 }, main_menu_panel);
+	main_menu_button_exit = App->gui->CreateButton({ 100, 475 }, main_menu_panel);
 
-		main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 }, main_menu_button_play);
-		main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, main_menu_button_continue);
-		main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, main_menu_button_settings);
-		main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
-		main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
+	main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 }, main_menu_button_play);
+	main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, main_menu_button_continue);
+	main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, main_menu_button_settings);
+	main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
+	main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
 	
 	
 	
+
+
+
+
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
@@ -161,12 +165,16 @@ bool j1Scene::PostUpdate()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Loadlvl(0); //reset to first level (player, cam..)
-
+	{
+		if (App->swapScene->GetCurrentStep() == fade_step::none)
+			Loadlvl(0); //reset to first level (player, cam..)
+	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		Loadlvl(1); // reset current level (player, cam..)
-
+	{
+		if (App->swapScene->GetCurrentStep() == fade_step::none)
+			Loadlvl(1); // reset current level (player, cam..)
+	}
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
 		Loadlvl(2);
@@ -203,6 +211,14 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	//Deleting EntityAssets
+
+	App->tex->UnLoad(App->entityFactory->player_tex);
+	App->tex->UnLoad(App->entityFactory->coin_tex);
+	App->tex->UnLoad(App->entityFactory->fly_enemy_tex);
+	App->tex->UnLoad(App->entityFactory->walk_enemy_tex);
+	
+	
 	return true;
 }
 

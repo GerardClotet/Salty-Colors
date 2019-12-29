@@ -90,6 +90,9 @@ public:
 
 	SDL_Texture* pathtile;
 
+
+
+
 	unsigned int stepSFX;
 	unsigned int landSFX;
 	unsigned int jumpSFX;

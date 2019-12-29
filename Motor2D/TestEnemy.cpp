@@ -5,14 +5,13 @@
 #include "j1Map.h"
 #include "Brofiler/Brofiler.h"
 #include "p2Log.h"
-
+#include "j1Scene.h"
 
 TestEnemy::TestEnemy(iPoint pos) : j1Enemy(pos)
 {
 	AwakeAttributes(App->config);
-	entityTex = App->tex->Load(sprite_route.data());
+	entityTex = App->entityFactory->walk_enemy_tex;
 	
-	LOG("%s", sprite_route.data());
 	position = pos;
 	animation_Coll = { 0,0,52,41 };
 	collider = App->collision->AddCollider(animation_Coll, COLLIDER_ENEMY, App->entityFactory, true);

@@ -678,7 +678,10 @@ void j1Map::LoadUtilsLayer(pugi::xml_node& node)
 		if (strcmp("start", (*it).attribute("type").as_string()) == 0)
 		{
 			App->entityFactory->CreateEntity({ (*it).attribute("x").as_int(), (*it).attribute("y").as_int() }, E_TYPE::PLAYER);
-
+			if (App->entityFactory->previous_play)
+			{
+				App->entityFactory->player->SetPos(App->entityFactory->temp_pos);
+			}
 	
 		}
 

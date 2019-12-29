@@ -209,3 +209,8 @@ bool j1MapChange::Load(pugi::xml_node& node)
 	
 	return true;
 }
+
+fade_step j1MapChange::GetCurrentStep() const
+{
+	return current_step;
+}

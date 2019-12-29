@@ -57,12 +57,9 @@ bool j1Collision::PreUpdate()
 						{
 							App->scene->TriggerColl();
 							App->audio->PlayFx(App->scene->endLvlSFX, NO_REPEAT);
-							App->entityFactory->player->ResetPlayer();
-							//App->entityFactory->DeleteAllEnemies();
+					
 							Triggercolliding = true;
-							App->entityFactory->player->lockInput = true;
 						}
-						App->entityFactory->player->ResetPlayer();
 
 					}
 					if (colliders[i]->callback)
@@ -78,6 +75,13 @@ bool j1Collision::PreUpdate()
 					{
 
 						App->entityFactory->coins += 1;
+						App->entityFactory->reward_counter += 1;
+						if (App->entityFactory->reward_counter == 10)
+						{
+							App->entityFactory->IncreaseLifesBy(1);
+							App->entityFactory->reward_counter = 0;
+
+						}
 						App->audio->PlayFx(App->scene->coinSFX);
 						
 						if (colliders[i]->callback)

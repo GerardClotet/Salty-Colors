@@ -5,6 +5,13 @@
 #include "SDL\include\SDL_rect.h"
 #include <list>
 
+
+enum fade_step
+{
+	none,
+	fade_to_black,
+	fade_from_black
+};
 class j1MapChange : public j1Module
 {
 	//-------------Functions-----------------
@@ -37,6 +44,7 @@ public:
 
 	bool Load(pugi::xml_node&);
 
+	fade_step GetCurrentStep() const;
 private:
 
 	//-------------Variables-----------------
@@ -45,12 +53,7 @@ public:
 	bool fading = false;
 
 private:
-	enum fade_step
-	{
-		none,
-		fade_to_black,
-		fade_from_black
-	} current_step = fade_step::none;
+	fade_step current_step = fade_step::none;
 
 
 	int nextMap;

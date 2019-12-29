@@ -9,12 +9,12 @@
 #include "j1Input.h"
 #include "j1EntityFactory.h"
 #include "j1Gui.h"
-
+#include "j1Scene.h"
 Collectable::Collectable(iPoint pos) : j1Entity(pos)
 {
 	AwakeAttributes(App->config);
 	
-		entityTex = App->tex->Load(sprite_route.data());
+	entityTex = App->entityFactory->coin_tex;
 
 
 	position = pos;
@@ -29,6 +29,7 @@ Collectable::Collectable(iPoint pos) : j1Entity(pos)
 
 Collectable::~Collectable()
 {
+	
 }
 
 bool Collectable::Start()

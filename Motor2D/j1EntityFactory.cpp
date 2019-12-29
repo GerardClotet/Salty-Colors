@@ -31,6 +31,12 @@ bool j1EntityFactory::Start()
 {
 	std::list<j1Entity*>::iterator iter = entities.begin();
 
+	player_tex = App->tex->Load("textures/player/adventurer-v1.5-Sheet.png");
+	walk_enemy_tex = App->tex->Load("textures/enemies/enemy.png");
+	coin_tex = App->tex->Load("textures/ui/atlas.png");
+	fly_enemy_tex = App->tex->Load("textures/enemies/flyingenemy.png");
+
+
 	for (; iter != entities.end(); ++iter)
 	{
 		if ((*iter) != nullptr)
@@ -330,9 +336,12 @@ void j1EntityFactory::DeleteAllCollectables()
 
 void j1EntityFactory::CheckifCoinsWereTaken()
 {
-	if (player->GetCurrentLives() == 0)
+	if (GetCurrentLives() == 0)
 	{
-		player->IncreaseLifesBy(MAX_LIVES);
+		SetLivesTo(MAX_LIVES);
+
+		coins = 0;
+		reward_counter = 0;
 		return;
 	}
 
@@ -390,4 +399,20 @@ std::vector<int> j1EntityFactory::GetCoinVec() const
 void j1EntityFactory::ClearCoinVec()
 {
 	coins_ids.clear();
+}
+
+void j1EntityFactory::IncreaseLifesBy(int inc)
+{
+	lives += inc;
+}
+
+void j1EntityFactory::SetLivesTo(int l)
+{
+	if(l >=0)
+		lives = l;
+}
+
+int j1EntityFactory::GetCurrentLives() const
+{
+	return lives;
 }
