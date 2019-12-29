@@ -699,6 +699,12 @@ void j1Map::LoadUtilsLayer(pugi::xml_node& node)
 		++it;
 	}
 
+	if (App->entityFactory->player != nullptr /*&& App->entityFactory->player->mantain_collectables*/)
+	{
+		App->entityFactory->CheckifCoinsWereTaken();
+		App->entityFactory->player->mantain_collectables = false;
+	}
+
 }
 
 void j1Map::LoadCollectableLayer(pugi::xml_node& node)
@@ -720,11 +726,7 @@ void j1Map::LoadCollectableLayer(pugi::xml_node& node)
 
 		++it;
 	}
-	if (App->entityFactory->player != nullptr && App->entityFactory->player->mantain_collectables)
-	{
-		App->entityFactory->CheckifCoinsWereTaken();
-		App->entityFactory->player->mantain_collectables = false;
-	}
+	
 
 }
 

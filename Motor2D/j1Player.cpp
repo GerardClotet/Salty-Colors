@@ -213,7 +213,7 @@ void j1Player::Die()
 		this->to_delete = true;
 		this->collider->to_delete = true;
 
-		lives--;
+		App->entityFactory->lives--;
  		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
@@ -225,7 +225,7 @@ void j1Player::Die()
 	else if(dead) {
 		this->to_delete = true;
 		this->collider->to_delete = true;
-		lives--;
+		App->entityFactory->lives--;
 		dead = false;
 		state = DEAD;
 		Mix_PausedMusic();
@@ -555,12 +555,12 @@ bool j1Player::Save(pugi::xml_node&data) const
 
 void j1Player::IncreaseLifesBy(int inc)
 {
-	lives += inc;
+	App->entityFactory->lives += inc;
 }
 
 int j1Player::GetCurrentLives() const
 {
-	return lives;
+	return App->entityFactory->lives;
 }
 
 

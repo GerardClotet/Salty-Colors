@@ -6,7 +6,6 @@
 #define MAX_DASHES 1
 #define DASH_DISTANCE 150
 #define STEP_TIME 250.0F
-#define MAX_LIVES 3
 
 class j1Player : public j1Entity
 {
@@ -77,7 +76,6 @@ private:
 
 
 
-	int lives = MAX_LIVES;
 
 };
 

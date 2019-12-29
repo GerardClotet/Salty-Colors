@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <list>
+#define MAX_LIVES 3
 
 
 class j1EntityFactory : public j1Module //ENTITY MANAGER AND CREATOR
@@ -51,6 +52,8 @@ public:
 	int maxframes = 4;
 	bool playerActive = false;
 	int coins = 0;
+	int lives = MAX_LIVES;
+
 
 private:
 	std::vector<j1Entity*>	draw_entities;
