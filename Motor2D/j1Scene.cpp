@@ -88,8 +88,26 @@ bool j1Scene::Start()
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
+		/**///SettingsMenu///**/
 
-	
+		settings_menu_panel = App->gui->CreateImage({ 450,50 }, { 551,711,380,539 });
+		settings_menu_panel->scale_Y = 0.6F;
+		settings_menu_button_main_menu = App->gui->CreateButton({ 100, 180 }, settings_menu_panel);
+		settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
+		settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
+
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
+		/**///CreditsMenu///**/
+
+		credits_menu_panel = App->gui->CreateImage({ 450,50 }, { 551,711,380,539 });
+		credits_menu_panel->scale_Y = 0.9F;
+		credits_menu_button_main_menu = App->gui->CreateButton({ 100, 320 }, credits_menu_panel);
+		credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, credits_menu_button_main_menu);
+		credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, credits_menu_button_main_menu);
+
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
