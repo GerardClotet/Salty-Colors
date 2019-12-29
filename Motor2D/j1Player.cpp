@@ -8,13 +8,12 @@
 #include "j1Input.h"
 #include "j1Player.h"
 #include "j1EntityFactory.h"
-#include "j1ParticleSystem.h"
+
 j1Player::j1Player(iPoint pos) : j1Entity(pos)
 {
 
 	AwakeAttributes(App->config);
-	entityTex = App->tex->Load(sprite_route.data());
-	LOG("%s", sprite_route.data());
+	entityTex = App->entityFactory->player_tex;
 	position = pos;
 
 	animation_Coll = { 0,0,24,42 };
@@ -28,6 +27,8 @@ j1Player::j1Player(iPoint pos) : j1Entity(pos)
 
 j1Player::~j1Player()
 {
+	if (collider != nullptr)
+		collider->to_delete = true;
 }
 
 bool j1Player::Start()
@@ -213,8 +214,8 @@ void j1Player::Die()
 		this->to_delete = true;
 		this->collider->to_delete = true;
 
-		App->entityFactory->lives--;
- 		state = DEAD;
+		App->entityFactory->IncreaseLifesBy(-1);
+		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
@@ -225,7 +226,8 @@ void j1Player::Die()
 	else if(dead) {
 		this->to_delete = true;
 		this->collider->to_delete = true;
-		App->entityFactory->lives--;
+		
+		App->entityFactory->IncreaseLifesBy(-1);
 		dead = false;
 		state = DEAD;
 		Mix_PausedMusic();
@@ -494,7 +496,8 @@ bool j1Player::Load(pugi::xml_node&data)
 	position.x = data.child("Player").attribute("x").as_int();
 	position.y = data.child("Player").attribute("y").as_int();
 
-
+	App->entityFactory->temp_pos = position;
+	App->entityFactory->previous_play = true;
 	velocity.x = data.child("Player").child("velocity").attribute("x").as_float();
 	velocity.y = data.child("Player").child("velocity").attribute("y").as_float();
 
@@ -505,6 +508,7 @@ bool j1Player::Load(pugi::xml_node&data)
 	is_grounded = data.child("Player").child("is_grounded").attribute("value").as_bool();
 	flipX = data.child("Player").child("flipX").attribute("value").as_bool();
 
+	App->entityFactory->SetLivesTo(data.child("Player").child("Lives").attribute("value").as_int());
 	for (auto node : data.child("Player").children("coin_id"))
 	{
 
@@ -536,7 +540,7 @@ bool j1Player::Save(pugi::xml_node&data) const
 	Ppos.append_child("state").append_attribute("value") = state != DEAD ? (int)state : (int)IDLE;
 	Ppos.append_child("is_grounded").append_attribute("value") = is_grounded;
 	Ppos.append_child("flipX").append_attribute("value") = flipX;
-
+	Ppos.append_child("Lives").append_attribute("value") = App->entityFactory->GetCurrentLives();
 	
 	std::vector<int>::const_iterator it = App->entityFactory->GetCoinVec().begin();
 
@@ -553,15 +557,6 @@ bool j1Player::Save(pugi::xml_node&data) const
 
 
 
-void j1Player::IncreaseLifesBy(int inc)
-{
-	App->entityFactory->lives += inc;
-}
-
-int j1Player::GetCurrentLives() const
-{
-	return App->entityFactory->lives;
-}
 
 
 bool j1Player::AwakeAttributes(pugi::xml_node config)

@@ -12,6 +12,7 @@ j1Entity::j1Entity(iPoint position)
 
 j1Entity::~j1Entity()
 {
+	collider = nullptr;
 
 }
 

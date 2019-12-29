@@ -5,15 +5,15 @@
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 
-
-
+#include "j1Textures.h"
+#include "j1Scene.h"
 
 FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 
 	AwakeAttributes(App->config);
-	entityTex = App->tex->Load(sprite_route.data());
+	entityTex = App->entityFactory->fly_enemy_tex;
 
-	LOG("%s", sprite_route.data());
+	//LOG("%s", sprite_route.data());
 
 	position = pos;
 	animation_Coll = { 0,0, 19, 30 };
@@ -29,6 +29,7 @@ FlyingEnemy::FlyingEnemy(iPoint pos) : j1Enemy(pos) {
 
 FlyingEnemy::~FlyingEnemy()
 {
+	collider = nullptr;
 }
 
 bool FlyingEnemy::PreUpdate()

@@ -18,7 +18,6 @@ class j1EntityFactory;
 class j1Collision;
 class j1MapChange;
 class j1PathFinding;
-class j1ParticleSystem;
 class j1Gui;
 class j1Fonts;
 
@@ -101,7 +100,6 @@ public:
 	j1Collision*		collision;
 	j1PathFinding*		pathfinding;
 	j1MapChange*		swapScene;
-	j1ParticleSystem*	particles;
 	j1Gui*				gui;
 	j1Fonts*			fonts;
 

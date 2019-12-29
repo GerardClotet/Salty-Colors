@@ -200,12 +200,16 @@ bool j1Scene::PostUpdate()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Loadlvl(0); //reset to first level (player, cam..)
-
+	{
+		if (App->swapScene->GetCurrentStep() == fade_step::none)
+			Loadlvl(0); //reset to first level (player, cam..)
+	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		Loadlvl(1); // reset current level (player, cam..)
-
+	{
+		if (App->swapScene->GetCurrentStep() == fade_step::none)
+			Loadlvl(1); // reset current level (player, cam..)
+	}
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
 		Loadlvl(2);
@@ -242,6 +246,14 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	//Deleting EntityAssets
+
+	App->tex->UnLoad(App->entityFactory->player_tex);
+	App->tex->UnLoad(App->entityFactory->coin_tex);
+	App->tex->UnLoad(App->entityFactory->fly_enemy_tex);
+	App->tex->UnLoad(App->entityFactory->walk_enemy_tex);
+	
+	
 	return true;
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="196">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="144" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="214">
  <properties>
   <property name="BackgroudMusic" value="OuterWorldBGM.ogg"/>
  </properties>
@@ -34622,9 +34622,25 @@
   </data>
  </layer>
  <objectgroup id="11" name="collectables">
-  <object id="193" name="collectable" type="coin" x="163.636" y="512.121" width="45.4545" height="51.5152"/>
+  <object id="193" name="collectable" type="coin" x="600" y="1100" width="45.4545" height="51.5152"/>
   <object id="194" name="collectable" type="coin" x="509.091" y="736.364" width="45.4545" height="51.5152"/>
   <object id="195" name="collectable" type="coin" x="342.424" y="618.182" width="45.4545" height="51.5152"/>
+  <object id="196" name="collectable" type="coin" x="186.364" y="537.879" width="45.4545" height="51.5152"/>
+  <object id="197" name="collectable" type="coin" x="959.091" y="1201.52" width="45.4545" height="51.5152"/>
+  <object id="198" name="collectable" type="coin" x="1159.09" y="1222.73" width="45.4545" height="51.5152"/>
+  <object id="199" name="collectable" type="coin" x="1419.7" y="1234.85" width="45.4545" height="51.5152"/>
+  <object id="200" name="collectable" type="coin" x="1710.61" y="1231.82" width="45.4545" height="51.5152"/>
+  <object id="201" name="collectable" type="coin" x="1928.79" y="1071.21" width="45.4545" height="51.5152"/>
+  <object id="202" name="collectable" type="coin" x="1974.73" y="932.091" width="45.4545" height="51.5152"/>
+  <object id="203" name="collectable" type="coin" x="1977.36" y="800.667" width="45.4545" height="51.5152"/>
+  <object id="204" name="collectable" type="coin" x="1980.3" y="707.576" width="45.4545" height="51.5152"/>
+  <object id="205" name="collectable" type="coin" x="1974.3" y="586.394" width="45.4545" height="51.5152"/>
+  <object id="206" name="collectable" type="coin" x="1977.88" y="479.576" width="45.4545" height="51.5152"/>
+  <object id="207" name="collectable" type="coin" x="1694.27" y="507.242" width="45.4545" height="51.5152"/>
+  <object id="208" name="collectable" type="coin" x="1950.27" y="238.242" width="45.4545" height="51.5152"/>
+  <object id="210" name="collectable" type="coin" x="2272.27" y="175.242" width="45.4545" height="51.5152"/>
+  <object id="211" name="collectable" type="coin" x="3245.27" y="289.242" width="45.4545" height="51.5152"/>
+  <object id="213" name="collectable" type="coin" x="4497.27" y="80.2424" width="45.4545" height="51.5152"/>
  </objectgroup>
  <objectgroup id="5" name="colliders">
   <object id="119" type="floor" x="0" y="832" width="250" height="93"/>
