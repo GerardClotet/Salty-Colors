@@ -428,23 +428,28 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		{
 			pause_menu_panel->SetEnabled(false), App->pause = false, Mix_ResumeMusic();
 		}
-		else if (element == pause_menu_button_main_menu)
+		 if (element == pause_menu_button_main_menu)
 		{
+			App->gui->DisableElement(pause_menu_panel);
+			App->gui->DisableElement(ingamePanel);
+			if(main_menu_panel->GetEnabled() == false)
+				App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
+
+			App->gui->EnableElement(main_menu_panel);
 
 		}
 		else if (element == main_menu_button_play)
 		{
-			main_menu_panel->SetEnabled(false);
 			App->entityFactory->player->lockInput = false;
 
 			if(ingamePanel->GetEnabled() == false)
 				App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
 
-			ingamePanel->SetEnabled(true);
+		
 			App->pause = false;
 
 			App->gui->DisableElement(main_menu_panel);
-		
+			App->gui->EnableElement(ingamePanel);
 		}
 		else if (element == main_menu_button_continue)
 		{
@@ -481,23 +486,30 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 			exit(0);
 		}
 
-		else if (element == pause_menu_button_main_menu)
+		// if (element == pause_menu_button_main_menu)
+		//{
+		//
+		//	pause_menu_panel->SetEnabled(false);
+
+
+		//	if(main_menu_panel->GetEnabled() == false)
+		//		App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
+
+		//	main_menu_panel->SetEnabled(true);
+
+		//}
+
+
+		else if (element == pause_menu_button_main_menu_text)
 		{
 
-			
 			pause_menu_panel->SetEnabled(false);
 
 
-			if(main_menu_panel->GetEnabled() == false)
+			if (main_menu_panel->GetEnabled() == false)
 				App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
 
 			main_menu_panel->SetEnabled(true);
-
-			
-
-
-
-			LOG("eeeh");
 
 
 		}
