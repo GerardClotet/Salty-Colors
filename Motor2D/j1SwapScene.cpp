@@ -57,9 +57,13 @@ bool j1MapChange::Update(float dt)
 	{
 	case fade_step::fade_to_black:
 	{
-		App->entityFactory->player->spriteIncrease += 0.1;
-		App->entityFactory->player->ResetPlayer();
+		if (App->entityFactory->player != nullptr)
+		{
+			App->entityFactory->player->spriteIncrease += 0.1;
+			App->entityFactory->player->ResetPlayer();
 
+		}
+		
 
 		if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
 		{
@@ -72,7 +76,8 @@ bool j1MapChange::Update(float dt)
 				if (i == nextMap)
 				{
 					App->map->SwitchMaps((*item).data());
-					App->entityFactory->player->lockInput = false;
+
+					if(App->entityFactory->player!=nullptr)App->entityFactory->player->lockInput = false;
 				}
 
 				++i;
@@ -81,7 +86,7 @@ bool j1MapChange::Update(float dt)
 			start_time = SDL_GetTicks();
 			fading = false;
 			current_step = fade_step::fade_from_black;
-			App->entityFactory->player->ResetPlayer();
+			if (App->entityFactory->player != nullptr) App->entityFactory->player->ResetPlayer();
 
 		}
 	}break;
@@ -89,8 +94,11 @@ bool j1MapChange::Update(float dt)
 	case fade_step::fade_from_black:
 	{
 		normalized = 1.0f - normalized;
-		App->entityFactory->player->spriteIncrease = 1.5f;
-		App->entityFactory->player->ResetPlayer();
+		if (App->entityFactory->player != nullptr)
+		{
+			App->entityFactory->player->spriteIncrease = 1.5f;
+			App->entityFactory->player->ResetPlayer();
+		}
 
 		if (now >= total_time)
 		{

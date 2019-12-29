@@ -146,7 +146,7 @@ bool j1EntityFactory::CleanUp()
 
 	draw_entities.clear();
 
-
+	player = nullptr;
 	//unload entitiesTex and player
 	return ret;
 }
