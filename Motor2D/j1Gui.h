@@ -57,6 +57,7 @@ public:
 	void SetLocalPos(int x, int y);
 	void GetScale(float& scaleX, float& scaleY);
 	void SetScale(float scaleX, float scaleY);
+	
 
 	void SetGlobalScale(float scale);
 	void DadEnabled();
@@ -153,12 +154,14 @@ public:
 
 	j1UIElement* GetElementUnderMouse();
 
+	
 
 	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* tex);
 	void ScaleElement(j1UIElement* element, float scaleX, float scaleY, float time = 0.0F);
 	void EnableElement(j1UIElement* element);
 	void DisableElement(j1UIElement* element);
+
 
 private:
 	p2List<j1UIElement*> elements;
@@ -170,7 +173,7 @@ private:
 	j1Timer scale_timer;
 	float scale_increment_x, scale_increment_y;
 	void DoScale(j1UIElement* element, float scaleX, float scaleY);
-
+	bool debug_draw = false;
 	p2SString atlas_file_name;
 };
 
