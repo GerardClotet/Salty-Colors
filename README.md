@@ -84,6 +84,8 @@ Gerard Clotet Rodríguez
 
 [Repository](https://github.com/GerardClotet/Dev-Game)
 
+## Video
+<video src="https://youtu.be/k9WTJAraa2A" width="640" height="400" controls preload></video>
 
 
 ## License
