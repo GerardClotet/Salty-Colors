@@ -90,9 +90,10 @@ bool j1Scene::Start()
 
 		/**///SettingsMenu///**/
 
-		settings_menu_panel = App->gui->CreateImage({ 450,50 }, { 551,711,380,539 });
-		settings_menu_panel->scale_Y = 0.6F;
-		settings_menu_button_main_menu = App->gui->CreateButton({ 100, 180 }, settings_menu_panel);
+		settings_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+		settings_menu_panel->scale_Y = 0.7F;
+		settings_menu_panel->scale_X = 0.6F;
+		settings_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, settings_menu_panel);
 		settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
 		settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
 
@@ -100,9 +101,10 @@ bool j1Scene::Start()
 
 		/**///CreditsMenu///**/
 
-		credits_menu_panel = App->gui->CreateImage({ 450,50 }, { 551,711,380,539 });
-		credits_menu_panel->scale_Y = 0.9F;
-		credits_menu_button_main_menu = App->gui->CreateButton({ 100, 320 }, credits_menu_panel);
+		credits_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+		credits_menu_panel->scale_Y = 0.7F;
+		credits_menu_panel->scale_X = 0.6F;
+		credits_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, credits_menu_panel);
 		credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, credits_menu_button_main_menu);
 		credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, credits_menu_button_main_menu);
 
@@ -110,6 +112,11 @@ bool j1Scene::Start()
 
 
 	//Gold_icon = App->gui->CreateImage
+		pause_menu_panel->SetEnabled(false);
+		settings_menu_panel->SetEnabled(false);
+		credits_menu_panel->SetEnabled(false);
+		
+
 
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
@@ -347,6 +354,38 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 	case MOUSE_EXIT:
 	{
 
+	}
+	break;
+	case LEFT_CLICK_DOWN:
+	{
+		if (element == pause_menu_button_resume)
+		{
+
+		}
+		else if (element == pause_menu_button_main_menu)
+		{
+
+		}
+		else if (element == main_menu_button_play)
+		{
+			main_menu_panel->SetEnabled(false);
+		}
+		else if (element == main_menu_button_continue)
+		{
+
+		}
+		else if (element == main_menu_button_settings)
+		{
+
+		}
+		else if (element == main_menu_button_credits)
+		{
+
+		}
+		else if (element == main_menu_button_exit)
+		{
+
+		}
 	}
 	break;
 	}

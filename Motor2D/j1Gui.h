@@ -6,11 +6,13 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "SDL/include/SDL_render.h"
+#include "j1Timer.h"
 
 
 #define CURSOR_WIDTH 2
 
 class _TTF_Font;
+class Timer;
 
 enum GUI_Event {
 	LEFT_CLICK_DOWN,
@@ -25,14 +27,16 @@ class j1UIElement
 protected:
 	SDL_Rect rect_box;
 	SDL_Rect rect_sprite;
+	
+
 public:
 	bool hovered = false;
 	bool interactable = false;
 	bool dragable = false;
 	bool enabled = true;
-
 	float scale_X = 1.0F;
 	float scale_Y = 1.0F;
+
 
 	j1UIElement(j1UIElement* parent = nullptr);
 	~j1UIElement();
@@ -45,6 +49,9 @@ public:
 	iPoint GetScreenPos();
 	iPoint GetLocalPos();
 	void SetLocalPos(int x, int y);
+	void GetScale(float& scaleX, float& scaleY);
+	void SetScale(float scaleX, float scaleY);
+
 	void DadEnabled();
 	void SetEnabled(bool enabled);
 
@@ -124,10 +131,18 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* tex);
+	void ScaleElement(j1UIElement* element, float scaleX, float scaleY, float time = 0.0F);
 
 private:
 	p2List<j1UIElement*> elements;
 	SDL_Texture* atlas;
+
+	//scaling
+	j1UIElement* scaling_element = nullptr;
+	uint scale_time = 0;
+	j1Timer scale_timer;
+	float scale_increment_x, scale_increment_y;
+	void DoScale(j1UIElement* element, float scaleX, float scaleY);
 
 	p2SString atlas_file_name;
 };

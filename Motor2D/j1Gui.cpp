@@ -69,6 +69,18 @@ j1UIElement* j1Gui::GetElementUnderMouse()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	//scale
+	if (scaling_element != nullptr)
+	{
+		Uint32 now = scale_timer.Read();
+
+		if (now < scale_time)
+			DoScale(scaling_element, scale_increment_x, scale_increment_y);
+		else if (now >= scale_time)
+			scaling_element = nullptr;
+	}
+	//
+
 	j1UIElement* selected_element = GetElementUnderMouse();
 
 	for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
@@ -122,6 +134,8 @@ bool j1Gui::PostUpdate()
 	{
 		for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
 		{
+			item->data->DadEnabled();
+			if (item->data->enabled)
 			item->data->UIBlit();
 		}
 	}
@@ -175,6 +189,39 @@ SDL_Texture* j1Gui::GetAtlas() const
 void j1Gui::SetAtlas(SDL_Texture* tex)
 {
 	atlas = tex;
+}
+
+void j1Gui::ScaleElement(j1UIElement* element, float scaleX, float scaleY, float time)
+{
+	if (time != 0.0F)
+	{
+		scale_timer.Start();
+		scaling_element = element;
+		scale_time = (uint32)(time * 0.5F * 1000.0F);
+		scale_increment_x = (scaleX / time) / App->frame_rate;
+		scale_increment_y = (scaleY / time) / App->frame_rate;
+	}
+	else
+	{
+		DoScale(element, scaleX, scaleY);
+	}
+}
+
+void j1Gui::DoScale(j1UIElement* element, float scaleX, float scaleY)
+{
+	float scale_x, scale_y;
+	element->GetScale(scale_x, scale_y);
+	scale_x += scaleX;
+	scale_y += scaleY;
+	element->SetScale(scale_x, scale_y);
+
+	for (p2List_item<j1UIElement*>* child_item = elements.start; child_item != NULL; child_item = child_item->next)
+	{
+		if (child_item->data->parent && child_item->data->parent == element)
+		{
+			DoScale(child_item->data, scaleX, scaleY);
+		}
+	}
 }
 
 // class Gui ---------------------------------------------------
@@ -234,6 +281,18 @@ void j1UIElement::SetLocalPos(int x, int y)
 {
 	rect_box.x = x;
 	rect_box.y = y;
+}
+
+void j1UIElement::GetScale(float& scaleX, float& scaleY)
+{
+	scaleX = scale_X;
+	scaleY = scale_Y;
+}
+
+void j1UIElement::SetScale(float scaleX, float scaleY)
+{
+	scale_X = scaleX;
+	scale_Y = scaleY;
 }
 
 void j1UIElement::DadEnabled()
