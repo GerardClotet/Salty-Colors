@@ -206,6 +206,28 @@ void j1Gui::ScaleElement(j1UIElement* element, float scaleX, float scaleY, float
 	}
 }
 
+void j1Gui::EnableElement(j1UIElement* element)
+{
+	element->SetEnabled(true);
+	for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
+	{
+		if (item->data->parent && item->data->parent == element)
+			EnableElement(item->data);
+	}
+}
+
+void j1Gui::DisableElement(j1UIElement* element)
+{
+	{
+		element->SetEnabled(false);
+		for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
+		{
+			if (item->data->parent && item->data->parent == element)
+				DisableElement(item->data);
+		}
+	}
+}
+
 void j1Gui::DoScale(j1UIElement* element, float scaleX, float scaleY)
 {
 	float scale_x, scale_y;

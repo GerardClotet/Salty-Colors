@@ -34,6 +34,11 @@ public:
 	bool interactable = false;
 	bool dragable = false;
 	bool enabled = true;
+
+
+	bool clipping = true;//Drawed zone of the parent
+	bool parent_limit = true;
+
 	float scale_X = 1.0F;
 	float scale_Y = 1.0F;
 
@@ -63,6 +68,22 @@ public:
 	virtual void OnMouseExit() {};
 
 	j1UIElement* parent = nullptr;
+};
+
+class j1UIScrollBar : public j1UIElement
+{
+public:
+	j1UIScrollBar(iPoint pos);
+	~j1UIScrollBar();
+
+	SDL_Rect* anim;
+
+	bool UIBlit();
+	void OnMouseClick();
+	void OnMouseHover();
+	void OnMouseRelease();
+	void OnMouseExit();
+	void MoveOtherElement();
 };
 
 class j1UIImage : public j1UIElement
@@ -136,6 +157,8 @@ public:
 	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* tex);
 	void ScaleElement(j1UIElement* element, float scaleX, float scaleY, float time = 0.0F);
+	void EnableElement(j1UIElement* element);
+	void DisableElement(j1UIElement* element);
 
 private:
 	p2List<j1UIElement*> elements;
