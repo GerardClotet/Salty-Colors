@@ -82,7 +82,7 @@ bool j1Scene::Start()
 	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
 	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
 
-	
+	App->gui->CreateScrollBar({ 150,150 }, settings_menu_panel);
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 

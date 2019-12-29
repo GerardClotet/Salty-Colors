@@ -71,21 +71,7 @@ public:
 	j1UIElement* parent = nullptr;
 };
 
-class j1UIScrollBar : public j1UIElement
-{
-public:
-	j1UIScrollBar(iPoint pos);
-	~j1UIScrollBar();
 
-	SDL_Rect* anim;
-
-	bool UIBlit();
-	void OnMouseClick();
-	void OnMouseHover();
-	void OnMouseRelease();
-	void OnMouseExit();
-	void MoveOtherElement();
-};
 
 class j1UIImage : public j1UIElement
 {
@@ -121,6 +107,18 @@ public:
 	void OnMouseRelease();
 	void OnMouseExit();
 };
+class j1UIScrollBar : public j1UIElement
+{
+public:
+	j1UIScrollBar(iPoint pos);
+	~j1UIScrollBar() {};
+
+	SDL_Rect* anim;
+	j1UIImage* thumb = nullptr;
+	float value = 0.0f;
+	bool UIBlit();
+
+};
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -151,7 +149,7 @@ public:
 	j1UIImage* CreateImage(iPoint pos, SDL_Rect rect, j1UIElement* parent = nullptr,bool image = true);
 	j1UILabel* CreateLabel(iPoint pos, p2SString path, int size, p2SString text, SDL_Color color, j1UIElement* parent = nullptr);
 	j1UIButton* CreateButton(iPoint pos, j1UIElement* parent = nullptr);
-
+	j1UIScrollBar* CreateScrollBar(iPoint pos, j1UIElement* parent = nullptr);
 	j1UIElement* GetElementUnderMouse();
 
 	

@@ -184,6 +184,15 @@ j1UIButton* j1Gui::CreateButton(iPoint pos, j1UIElement* parent)
 	return button;
 }
 
+j1UIScrollBar* j1Gui::CreateScrollBar(iPoint pos, j1UIElement* parent)
+{
+	j1UIScrollBar* scroll = new j1UIScrollBar(pos);
+	scroll->parent = parent;
+	elements.add(scroll);
+
+	return scroll;
+}
+
 // const getter for atlas
 SDL_Texture* j1Gui::GetAtlas() const
 {
@@ -443,5 +452,22 @@ j1UIButton::j1UIButton(iPoint position)
 	anim[1] = { 368,161,254,160 };
 	anim[2] = { 371,0,254,160 };
 	rect_sprite = anim[0];
+	
+}
+
+j1UIScrollBar::j1UIScrollBar(iPoint pos)
+{
+	rect_box = { pos.x, pos.y, 365, 18 };
+	thumb = App->gui->CreateImage({ 0,0 }, { 1,527,365,18 }, this);
+	thumb->SetScale(0.2F, 0.5F);
+	thumb->dragable = true;
+	thumb->interactable = true;
+
+}
+
+bool j1UIScrollBar::UIBlit()
+{
+	App->render->DrawQuad(GetScreenRect(), 0, 0, 0, 150, true, false);
+	return true;
 	
 }
