@@ -61,6 +61,8 @@ As a result the wall will force your direction to change in the oposite side.
 Alexandru Mihai Cercel
 
 ![Alexandru Mihai Cercel](https://github.com/GerardClotet/Dev-Game/blob/master/teamphotos/drum.jpg)
+
+
 [Github account](https://github.com/AlexandruC5)
 
 
