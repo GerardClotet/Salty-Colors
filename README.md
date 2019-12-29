@@ -30,6 +30,7 @@ Unzip the .zip file and execute the .exe that is contained inside the decompress
 - S - Move down (God mode)
 - L - Dash
 - P - Pause
+- Left click to interact with UI
 
 * The wall bounce works when you jump to a wall and then jump again against the wall. 
 As a result the wall will force your direction to change in the oposite side.
