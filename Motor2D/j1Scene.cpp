@@ -75,7 +75,10 @@ bool j1Scene::Start()
 
 			/**///SettingsMenu///**/
 
-	settings_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+
+	settings_parent_panel = App->gui->CreateImage({ 2,2 }, { 957,0,873,960 });
+	settings_parent_panel->scale_Y = 1.17F;
+	settings_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 },settings_parent_panel);
 	settings_menu_panel->scale_Y = 0.7F;
 	settings_menu_panel->scale_X = 0.6F;
 	settings_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, settings_menu_panel);
@@ -147,7 +150,7 @@ bool j1Scene::Start()
 	App->gui->DisableElement(ingamePanel);
 	App->gui->DisableElement(pause_menu_panel);
 	App->gui->DisableElement(credits_menu_panel);
-	App->gui->DisableElement(settings_menu_panel);
+	App->gui->DisableElement(settings_parent_panel);
 	App->gui->EnableElement(main_menu_panel);
 	
 
@@ -428,23 +431,28 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		{
 			pause_menu_panel->SetEnabled(false), App->pause = false, Mix_ResumeMusic();
 		}
-		else if (element == pause_menu_button_main_menu)
+		 if (element == pause_menu_button_main_menu)
 		{
+			App->gui->DisableElement(pause_menu_panel);
+			App->gui->DisableElement(ingamePanel);
+			if(main_menu_panel->GetEnabled() == false)
+				App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
+
+			App->gui->EnableElement(main_menu_panel);
 
 		}
 		else if (element == main_menu_button_play)
 		{
-			main_menu_panel->SetEnabled(false);
 			App->entityFactory->player->lockInput = false;
 
 			if(ingamePanel->GetEnabled() == false)
 				App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
 
-			ingamePanel->SetEnabled(true);
+		
 			App->pause = false;
 
 			App->gui->DisableElement(main_menu_panel);
-		
+			App->gui->EnableElement(ingamePanel);
 		}
 		else if (element == main_menu_button_continue)
 		{
@@ -454,7 +462,7 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		else if (element == main_menu_button_settings)
 		{
 			
-			App->gui->EnableElement(settings_menu_panel);
+			App->gui->EnableElement(settings_parent_panel);
 			App->gui->DisableElement(main_menu_panel);
 
 		}
@@ -462,7 +470,7 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		{
 			
 			App->gui->EnableElement(main_menu_panel);
-			App->gui->DisableElement(settings_menu_panel);
+			App->gui->DisableElement(settings_parent_panel);
 		}
 		else if (element == main_menu_button_credits)
 		{
@@ -481,23 +489,30 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 			exit(0);
 		}
 
-		else if (element == pause_menu_button_main_menu)
+		// if (element == pause_menu_button_main_menu)
+		//{
+		//
+		//	pause_menu_panel->SetEnabled(false);
+
+
+		//	if(main_menu_panel->GetEnabled() == false)
+		//		App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
+
+		//	main_menu_panel->SetEnabled(true);
+
+		//}
+
+
+		else if (element == pause_menu_button_main_menu_text)
 		{
 
-			
 			pause_menu_panel->SetEnabled(false);
 
 
-			if(main_menu_panel->GetEnabled() == false)
+			if (main_menu_panel->GetEnabled() == false)
 				App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
 
 			main_menu_panel->SetEnabled(true);
-
-			
-
-
-
-			LOG("eeeh");
 
 
 		}
