@@ -55,7 +55,8 @@ bool j1Scene::Start()
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
-	
+	/**///MainMenu///**/
+
 		main_menu_panel = App->gui->CreateImage({ 2,2 }, { 957,0,873,960 });
 		main_menu_panel->scale_Y = 1.17F;
 		main_menu_button_play = App->gui->CreateButton({ 100, 75 }, main_menu_panel);
@@ -70,7 +71,24 @@ bool j1Scene::Start()
 		main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
 		main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
 	
-	
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
+		/**///PauseMenu///**/
+
+		pause_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+		pause_menu_panel->scale_Y = 0.7F;
+		pause_menu_panel->scale_X = 0.6F;
+		pause_menu_button_resume = App->gui->CreateButton({ 90, 75 }, pause_menu_panel);
+		pause_menu_button_main_menu = App->gui->CreateButton({ 90, 175 }, pause_menu_panel);
+		pause_menu_button_resume_text = App->gui->CreateLabel({ 48,26 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "RESUME", { 255,255,255 }, pause_menu_button_resume);
+		pause_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, pause_menu_button_main_menu);
+		pause_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, pause_menu_button_main_menu);
+
+
+
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
+
 	
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
@@ -79,6 +97,7 @@ bool j1Scene::Start()
 	dashSFX = App->audio->LoadFx("audio/fx/dash.wav");
 	bounceSFX = App->audio->LoadFx("audio/fx/bounce.wav");
 	coinSFX = App->audio->LoadFx("audio/fx/coin.wav");
+
 	return true;
 }
 

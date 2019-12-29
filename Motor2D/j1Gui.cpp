@@ -236,6 +236,22 @@ void j1UIElement::SetLocalPos(int x, int y)
 	rect_box.y = y;
 }
 
+void j1UIElement::DadEnabled()
+{
+	if (parent != nullptr)
+	{
+		if (!parent->enabled)
+			this->enabled = false;
+		else
+			this->enabled = true;
+	}
+}
+
+void j1UIElement::SetEnabled(bool enabled)
+{
+	this->enabled = enabled;
+}
+
 j1UIImage::j1UIImage(iPoint pos, SDL_Rect rect)
 {
 	rect_box = { pos.x,pos.y,rect.w,rect.h };

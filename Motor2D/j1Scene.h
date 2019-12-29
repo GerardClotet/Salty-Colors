@@ -68,6 +68,8 @@ public:
 
 	/*---SFX---*/
 
+	//*/MainMenu/*//
+
 	j1UIElement* main_menu_panel;
 	j1UIElement* main_menu_button_play;
 	j1UIElement* main_menu_button_continue;
@@ -80,6 +82,18 @@ public:
 	j1UIElement* main_menu_button_settings_text;
 	j1UIElement* main_menu_button_credits_text;
 	j1UIElement* main_menu_button_exit_text;
+
+	//-------------------------------------------//
+
+	//*/PauseMenu/*//
+
+	j1UIElement* pause_menu_panel;
+	j1UIElement* pause_menu_button_resume;
+	j1UIElement* pause_menu_button_main_menu;
+
+	j1UIElement* pause_menu_button_resume_text;
+	j1UIElement* pause_menu_button_main_menu_text;
+	j1UIElement* pause_menu_button_main_menu_text2;
 
 	iPoint origin;
 	iPoint destination;

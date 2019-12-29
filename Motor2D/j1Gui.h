@@ -29,6 +29,7 @@ public:
 	bool hovered = false;
 	bool interactable = false;
 	bool dragable = false;
+	bool enabled = true;
 
 	float scale_X = 1.0F;
 	float scale_Y = 1.0F;
@@ -44,6 +45,8 @@ public:
 	iPoint GetScreenPos();
 	iPoint GetLocalPos();
 	void SetLocalPos(int x, int y);
+	void DadEnabled();
+	void SetEnabled(bool enabled);
 
 	virtual void OnMouseClick() {};
 	virtual void OnMouseHover() {};
