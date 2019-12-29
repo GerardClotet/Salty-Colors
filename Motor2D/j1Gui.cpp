@@ -152,7 +152,7 @@ bool j1Gui::CleanUp()
 
 j1UIImage* j1Gui::CreateImage(iPoint pos, SDL_Rect rect, j1UIElement* parent,bool img)
 {
-	j1UIImage* image = new j1UIImage(pos, rect,image);
+	j1UIImage* image = new j1UIImage(pos, rect,img);
 	image->parent = parent;
 	elements.add(image);
 
