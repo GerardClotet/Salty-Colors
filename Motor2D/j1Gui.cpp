@@ -66,6 +66,7 @@ j1UIElement* j1Gui::GetElementUnderMouse()
 	return nullptr;
 }
 
+
 // Update all guis
 bool j1Gui::PreUpdate()
 {
@@ -130,12 +131,16 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		debug_draw = !debug_draw;
 
 		for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
 		{
 			item->data->DadEnabled();
 			if (item->data->enabled)
 			item->data->UIBlit();
+			if(debug_draw)
+				App->render->DrawQuad(item->data->GetScreenRect(), 255, 0, 0, 255, false, false);
 		}
 
 	
@@ -227,6 +232,9 @@ void j1Gui::DisableElement(j1UIElement* element)
 		}
 	}
 }
+
+
+
 
 void j1Gui::DoScale(j1UIElement* element, float scaleX, float scaleY)
 {
