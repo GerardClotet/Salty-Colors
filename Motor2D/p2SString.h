@@ -264,6 +264,20 @@ public:
 			str[i] = start[i];
 	}
 
+	int GetLines()
+	{
+		int lines = 1;
+		for (int i = 0; i < size; i++)
+		{
+			if (str[i] == '\n')
+			{
+				lines++;
+			}
+		}
+		return lines;
+	}
+
+
 	uint Substitute(const char* src, const char *dst)
 	{
 		assert(src);

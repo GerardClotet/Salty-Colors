@@ -65,11 +65,11 @@ bool j1Scene::Start()
 	main_menu_button_credits = App->gui->CreateButton({ 100, 375 }, main_menu_panel);
 	main_menu_button_exit = App->gui->CreateButton({ 100, 475 }, main_menu_panel);
 
-	main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 }, main_menu_button_play);
-	main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, main_menu_button_continue);
-	main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, main_menu_button_settings);
-	main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
-	main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
+	main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 },0, main_menu_button_play);
+	main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, 0, main_menu_button_continue);
+	main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, 0, main_menu_button_settings);
+	main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, 0, main_menu_button_credits);
+	main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, 0, main_menu_button_exit);
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
@@ -82,8 +82,8 @@ bool j1Scene::Start()
 	settings_menu_panel->scale_Y = 0.7F;
 	settings_menu_panel->scale_X = 0.6F;
 	settings_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, settings_menu_panel);
-	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
-	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
+	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, 0, settings_menu_button_main_menu);
+	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, 0, settings_menu_button_main_menu);
 
 	App->gui->CreateScrollBar({ 150,150 }, settings_menu_panel);
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -96,9 +96,9 @@ bool j1Scene::Start()
 	pause_menu_panel->scale_X = 0.6F;
 	pause_menu_button_resume = App->gui->CreateButton({ 90, 75 }, pause_menu_panel);
 	pause_menu_button_main_menu = App->gui->CreateButton({ 90, 175 }, pause_menu_panel);
-	pause_menu_button_resume_text = App->gui->CreateLabel({ 48,26 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "RESUME", { 255,255,255 }, pause_menu_button_resume);
-	pause_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, pause_menu_button_main_menu);
-	pause_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, pause_menu_button_main_menu);
+	pause_menu_button_resume_text = App->gui->CreateLabel({ 48,26 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "RESUME", { 255,255,255 }, 0, pause_menu_button_resume);
+	pause_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, 0, pause_menu_button_main_menu);
+	pause_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, 0, pause_menu_button_main_menu);
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
@@ -108,11 +108,11 @@ bool j1Scene::Start()
 	credits_menu_panel->scale_Y = 0.7F;
 	credits_menu_panel->scale_X = 0.6F;
 	credits_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, credits_menu_panel);
-	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, credits_menu_button_main_menu);
-	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, credits_menu_button_main_menu);
-	/*credits_menu_text = App->gui->CreateLabel({ 5,5 }, "fonts/open_sans/OpenSans-Bold.ttf", 18,
+	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, 0, credits_menu_button_main_menu);
+	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, 0, credits_menu_button_main_menu);
+	credits_menu_text = App->gui->CreateLabel({ 5,5 }, "fonts/open_sans/OpenSans-Bold.ttf", 12,
 		"MIT License\n\nCopyright(c) 2018 [Alexandru Cercel, Gerard Clotet]\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions :\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
-		{ 255,255,255 }, credits_menu_panel);*/
+		{ 255,255,255 },400, credits_menu_panel);
 
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -133,7 +133,7 @@ bool j1Scene::Start()
 	Gold_icon = App->gui->CreateImage({ 830,30 }, { 51,664,14,14 },ingamePanel);
 	Gold_icon->SetGlobalScale(3.5f);
 
-	gold_label = App->gui->CreateLabel({ 900, 20 }, "fonts/open_sans/OpenSans-Bold.ttf", 50,coins_str, { 255,255,255 }, ingamePanel);
+	gold_label = App->gui->CreateLabel({ 900, 20 }, "fonts/open_sans/OpenSans-Bold.ttf", 50,coins_str, { 255,255,255 },0, ingamePanel);
 
 
 	temp = App->entityFactory->GetLivesToString();
@@ -142,7 +142,7 @@ bool j1Scene::Start()
 	Lives = App->gui->CreateImage({ 830,104 }, { 0,636,25,22 }, ingamePanel);
 	Lives->SetGlobalScale(2.1f);
 
-	lives_label = App->gui->CreateLabel({ 900, 90 }, "fonts/open_sans/OpenSans-Bold.ttf", 50, lives_str, { 255,255,255 }, ingamePanel);
+	lives_label = App->gui->CreateLabel({ 900, 90 }, "fonts/open_sans/OpenSans-Bold.ttf", 50, lives_str, { 255,255,255 },0, ingamePanel);
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 
@@ -195,8 +195,11 @@ bool j1Scene::PreUpdate()
 		viewportResize = false;*/
 	}
 
-	PartyMaker();
-	App->render->SetBackgroundColor({ red,green,blue });
+	if (!App->pause)
+	{
+		PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });
+	}
 
 	
 

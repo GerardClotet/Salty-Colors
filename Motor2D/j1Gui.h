@@ -88,7 +88,7 @@ public:
 	_TTF_Font* font;
 	p2SString text;
 	SDL_Color color;
-	j1UILabel(iPoint pos, _TTF_Font* font, p2SString text, SDL_Color color);
+	j1UILabel(iPoint pos, _TTF_Font* font, p2SString text, SDL_Color color, int max_width );
 	~j1UILabel();
 	bool UIBlit();
 	void SetText(p2SString text);
@@ -147,7 +147,7 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 	j1UIImage* CreateImage(iPoint pos, SDL_Rect rect, j1UIElement* parent = nullptr,bool image = true);
-	j1UILabel* CreateLabel(iPoint pos, p2SString path, int size, p2SString text, SDL_Color color, j1UIElement* parent = nullptr);
+	j1UILabel* CreateLabel(iPoint pos, p2SString path, int size, p2SString text, SDL_Color color, int max_width, j1UIElement* parent = nullptr);
 	j1UIButton* CreateButton(iPoint pos, j1UIElement* parent = nullptr);
 	j1UIScrollBar* CreateScrollBar(iPoint pos, j1UIElement* parent = nullptr);
 	j1UIElement* GetElementUnderMouse();

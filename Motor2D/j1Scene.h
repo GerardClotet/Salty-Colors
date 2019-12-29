@@ -116,6 +116,7 @@ public:
 	j1UIElement* credits_menu_button_main_menu_text;
 	j1UIElement* credits_menu_button_main_menu_text2;
 	j1UIElement* credits_menu_text;
+	j1UIElement* credits_text_image;
 
 	//-------------------------------------------//
 
