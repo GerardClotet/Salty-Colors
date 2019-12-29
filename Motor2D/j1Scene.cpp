@@ -197,9 +197,11 @@ bool j1Scene::PreUpdate()
 		viewportResize = false;*/
 	}
 
-	PartyMaker();
-	App->render->SetBackgroundColor({ red,green,blue });
-
+	if (!App->pause)
+	{
+		PartyMaker();
+		App->render->SetBackgroundColor({ red,green,blue });
+	}
 	
 
 	return true;
@@ -250,7 +252,7 @@ bool j1Scene::PostUpdate()
 	}
 
 
-	if (App->entityFactory->player != nullptr)
+	if (App->entityFactory->player != nullptr && !App->pause)
 	{
 		CameraFollowingUpdate();
 
