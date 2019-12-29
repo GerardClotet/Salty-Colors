@@ -9,7 +9,7 @@
 
 ## Introduction
 
-This game is made for educationa purposes for Game Development subject at UPC - CITM
+This game is made for educational purposes for Game Development subject at UPC - CITM
 it is made with SDL2.
 
 In this 2D game you are going to pass through challengin map design and powerfull enemies that will kill you or block
