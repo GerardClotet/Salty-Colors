@@ -127,19 +127,27 @@ bool j1Scene::Start()
 	std::string temp = App->entityFactory->GetCoinsToString();
 	coins_str = temp.c_str();
 
-	Gold_icon = App->gui->CreateImage({ 100,100 }, { 51,664,14,14 });
-	Gold_icon->SetScale(10.0f, 10.0f);
+	Gold_icon = App->gui->CreateImage({ 830,30 }, { 51,664,14,14 },ingamePanel);
+	Gold_icon->SetGlobalScale(3.5f);
 
-	gold_label = App->gui->CreateLabel({ 120, 100 }, "fonts/open_sans/OpenSans-Bold.ttf", 100,coins_str, { 255,255,255 }, nullptr);
+	gold_label = App->gui->CreateLabel({ 900, 20 }, "fonts/open_sans/OpenSans-Bold.ttf", 50,coins_str, { 255,255,255 }, ingamePanel);
 
+
+	temp = App->entityFactory->GetLivesToString();
+	lives_str = temp.c_str();
+
+	Lives = App->gui->CreateImage({ 830,104 }, { 0,636,25,22 }, ingamePanel);
+	Lives->SetGlobalScale(2.1f);
+
+	lives_label = App->gui->CreateLabel({ 900, 90 }, "fonts/open_sans/OpenSans-Bold.ttf", 50, lives_str, { 255,255,255 }, ingamePanel);
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 
-		main_menu_panel->SetEnabled(true);
-		pause_menu_panel->SetEnabled(false);
-		settings_menu_panel->SetEnabled(false);
-		credits_menu_panel->SetEnabled(false);
-		
+	ingamePanel->SetEnabled(false);
+	pause_menu_panel->SetEnabled(false);
+	settings_menu_panel->SetEnabled(false);
+	credits_menu_panel->SetEnabled(false);
+	main_menu_panel->SetEnabled(true);
 
 
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
@@ -191,6 +199,19 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 
+	if (ingamePanel->GetEnabled())
+	{
+		std::string temp = App->entityFactory->GetCoinsToString();
+		coins_str = temp.c_str();
+
+		gold_label->SetText(coins_str);
+
+
+		temp = App->entityFactory->GetLivesToString();
+
+		lives_str = temp.c_str();
+		lives_label->SetText(lives_str);
+	}
 	
 	App->map->Draw();
 	
@@ -222,6 +243,7 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		main_menu_panel->GetEnabled() ? main_menu_panel->SetEnabled(false) : main_menu_panel->SetEnabled(true);
+		ingamePanel->GetEnabled() ? ingamePanel->SetEnabled(false) : ingamePanel->SetEnabled(true);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

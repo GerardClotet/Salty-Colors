@@ -127,6 +127,7 @@ public:
 	j1UILabel* lives_label;
 
 	p2SString coins_str;
+	p2SString lives_str;
 	iPoint origin;
 	iPoint destination;
 	bool initpath = false;
