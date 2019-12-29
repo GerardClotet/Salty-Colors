@@ -73,6 +73,32 @@ bool j1Scene::Start()
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
+			/**///SettingsMenu///**/
+
+	settings_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+	settings_menu_panel->scale_Y = 0.7F;
+	settings_menu_panel->scale_X = 0.6F;
+	settings_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, settings_menu_panel);
+	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
+	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
+
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
+			/**///CreditsMenu///**/
+
+	credits_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
+	credits_menu_panel->scale_Y = 0.7F;
+	credits_menu_panel->scale_X = 0.6F;
+	credits_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, credits_menu_panel);
+	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, credits_menu_button_main_menu);
+	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, credits_menu_button_main_menu);
+	/*credits_menu_text = App->gui->CreateLabel({ 5,5 }, "fonts/open_sans/OpenSans-Bold.ttf", 18,
+		"MIT License\n\nCopyright(c) 2018 [Alexandru Cercel, Gerard Clotet]\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files(the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions :\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+		{ 255,255,255 }, credits_menu_panel);*/
+
+	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+
+
 		/**///PauseMenu///**/
 
 	pause_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
@@ -88,27 +114,7 @@ bool j1Scene::Start()
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
-		/**///SettingsMenu///**/
 
-	settings_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
-	settings_menu_panel->scale_Y = 0.7F;
-	settings_menu_panel->scale_X = 0.6F;
-	settings_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, settings_menu_panel);
-	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, settings_menu_button_main_menu);
-	settings_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, settings_menu_button_main_menu);
-
-	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
-
-		/**///CreditsMenu///**/
-
-	credits_menu_panel = App->gui->CreateImage({ 50,50 }, { 147,854,645,736 });
-	credits_menu_panel->scale_Y = 0.7F;
-	credits_menu_panel->scale_X = 0.6F;
-	credits_menu_button_main_menu = App->gui->CreateButton({ 75, 520 }, credits_menu_panel);
-	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 60,14 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MAIN", { 255,255,255 }, credits_menu_button_main_menu);
-	credits_menu_button_main_menu_text = App->gui->CreateLabel({ 56,36 }, "fonts/open_sans/OpenSans-Bold.ttf", 22, "MENU", { 255,255,255 }, credits_menu_button_main_menu);
-
-	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 
 	///InGamePanel
@@ -129,11 +135,11 @@ bool j1Scene::Start()
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 
-	
+		main_menu_panel->SetEnabled(true);
 		pause_menu_panel->SetEnabled(false);
 		settings_menu_panel->SetEnabled(false);
 		credits_menu_panel->SetEnabled(false);
-		main_menu_panel->SetEnabled(true);
+		
 
 
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
@@ -387,11 +393,24 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		}
 		else if (element == main_menu_button_settings)
 		{
+			settings_menu_panel->SetEnabled(true);
+			main_menu_panel->SetEnabled(false);
 
+		}
+		else if (element == settings_menu_button_main_menu)
+		{
+			settings_menu_panel->SetEnabled(false);
+			main_menu_panel->SetEnabled(true);
 		}
 		else if (element == main_menu_button_credits)
 		{
-
+			credits_menu_panel->SetEnabled(true);
+			main_menu_panel->SetEnabled(false);
+		}
+		else if (element == credits_menu_button_main_menu)
+		{
+			credits_menu_panel->SetEnabled(false);
+			main_menu_panel->SetEnabled(true);
 		}
 		else if (element == main_menu_button_exit)
 		{
