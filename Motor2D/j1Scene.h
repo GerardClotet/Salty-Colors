@@ -77,12 +77,16 @@ public:
 	j1UIElement* main_menu_button_settings;
 	j1UIElement* main_menu_button_credits;
 	j1UIElement* main_menu_button_exit;
+	j1UIElement* main_menu_button_website;
+
 
 	j1UIElement* main_menu_button_play_text;
 	j1UIElement* main_menu_button_continue_text;
 	j1UIElement* main_menu_button_settings_text;
 	j1UIElement* main_menu_button_credits_text;
 	j1UIElement* main_menu_button_exit_text;
+
+	j1UILabel* main_menu_button_website_text;
 
 	//-------------------------------------------//
 

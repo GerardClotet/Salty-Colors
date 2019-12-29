@@ -64,13 +64,15 @@ bool j1Scene::Start()
 	main_menu_button_settings = App->gui->CreateButton({ 100, 275 }, main_menu_panel);
 	main_menu_button_credits = App->gui->CreateButton({ 100, 375 }, main_menu_panel);
 	main_menu_button_exit = App->gui->CreateButton({ 100, 475 }, main_menu_panel);
+	main_menu_button_website = App->gui->CreateButton({ 700, 600 }, main_menu_panel);
+
 
 	main_menu_button_play_text = App->gui->CreateLabel({ 58,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "PLAY", { 255,255,255 }, main_menu_button_play);
 	main_menu_button_continue_text = App->gui->CreateLabel({ 17,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CONTINUE", { 255,255,255 }, main_menu_button_continue);
 	main_menu_button_settings_text = App->gui->CreateLabel({ 25,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "SETTINGS", { 255,255,255 }, main_menu_button_settings);
 	main_menu_button_credits_text = App->gui->CreateLabel({ 35,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "CREDITS", { 255,255,255 }, main_menu_button_credits);
 	main_menu_button_exit_text = App->gui->CreateLabel({ 60,22 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "EXIT", { 255,255,255 }, main_menu_button_exit);
-
+	main_menu_button_website_text = App->gui->CreateLabel({ 60,50 }, "fonts/open_sans/OpenSans-Bold.ttf", 28, "WEBSITE", { 255,255,255 }, main_menu_button_website);
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 			/**///SettingsMenu///**/
@@ -457,6 +459,20 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		else if (element == main_menu_button_continue)
 		{
 
+			 App->entityFactory->player->lockInput = false;
+
+			 if (ingamePanel->GetEnabled() == false)
+				 App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
+
+
+			 App->pause = false;
+
+			 App->gui->DisableElement(main_menu_panel);
+			 App->gui->EnableElement(ingamePanel);
+
+			 App->LoadGame("save_game.xml");
+
+
 		}
 
 		else if (element == main_menu_button_settings)
@@ -489,19 +505,11 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 			exit(0);
 		}
 
-		// if (element == pause_menu_button_main_menu)
-		//{
-		//
-		//	pause_menu_panel->SetEnabled(false);
-
-
-		//	if(main_menu_panel->GetEnabled() == false)
-		//		App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
-
-		//	main_menu_panel->SetEnabled(true);
-
-		//}
-
+	
+		else if (element == main_menu_button_website)
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/GerardClotet/Dev-Game", NULL, NULL, SW_SHOWNORMAL);			 
+		}
 
 		else if (element == pause_menu_button_main_menu_text)
 		{

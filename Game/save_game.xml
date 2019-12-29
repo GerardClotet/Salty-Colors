@@ -7,8 +7,8 @@
 	<map />
 	<entityFactory>
 		<enemy>
-			<FlyingEnemy id="19" x="1520" y="1184">
-				<flipX value="false" />
+			<FlyingEnemy id="19" x="1363" y="1108">
+				<flipX value="true" />
 			</FlyingEnemy>
 		</enemy>
 		<enemy>
@@ -17,12 +17,12 @@
 			</TestEnemy>
 		</enemy>
 		<enemy>
-			<TestEnemy id="21" x="1486" y="502">
-				<flipX value="false" />
+			<TestEnemy id="21" x="1036" y="662">
+				<flipX value="true" />
 			</TestEnemy>
 		</enemy>
-		<Player x="529" y="823">
-			<velocity x="0" />
+		<Player x="1222" y="790">
+			<velocity x="-7.51953675e-22" />
 			<velocity y="0" />
 			<target_speed x="0" />
 			<target_speed y="0" />
@@ -41,6 +41,6 @@
 	<pathfinding />
 	<collision />
 	<renderer>
-		<camera x="-12" y="-404" />
+		<camera x="-506" y="-357" />
 	</renderer>
 </game_state>
