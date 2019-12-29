@@ -182,6 +182,7 @@ bool j1MapChange::Load(pugi::xml_node& node)
 
 	std::list<std::string>::iterator item = App->scene->map_names.begin();
 
+	App->entityFactory->CleanUp();
 	while (item != App->scene->map_names.end())
 	{
 		if (scene_name == (*item).data())

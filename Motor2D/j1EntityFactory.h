@@ -38,6 +38,9 @@ public:
 
 	bool IsTaken(int id);
 
+	void SetCoinID(int id);
+	std::vector<int> GetCoinVec()const;
+	void ClearCoinVec();
 public:
 	
 	std::list<j1Entity*>	entities;
@@ -47,10 +50,11 @@ public:
 
 	int maxframes = 4;
 	bool playerActive = false;
-
+	int coins = 0;
 
 private:
 	std::vector<j1Entity*>	draw_entities;
+	std::vector<int> coins_ids;
 
 };
 #endif // !_J1ENTITYFACTORY_H_

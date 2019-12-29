@@ -42,8 +42,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void SetCoinID(int id);
-	std::vector<int> GetCoinVec()const;
+
 
 	void IncreaseLifesBy(int inc);
 	int GetCurrentLives()const;
@@ -57,7 +56,7 @@ public:
 	bool ready_toBounce_left = false;
 	bool ready_toBounce_right = false;
 
-	int coins = 0;
+	
 	bool mantain_collectables = false;
 
 private:
@@ -77,7 +76,6 @@ private:
 	Animation player_BOUNCE;
 
 
-	std::vector<int> coins_ids;
 
 	int lives = MAX_LIVES;
 

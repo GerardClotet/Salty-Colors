@@ -249,7 +249,7 @@ void j1Scene::TriggerColl()
 
 void j1Scene::ReLoadLevel()
 {
-	
+	App->entityFactory->CleanUp();
 	
  	Loadlvl(maptoReset); 
 	

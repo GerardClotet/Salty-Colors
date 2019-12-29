@@ -25,14 +25,17 @@
 				<flipX value="false" />
 			</TestEnemy>
 		</enemy>
-		<Player x="185" y="664">
+		<Player x="333" y="726">
 			<velocity x="0" />
 			<velocity y="0" />
 			<target_speed x="0" />
 			<target_speed y="0" />
 			<state value="0" />
 			<is_grounded value="true" />
-			<flipX value="false" />
+			<flipX value="true" />
+			<coin_id value="0" />
+			<coin_id value="0" />
+			<coin_id value="2" />
 			<coin_id value="0" />
 		</Player>
 	</entityFactory>
@@ -42,6 +45,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-271" />
+		<camera x="0" y="-274" />
 	</renderer>
 </game_state>

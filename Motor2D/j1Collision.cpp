@@ -77,7 +77,7 @@ bool j1Collision::PreUpdate()
  					if (player_collider->callback && App->entityFactory->player->state)
 					{
 
-						App->entityFactory->player->coins += 1;
+						App->entityFactory->coins += 1;
 						App->audio->PlayFx(App->scene->coinSFX);
 						
 						if (colliders[i]->callback)
