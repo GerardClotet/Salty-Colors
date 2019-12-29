@@ -110,6 +110,13 @@ bool j1Scene::Start()
 
 	///----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
+
+		pause_menu_panel->SetEnabled(false);
+		settings_menu_panel->SetEnabled(false);
+		credits_menu_panel->SetEnabled(false);
+		
+
+
 	stepSFX = App->audio->LoadFx("audio/fx/footstep.wav");
 	landSFX = App->audio->LoadFx("audio/fx/landing.wav");
 	jumpSFX = App->audio->LoadFx("audio/fx/jump.wav");
@@ -351,7 +358,7 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 
 	}
 	break;
-	case LEFT_CLICK_UP:
+	case LEFT_CLICK_DOWN:
 	{
 		if (element == pause_menu_button_resume)
 		{
@@ -363,7 +370,7 @@ bool j1Scene::GUIEvent(j1UIElement* element, GUI_Event gui_event)
 		}
 		else if (element == main_menu_button_play)
 		{
-
+			main_menu_panel->SetEnabled(false);
 		}
 		else if (element == main_menu_button_continue)
 		{

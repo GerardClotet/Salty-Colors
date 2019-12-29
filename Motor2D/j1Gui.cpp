@@ -134,6 +134,8 @@ bool j1Gui::PostUpdate()
 	{
 		for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
 		{
+			item->data->DadEnabled();
+			if (item->data->enabled)
 			item->data->UIBlit();
 		}
 	}
