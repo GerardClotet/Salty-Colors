@@ -438,7 +438,7 @@ bool j1Map::Load(const char* file_name)
 	
 
 	LOG("caMPOS %i %i", App->render->camera.x, App->render->camera.y);
-	LOG("playerpos %i %i",App->entityFactory->player->position.x, App->entityFactory->player->position.y);
+	//LOG("playerpos %i %i",App->entityFactory->player->position.x, App->entityFactory->player->position.y);
 	map_loaded = ret;
 	return ret;
 }

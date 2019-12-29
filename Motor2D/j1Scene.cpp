@@ -98,49 +98,13 @@ bool j1Scene::PreUpdate()
 	PartyMaker();
 	App->render->SetBackgroundColor({ red,green,blue });
 
-	//if (resizeTimer.Read() < 5000 && resizeTimer.Read() > 10)
-	//{
-	//	if (RezieView(App->render->camera, false).w != App->entityFactory->player->collider->rect.x + App->entityFactory->player->collider->rect.w)
-	//	{
-	//		App->render->SetViewPort(RezieView(App->render->camera, false));
 
-	//	}
-	//	App->render->SetViewPort(RezieView(App->render->camera, false));
-	//	App->render->camera = RezieView(App->render->camera, false);
-
-	//	/*PartyMaker();
-	//	App->render->SetBackgroundColor({ red,green,blue });*/
-	//}
-	//else
-	//{
-	//	//App->render->ResetViewPort();
-	//	App->render->camera.w = App->win->screen_surface->w;
-	//	App->render->camera.h = App->win->screen_surface->h;
-	//	/*App->render->camera.x = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).x;
-	//	App->render->camera.y = App->map->WorldToMap(App->entityFactory->player->position.x, App->entityFactory->player->position.y).y;*/
-
-	//}
-	//<------WIP------>
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-
-
-
-
-	//if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	//	App->map->ResetBFS();
-
-	//if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	//	App->map->PropagateBFS();
-
-
-	
-
-
 
 	
 	App->map->Draw();
@@ -176,6 +140,11 @@ bool j1Scene::PostUpdate()
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Loadlvl(1); // reset current level (player, cam..)
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		Loadlvl(2);
+	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		ReLoadLevel();// reset current level (player, cam..)
@@ -239,11 +208,20 @@ bool j1Scene::Loadlvl(int lvl)
 					App->audio->PlayMusic("audio/music/BillySacrifice.ogg", -1);
 
 				}
-				else
+				else if(i == 0)
 				{
 					App->audio->PlayMusic("audio/music/Parabola.ogg", -1);
 					maptoReset = 0;
 				}
+				else if (i == 2)
+				{
+			
+					App->audio->PlayMusic("audio/music/MainMenuMusic.ogg", -1);
+						maptoReset = 2;
+						App->entityFactory->CleanUp();
+				}
+
+				
 
 				App->swapScene->ChangeMap(maptoReset, fadeTime);
 				return true;
@@ -361,6 +339,7 @@ int j1Scene::LerpLabel(int v0, int v1, float t)
 {
 	return (v0 * (1-t) + v1 * t);
 }
+
 
 void j1Scene::CameraFollowingUpdate()
 {

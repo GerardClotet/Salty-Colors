@@ -312,12 +312,13 @@ void j1UIButton::OnMouseExit()
 j1UIButton::j1UIButton(iPoint position)
 {
 
-	//This was just a test
 
-	//rect_box = { position.x, position.y, 229,69 };
-	//anim = new SDL_Rect[3];
-	//anim[0] = { 0,113,229,69 };
-	//anim[1] = { 411,169,229,69 };
-	//anim[2] = { 642,169,229,69 };
-	//rect_sprite = anim[0];
+	rect_box = { position.x, position.y, 254,160 };
+	
+	anim = new SDL_Rect[3];
+	anim[0] = { 371,323,254,160 };
+	anim[1] = { 368,161,254,160 };
+	anim[2] = { 371,0,254,160 };
+	rect_sprite = anim[0];
+	
 }
