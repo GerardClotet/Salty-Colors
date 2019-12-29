@@ -45,7 +45,6 @@ public:
 	// core loops ---------------
 	virtual bool PreUpdate();
 	virtual bool Update(float dt);
-	virtual bool PostUpdate();
 	virtual bool CleanUp();
 
 	virtual void Draw();

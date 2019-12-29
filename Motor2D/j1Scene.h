@@ -83,6 +83,7 @@ public:
 	unsigned int endLvlSFX;
 	unsigned int dashSFX;
 	unsigned int bounceSFX;
+	unsigned int coinSFX;
 private:
 	bool viewportResize = false;
 	bool incR = true;

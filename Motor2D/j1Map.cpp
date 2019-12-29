@@ -388,12 +388,13 @@ bool j1Map::Load(const char* file_name)
 
 		if (type == "collectables")
 			LoadCollectableLayer(node);
+		else if (type == "triggers")
+			LoadUtilsLayer(node);
 
 		else if (type == "colliders")
 			LoadCollidersLayer(node);
 
-		else if (type == "triggers")
-			LoadUtilsLayer(node);
+		
 
 		
 
@@ -638,7 +639,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 
 
-bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
+void j1Map::LoadCollidersLayer(pugi::xml_node& node)
 {
 
 
@@ -659,12 +660,11 @@ bool j1Map::LoadCollidersLayer(pugi::xml_node& node)
 		++it;
 	}
 	
-	return true;
 }
 
 
 
-bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
+void j1Map::LoadUtilsLayer(pugi::xml_node& node)
 {
 
 
@@ -699,10 +699,9 @@ bool j1Map::LoadUtilsLayer(pugi::xml_node& node)
 		++it;
 	}
 
-	return true;
 }
 
-bool j1Map::LoadCollectableLayer(pugi::xml_node& node)
+void j1Map::LoadCollectableLayer(pugi::xml_node& node)
 {
 
 	j1Entity* temp_ent= nullptr;
@@ -721,8 +720,12 @@ bool j1Map::LoadCollectableLayer(pugi::xml_node& node)
 
 		++it;
 	}
+	if (App->entityFactory->player != nullptr && App->entityFactory->player->mantain_collectables)
+	{
+		App->entityFactory->CheckifCoinsWereTaken();
+		App->entityFactory->player->mantain_collectables = false;
+	}
 
-	return false;
 }
 
 

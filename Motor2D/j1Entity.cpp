@@ -31,11 +31,7 @@ bool j1Entity::Update(float dt)
 	Draw();
 	return true;
 }
-bool j1Entity::PostUpdate()
-{
 
-	return true;
-}
 
 bool j1Entity::CleanUp()
 {

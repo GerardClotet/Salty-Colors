@@ -208,22 +208,26 @@ void j1Player::GodUpdate()
 
 void j1Player::Die()
 {
-	if (position.y > App->map->data.height * App->map->data.tile_height && state != DEAD && state != GOD  )
+	if ( state != DEAD && position.y > App->map->data.height * App->map->data.tile_height  && state != GOD  )
 	{
+		lives--;
  		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
 		//App->entityFactory->DeleteAllEnemies();
+		mantain_collectables = true;
 	}
 	else if(dead) {
 
+		lives--;
 		dead = false;
 		state = DEAD;
 		Mix_PausedMusic();
 		App->scene->ReLoadLevel();
 		App->audio->SetVolume(0.0f);
 		//App->entityFactory->DeleteAllEnemies();
+		mantain_collectables = true;
 		
 	}
 
@@ -548,9 +552,19 @@ void j1Player::SetCoinID(int id)
 	coins_ids.push_back(id);
 }
 
-std::vector<int> j1Player::GetCoinVec()
+std::vector<int> j1Player::GetCoinVec()const
 {
 	return coins_ids;
+}
+
+void j1Player::IncreaseLifesBy(int inc)
+{
+	lives += inc;
+}
+
+int j1Player::GetCurrentLives() const
+{
+	return lives;
 }
 
 

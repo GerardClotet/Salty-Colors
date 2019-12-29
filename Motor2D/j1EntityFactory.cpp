@@ -106,7 +106,6 @@ bool j1EntityFactory::PostUpdate()
 	std::list<j1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item)
 	{
-		(*item)->PostUpdate();
 		(*item)->Draw();
 	}
 
@@ -183,6 +182,7 @@ j1Entity* j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 			player = new j1Player(pos);
 			if (player != nullptr)
 				entities.push_back(player);
+			return player;
 		}
 		else
 		{
@@ -329,8 +329,12 @@ void j1EntityFactory::DeleteAllCollectables()
 
 void j1EntityFactory::CheckifCoinsWereTaken()
 {
+	if (player->GetCurrentLives() == 0)
+	{
+		player->IncreaseLifesBy(MAX_LIVES);
+		return;
+	}
 
-	std::vector<int> temp_vec = player->GetCoinVec();
 
 
 	std::list<j1Entity*>::iterator it = entities.begin();
@@ -350,6 +354,8 @@ void j1EntityFactory::CheckifCoinsWereTaken()
 
 
 }
+
+
 
 bool j1EntityFactory::IsTaken(int id)
 {
