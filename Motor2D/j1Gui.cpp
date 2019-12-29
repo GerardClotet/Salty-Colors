@@ -143,7 +143,7 @@ bool j1Gui::PostUpdate()
 			item->data->DadEnabled();
 			if (item->data->enabled)
 			item->data->UIBlit();
-			if(debug_draw)
+			if(debug_draw && item->data->GetEnabled())
 				App->render->DrawQuad(item->data->GetScreenRect(), 255, 0, 0, 255, false, false);
 		}
 
