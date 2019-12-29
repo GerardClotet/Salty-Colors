@@ -415,3 +415,8 @@ int j1EntityFactory::GetCurrentLives() const
 {
 	return lives;
 }
+
+std::string j1EntityFactory::GetCoinsToString() const
+{
+	return std::to_string(coins);
+}

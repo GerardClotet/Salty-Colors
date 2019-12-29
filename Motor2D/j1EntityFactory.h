@@ -46,6 +46,8 @@ public:
 	void IncreaseLifesBy(int inc);
 	void SetLivesTo(int lives);
 	int GetCurrentLives()const;
+
+	std::string GetCoinsToString()const;
 public:
 	
 	std::list<j1Entity*>	entities;
@@ -63,6 +65,7 @@ public:
 	int coins = 0;
 	int reward_counter = 0;
 
+	
 
 	iPoint temp_pos = { 0,0 };
 	bool previous_play = false;

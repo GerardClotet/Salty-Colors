@@ -12,7 +12,8 @@
 
 
 struct SDL_Texture;
-struct j1UIElement;
+class j1UIElement;
+class j1UILabel;
 enum GUI_Event;
 
 class j1Scene : public j1Module
@@ -117,16 +118,17 @@ public:
 	//-------------------------------------------//
 
 	/*In Game UI*/
+
+	j1UIElement* ingamePanel;
 	j1UIElement* Lives;
-
 	j1UIElement* Gold_icon;
+	j1UILabel* gold_label;
+	j1UILabel* lives_label;
 
-	j1UIElement* Gold_Label;
-
+	p2SString coins_str;
 	iPoint origin;
 	iPoint destination;
 	bool initpath = false;
-	bool menu_Active = false;
 
 	p2DynArray<iPoint> current_path;
 

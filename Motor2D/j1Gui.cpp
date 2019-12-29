@@ -33,7 +33,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
-	if(atlas == nullptr)
+	//if(atlas == nullptr)
 	atlas = App->tex->Load(atlas_file_name.GetString());
 
 	return true;
@@ -130,15 +130,14 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	if (App->scene->menu_Active != false)
-	{
+
 		for (p2List_item<j1UIElement*>* item = elements.start; item != NULL; item = item->next)
 		{
 			item->data->DadEnabled();
 			if (item->data->enabled)
 			item->data->UIBlit();
 		}
-	}
+
 	
 	return true;
 }
@@ -151,9 +150,9 @@ bool j1Gui::CleanUp()
 	return true;
 }
 
-j1UIImage* j1Gui::CreateImage(iPoint pos, SDL_Rect rect, j1UIElement* parent)
+j1UIImage* j1Gui::CreateImage(iPoint pos, SDL_Rect rect, j1UIElement* parent,bool img)
 {
-	j1UIImage* image = new j1UIImage(pos, rect);
+	j1UIImage* image = new j1UIImage(pos, rect,image);
 	image->parent = parent;
 	elements.add(image);
 
@@ -311,10 +310,16 @@ void j1UIElement::SetEnabled(bool enabled)
 	this->enabled = enabled;
 }
 
-j1UIImage::j1UIImage(iPoint pos, SDL_Rect rect)
+bool j1UIElement::GetEnabled() const
+{
+	return this->enabled;
+}
+
+j1UIImage::j1UIImage(iPoint pos, SDL_Rect rect,bool image)
 {
 	rect_box = { pos.x,pos.y,rect.w,rect.h };
 	this->rect_sprite = rect;
+	this->image = image;
 }
 
 j1UIImage::~j1UIImage()
@@ -324,9 +329,11 @@ j1UIImage::~j1UIImage()
 bool j1UIImage::UIBlit()
 {
 	
+	if (image)
+	{
 		iPoint screen_pos = GetScreenPos();
 		App->render->Blit(App->gui->GetAtlas(), screen_pos.x, screen_pos.y, &rect_sprite, 0.0, false, false, 1.0F, INT_MAX, INT_MAX, scale_X, scale_Y);
-	
+	}
 	
 	return true;
 }
