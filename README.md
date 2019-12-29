@@ -17,6 +17,7 @@ Unzip the .zip file and execute the .exe that is contained inside the decompress
 - W - Move up (God mode)
 - S - Move down (God mode)
 - L - Dash
+- P - Pause
 
 * The wall bounce works when you jump to a wall and then jump again against the wall. 
 As a result the wall will force your direction to change in the oposite side.
@@ -29,7 +30,8 @@ As a result the wall will force your direction to change in the oposite side.
 - F3 - Load current level (from the beginning)
 - F5 - Save current state 
 - F6 - Load previous state 
-- F9 - View colliders and pathfinding
+- F9 - View colliders, pathfinding of the enemies
+       and also UI.
 - F10 - GodMode 
 
 ## Inovations
@@ -41,6 +43,10 @@ As a result the wall will force your direction to change in the oposite side.
 - Dash
 
 - Wall bounce
+
+- Only tiles on screen drawing
+
+- Infinite background scrolling
 
 
 
@@ -61,6 +67,7 @@ Gerard Clotet Rodríguez
 
 
 ## License
+### We DO NOT OWN any of the sprites or the music, all credits to the creators.
 
 MIT License
 
