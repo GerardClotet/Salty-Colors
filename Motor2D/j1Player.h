@@ -6,6 +6,8 @@
 #define MAX_DASHES 1
 #define DASH_DISTANCE 150
 #define STEP_TIME 250.0F
+#define MAX_LIVES 3
+
 class j1Player : public j1Entity
 {
 
@@ -40,8 +42,10 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void SetCoinID(int id);
-	std::vector<int> GetCoinVec();
+
+
+	void IncreaseLifesBy(int inc);
+	int GetCurrentLives()const;
 public:
 
 	
@@ -52,7 +56,9 @@ public:
 	bool ready_toBounce_left = false;
 	bool ready_toBounce_right = false;
 
-	int coins = 0;
+	
+	bool mantain_collectables = false;
+
 private:
 	bool startDash = false;
 	int dashes = 1;
@@ -70,7 +76,9 @@ private:
 	Animation player_BOUNCE;
 
 
-	std::vector<int> coins_ids;
+
+	int lives = MAX_LIVES;
+
 };
 
 #endif

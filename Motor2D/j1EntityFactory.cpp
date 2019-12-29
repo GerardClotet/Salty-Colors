@@ -106,7 +106,6 @@ bool j1EntityFactory::PostUpdate()
 	std::list<j1Entity*>::iterator item = entities.begin();
 	for (; item != entities.end(); ++item)
 	{
-		(*item)->PostUpdate();
 		(*item)->Draw();
 	}
 
@@ -183,6 +182,7 @@ j1Entity* j1EntityFactory::CreateEntity(iPoint pos, E_TYPE type)
 			player = new j1Player(pos);
 			if (player != nullptr)
 				entities.push_back(player);
+			return player;
 		}
 		else
 		{
@@ -286,6 +286,7 @@ void j1EntityFactory::DeleteAllEnemies()
 	
 		++it;
 	}
+	player = nullptr;
 }
 
 void j1EntityFactory::DeleteEntity(j1Entity* entity)
@@ -329,8 +330,12 @@ void j1EntityFactory::DeleteAllCollectables()
 
 void j1EntityFactory::CheckifCoinsWereTaken()
 {
+	if (player->GetCurrentLives() == 0)
+	{
+		player->IncreaseLifesBy(MAX_LIVES);
+		return;
+	}
 
-	std::vector<int> temp_vec = player->GetCoinVec();
 
 
 	std::list<j1Entity*>::iterator it = entities.begin();
@@ -351,9 +356,11 @@ void j1EntityFactory::CheckifCoinsWereTaken()
 
 }
 
+
+
 bool j1EntityFactory::IsTaken(int id)
 {
-	std::vector<int> temp_vec = player->GetCoinVec();
+	std::vector<int> temp_vec = GetCoinVec();
 
 
 	std::vector<int>::const_iterator it = temp_vec.begin();
@@ -368,4 +375,19 @@ bool j1EntityFactory::IsTaken(int id)
 
 
 	return false;
+}
+
+void j1EntityFactory::SetCoinID(int id)
+{
+	coins_ids.push_back(id);
+}
+
+std::vector<int> j1EntityFactory::GetCoinVec() const
+{
+	return coins_ids;
+}
+
+void j1EntityFactory::ClearCoinVec()
+{
+	coins_ids.clear();
 }

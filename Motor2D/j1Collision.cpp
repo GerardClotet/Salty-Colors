@@ -74,11 +74,11 @@ bool j1Collision::PreUpdate()
 			{
 				if (player_collider->CheckCollision(colliders[i]->rect))
 				{
-					if (player_collider->callback && App->entityFactory->player->state)
+ 					if (player_collider->callback && App->entityFactory->player->state)
 					{
 
-						App->entityFactory->player->coins += 1;
-						LOG("peojfre");
+						App->entityFactory->coins += 1;
+						App->audio->PlayFx(App->scene->coinSFX);
 						
 						if (colliders[i]->callback)
 							colliders[i]->callback->OnCollision(colliders[i], player_collider);
