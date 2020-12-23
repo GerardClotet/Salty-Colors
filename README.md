@@ -3,7 +3,7 @@
 ### This game is for educational purposes for Development subject
 
 
-## [Web Page](https://gerardclotet.github.io/Dev-Game/)
+## [Web Page](https://gerardclotet.github.io/Salty-Colors/)
 
 
 
